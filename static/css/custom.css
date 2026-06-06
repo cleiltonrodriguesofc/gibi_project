@@ -1,0 +1,4 @@
+/* Custom styles for accessibility and theme */
+.high-contrast {
+    filter: invert(1) hue-rotate(180deg);
+}
