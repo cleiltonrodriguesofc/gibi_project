@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Capítulo {{ capitulo.id }} - Guardiões da Saúde{% endblock %}
+
+{% block content %}
+<!-- Botão de Voltar -->
+<div class="mb-6">
+    <a href="/" class="text-terra-brown font-bold hover:text-mandacaru-orange transition flex items-center gap-2">
+        ← Voltar para a Capa
+    </a>
+</div>
+
+<!-- Header do Capítulo -->
+<div class="bg-ceu-blue text-white p-6 rounded-t-3xl shadow-md relative overflow-hidden">
+    <!-- Efeito visual de fundo (sol do sertão) -->
+    <div class="absolute -right-10 -top-10 w-40 h-40 bg-sertao-yellow rounded-full opacity-50"></div>
+    
+    <div class="relative z-10 flex items-center gap-4">
+        <div class="w-16 h-16 bg-white text-ceu-blue rounded-full flex items-center justify-center font-extrabold text-3xl shadow-inner border-4 border-sertao-yellow">
+            {{ capitulo.id }}
+        </div>
+        <div>
+            <h1 class="text-3xl font-bold drop-shadow-md">{{ capitulo.titulo }}</h1>
+            <p class="text-lg opacity-90">{{ capitulo.descricao }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Container Principal com Alpine.js para controlar as etapas -->
+<!-- Etapas: 1 (Gibi), 2 (Animação e Explicação), 3 (Quiz), 4 (Conquista) -->
+<div x-data="{ etapa: 1, maxEtapas: 4, acertos: 0 }" class="bg-white rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 p-6 md:p-8">
+
+    <!-- Progresso do Capítulo -->
+    <div class="w-full bg-gray-200 rounded-full h-3 mb-8 shadow-inner overflow-hidden">
+        <div class="bg-mandacaru-green h-3 rounded-full transition-all duration-500 ease-in-out" :style="`width: ${(etapa / maxEtapas) * 100}%`"></div>
+    </div>
+
+    <!-- ETAPA 1: GIBI / QUADRINHOS -->
+    <div x-show="etapa === 1" x-transition.opacity.duration.500ms>
+        <h2 class="text-2xl font-bold text-mandacaru-orange mb-6 text-center border-b-2 border-orange-200 pb-2">Parte 1: A História</h2>
+        
+        <!-- Grade do Gibi -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for quadro in capitulo.quadros %}
+            <div class="relative bg-amber-50 rounded-xl p-4 border-2 border-terra-brown shadow-[4px_4px_0px_0px_rgba(120,53,15,1)] transform transition hover:-translate-y-1">
+                
+                <!-- Imagem do Personagem (Mock placeholder until actual images exist) -->
+                <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center border border-gray-300 overflow-hidden">
+                    <img src="/static/personagens/{{ quadro.imagem }}" alt="{{ quadro.personagem }}" class="h-full object-cover" onerror="this.src='https://placehold.co/400x300/FBBF24/78350F?text={{ quadro.personagem }}'">
+                </div>
+                
+                <!-- Balão de Fala -->
+                <div class="relative bg-white border-2 border-gray-300 p-4 rounded-2xl rounded-tl-none shadow-sm ml-4">
+                    <!-- Seta do balão -->
+                    <div class="absolute w-4 h-4 bg-white border-l-2 border-t-2 border-gray-300 -left-[10px] top-0 transform -rotate-45"></div>
+                    
+                    <button class="absolute -top-3 -right-3 bg-ceu-blue text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-600 shadow-md"
+                            onclick="lerTexto(this)" data-texto="{{ quadro.texto }}" title="Ouvir">
+                        🔊
+                    </button>
+                    
+                    <p class="font-bold text-terra-brown mb-1">{{ quadro.personagem }}:</p>
+                    <p class="text-lg leading-snug">{{ quadro.texto }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-8 flex justify-end">
+            <button @click="etapa = 2" class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:bg-orange-600 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2">
+                Avançar <span class="text-xl">👉</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ETAPA 2: EXPLICAÇÃO E ANIMAÇÃO -->
+    <div x-show="etapa === 2" x-transition.opacity.duration.500ms style="display: none;">
+        <h2 class="text-2xl font-bold text-ceu-blue mb-6 text-center border-b-2 border-blue-200 pb-2">Parte 2: O que aprendemos?</h2>
+        
+        <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+            
+            <!-- Animação Lottie -->
+            <div class="w-full md:w-1/2 flex justify-center bg-blue-50 rounded-3xl p-4 border border-blue-100">
+                {% if capitulo.animacao %}
+                <lottie-player
+                    src="/static/animations/{{ capitulo.animacao }}"
+                    background="transparent"
+                    speed="1"
+                    style="width: 100%; max-width: 300px; height: 300px;"
+                    loop
+                    autoplay>
+                </lottie-player>
+                {% else %}
+                <div class="w-full h-[300px] flex items-center justify-center text-gray-400">
+                    Sem animação disponível
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Card Didático -->
+            <div class="w-full md:w-1/2 bg-sertao-yellow p-6 rounded-3xl shadow-md border-2 border-amber-400 relative">
+                <button class="absolute top-4 right-4 bg-white text-terra-brown w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 shadow-md text-xl"
+                        onclick="lerTexto(this)" data-texto="{{ capitulo.explicacao }}" title="Ouvir Explicação">
+                    🔊
+                </button>
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-4xl">💡</span>
+                    <h3 class="text-2xl font-bold text-terra-brown">Preste Atenção!</h3>
+                </div>
+                <p class="text-xl font-medium text-amber-900 leading-relaxed bg-white/50 p-4 rounded-xl">
+                    {{ capitulo.explicacao }}
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-between">
+            <button @click="etapa = 1" class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-300 transition">
+                ← Voltar
+            </button>
+            <button @click="etapa = 3" class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:bg-orange-600 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2">
+                Ir para o Quiz! <span class="text-xl">🧠</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ETAPA 3: QUIZ -->
+    <div x-show="etapa === 3" x-transition.opacity.duration.500ms style="display: none;">
+        <h2 class="text-2xl font-bold text-terra-brown mb-6 text-center border-b-2 border-amber-200 pb-2">Parte 3: Hora do Desafio!</h2>
+        
+        <div class="text-center p-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300">
+            <p class="text-xl text-gray-500 font-bold mb-4">O Motor de Quiz será implementado aqui na próxima etapa.</p>
+            <button @click="etapa = 4" class="bg-mandacaru-green text-white px-6 py-2 rounded-lg font-bold">Simular Conclusão do Quiz</button>
+        </div>
+
+        <div class="mt-8 flex justify-between">
+            <button @click="etapa = 2" class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-300 transition">
+                ← Voltar
+            </button>
+        </div>
+    </div>
+
+    <!-- ETAPA 4: CONQUISTA -->
+    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;">
+        <div class="text-center">
+            <h2 class="text-4xl font-extrabold text-mandacaru-green mb-2 drop-shadow-sm">Parabéns! 🎉</h2>
+            <p class="text-xl font-bold text-gray-600 mb-8">Você terminou o capítulo e ganhou uma conquista!</p>
+            
+            <div class="inline-block bg-gradient-to-br from-sertao-yellow to-amber-500 p-8 rounded-full shadow-2xl border-8 border-white mb-8 animate-bounce">
+                <span class="text-6xl">{{ '⭐' if capitulo.conquista_icone == 'star' else '🏆' }}</span>
+            </div>
+            
+            <h3 class="text-3xl font-black text-terra-brown mb-2">{{ capitulo.conquista_nome }}</h3>
+            <p class="text-lg text-gray-500 mb-8">Continue lendo para liberar as grandes medalhas!</p>
+
+            <a href="/" class="inline-block bg-ceu-blue text-white px-8 py-4 rounded-full font-bold text-xl shadow-[0px_6px_0px_0px_rgba(2,132,199,1)] hover:bg-blue-600 hover:translate-y-1 hover:shadow-none transition">
+                Voltar para a Capa 🏠
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
