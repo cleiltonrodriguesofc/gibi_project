@@ -14,4 +14,4 @@ RUN mkdir -p static/animations static/ilustracoes static/personagens static/css 
 
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "core.presentation.web.main:app", "--host", "0.0.0.0", "--port", "8000"]
