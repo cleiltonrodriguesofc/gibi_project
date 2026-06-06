@@ -4,38 +4,39 @@
     "titulo": "Bem-vindos à Vila Esperança!",
     "descricao": "Conheça João, Maria e os amigos que vão te ensinar sobre primeiros socorros!",
     "disponivel": true,
+    "cenario": "cenario_praca.png",
     "animacao": "hello.json",
     "explicacao": "Primeiros socorros são os cuidados imediatos que damos a alguém que se machucou ou passou mal, ANTES do médico chegar. Não precisamos ser médicos para ajudar! Mas precisamos saber O QUE fazer e O QUE NÃO fazer. Por isso João, Maria e o Padre Cícero vão nos ensinar tudo que precisamos saber. Lembre-se: na dúvida, SEMPRE chame um adulto!",
     "conquista_nome": "Bem-vindo à Vila!",
     "conquista_icone": "star",
     "quadros": [
       {
-        "imagem": "joao_neutro.png",
+        "imagem": "joao_neutro_sem_fundo.png",
         "personagem": "João",
         "texto": "Eita! Esse negócio de primeiro socorro deve ser só pra médico, num é não, Maria?"
       },
       {
-        "imagem": "maria_explicando.png",
+        "imagem": "maria_explicando_sem_fundo.png",
         "personagem": "Maria",
         "texto": "Qual nada, João! Qualquer pessoa pode aprender o básico. Olha, o Padre Cícero até disse que saber ajudar é um dom de Deus!"
       },
       {
-        "imagem": "caramelo_feliz.png",
+        "imagem": "caramelo_feliz_sem_fundo.png",
         "personagem": "Caramelo",
         "texto": "Au au! (Caramelo abana o rabo e late como se concordasse animadinho)"
       },
       {
-        "imagem": "padre_cicero_acenando.png",
+        "imagem": "padre_cicero_ensinando_sem_fundo.png",
         "personagem": "Padre Cícero",
         "texto": "Meus filhos, 'quem sabe ajudar, salva vidas'. Vou apresentar nossa vila e nossos amigos pra vocês aprenderem juntos!"
       },
       {
-        "imagem": "joao_animado.png",
+        "imagem": "joao_neutro_sem_fundo.png",
         "personagem": "João",
         "texto": "Bora, então! Eu quero aprender tudo! Mas... com calma, né? Eu às vezes me empolgo demais..."
       },
       {
-        "imagem": "maria_sorrindo.png",
+        "imagem": "maria_explicando_sem_fundo.png",
         "personagem": "Maria",
         "texto": "Exatamente, João! Calma e atenção são os primeiros socorros da gente também!"
       }
@@ -46,38 +47,39 @@
     "titulo": "Onde Procurar Ajuda?",
     "descricao": "UBS, UPA ou Hospital? Aprenda onde ir quando precisar de socorro!",
     "disponivel": true,
+    "cenario": "cenario_ubs.png",
     "animacao": "ambulance.json",
     "explicacao": "Nem toda situação precisa do mesmo tipo de atendimento! UBS (Posto de Saúde): para consultas, vacinas e dores que não são urgentes. UPA 24h: para casos moderados, como febre alta ou corte que precisa de ponto. Hospital de Urgência: para casos graves, como desmaios, fraturas ou dificuldade para respirar. Em caso de emergência, ligue SEMPRE para o SAMU: 192!",
     "conquista_nome": "Conhecedor do SUS",
     "conquista_icone": "star",
     "quadros": [
       {
-        "imagem": "joao_assustado.png",
+        "imagem": "joao_neutro_sem_fundo.png",
         "personagem": "João",
         "texto": "Maria! O avô do Zequinha caiu e tá com muita dor no braço! O que eu faço? Vou correr pro hospital!"
       },
       {
-        "imagem": "maria_pensativa.png",
+        "imagem": "maria_explicando_sem_fundo.png",
         "personagem": "Maria",
         "texto": "Espera, João! Primeiro a gente precisa ver se é urgente mesmo. Ele tá acordado? Tá respirando direito?"
       },
       {
-        "imagem": "joao_aliviado.png",
+        "imagem": "joao_neutro_sem_fundo.png",
         "personagem": "João",
         "texto": "Tá sim, mas tá com uma dor danada no braço. Acho que pode ser fratura..."
       },
       {
-        "imagem": "dona_raimunda_orientando.png",
+        "imagem": "dona_raimunda_orientando_sem_fundo.png",
         "personagem": "Dona Raimunda",
         "texto": "Meninos, eu ouvi tudo! Fratura suspeita é caso de UPA 24h. Vou ligar pra família dele e chamar um transporte. Nunca movam o braço dele!"
       },
       {
-        "imagem": "maria_caderno.png",
+        "imagem": "maria_explicando_sem_fundo.png",
         "personagem": "Maria",
         "texto": "Que bom que a Dona Raimunda tava aqui! Eu até anotei no meu caderninho: UBS é pra consulta, UPA é pra urgência moderada, hospital é pro grave!"
       },
       {
-        "imagem": "padre_cicero_ensinando.png",
+        "imagem": "padre_cicero_ensinando_sem_fundo.png",
         "personagem": "Padre Cícero",
         "texto": "Muito bem, meus filhos. Lembrem: o SAMU é o 192. Gratuito, disponível 24 horas. E o Disque Saúde é o 136!"
       }
@@ -176,38 +178,39 @@
     "titulo": "O Escorpião do Quintal",
     "descricao": "Cuidado onde põe a mão! O escorpião adora lugares escuros e úmidos.",
     "disponivel": true,
+    "cenario": "cenario_quintal.png",
     "animacao": "scorpion.json",
     "explicacao": "Escorpiões são perigosos, especialmente para crianças! O que fazer: Mantenha a calma. NÃO tente espremer ou cortar o local. Lave com água e sabão. Procure imediatamente a UPA ou Hospital — a criança SEMPRE precisa de soro antiescorpiônico quando é picada. O que NÃO fazer: Não coloque gelo, torniquete ou tente sugar o veneno. Prevenção: Sacuda roupas e calçados antes de vestir, não deixe entulho acumulado no quintal.",
     "conquista_nome": "Guardião contra Escorpiões!",
     "conquista_icone": "star",
     "quadros": [
       {
-        "imagem": "joao_curioso.png",
+        "imagem": "joao_neutro_sem_fundo.png",
         "personagem": "João",
         "texto": "Maria! Vem ver essa pedra linda que achei no quintal da vovó! Vou pegar pra mostrar..."
       },
       {
-        "imagem": "maria_assustada.png",
+        "imagem": "maria_explicando_sem_fundo.png",
         "personagem": "Maria",
         "texto": "JOÃO! Para! Isso não é pedra, isso é um escorpião! Afasta devagar, sem fazer barulho!"
       },
       {
-        "imagem": "joao_assustado.png",
+        "imagem": "joao_neutro_sem_fundo.png",
         "personagem": "João",
         "texto": "Eita!! Mas... ai! Ai ai ai! Ele picou minha mão! Dói muito!"
       },
       {
-        "imagem": "maria_acao.png",
+        "imagem": "maria_explicando_sem_fundo.png",
         "personagem": "Maria",
         "texto": "Calma, João! Respira fundo. Eu sei o que fazer! Vovó! A senhora pode chamar um adulto? Precisamos ir pra UPA agora!"
       },
       {
-        "imagem": "dona_raimunda_socorrendo.png",
+        "imagem": "dona_raimunda_orientando_sem_fundo.png",
         "personagem": "Dona Raimunda",
         "texto": "Já estou aqui! João, não esfregue o local, não espreme, não coloca gelo. Lava com água e sabão só, tá? Já chamei o carro!"
       },
       {
-        "imagem": "padre_cicero_ensinando.png",
+        "imagem": "padre_cicero_ensinando_sem_fundo.png",
         "personagem": "Padre Cícero",
         "texto": "Que susto, mas nossa Maria agiu certinho! 'Quem mantém a calma no perigo, salva a si e ao próximo'. Sacudam sempre os sapatos antes de calçar, meus filhos."
       }

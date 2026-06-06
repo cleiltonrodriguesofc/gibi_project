@@ -2,3 +2,79 @@
 .high-contrast {
     filter: invert(1) hue-rotate(180deg);
 }
+
+/* Character Animations for Life-like feel */
+@keyframes breathe {
+    0% { transform: scaleY(1) translateY(0); }
+    50% { transform: scaleY(1.02) translateY(-2px); }
+    100% { transform: scaleY(1) translateY(0); }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.char-alive {
+    animation: breathe 3s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+.panel-enter {
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+}
+
+/* Comic Book Layout Styles */
+.comic-page {
+    background-color: #fff;
+    padding: 15px;
+    border: 2px solid #000;
+    box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+}
+
+.comic-panel {
+    border: 3px solid #000;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+    /* Irregular borders for hand-drawn feel */
+    border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+}
+
+.comic-bubble {
+    position: absolute;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+    line-height: 1.2;
+    z-index: 20;
+    box-shadow: 2px 2px 0px rgba(0,0,0,1);
+    max-width: 80%;
+}
+
+.comic-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 20px;
+    border-width: 15px 15px 0 0;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+    z-index: 21;
+}
+
+.comic-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 18px;
+    border-width: 17px 17px 0 0;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+    z-index: 20;
+}

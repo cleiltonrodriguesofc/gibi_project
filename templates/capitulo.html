@@ -39,31 +39,35 @@
     <div x-show="etapa === 1" x-transition.opacity.duration.500ms>
         <h2 class="text-2xl font-bold text-mandacaru-orange mb-6 text-center border-b-2 border-orange-200 pb-2">Parte 1: A História</h2>
         
-        <!-- Grade do Gibi -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {% for quadro in capitulo.quadros %}
-            <div class="relative bg-amber-50 rounded-xl p-4 border-2 border-terra-brown shadow-[4px_4px_0px_0px_rgba(120,53,15,1)] transform transition hover:-translate-y-1">
-                
-                <!-- Imagem do Personagem (Mock placeholder until actual images exist) -->
-                <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center border border-gray-300 overflow-hidden">
-                    <img src="/static/personagens/{{ quadro.imagem }}" alt="{{ quadro.personagem }}" class="h-full object-cover" onerror="this.src='https://placehold.co/400x300/FBBF24/78350F?text={{ quadro.personagem }}'">
-                </div>
-                
-                <!-- Balão de Fala -->
-                <div class="relative bg-white border-2 border-gray-300 p-4 rounded-2xl rounded-tl-none shadow-sm ml-4">
-                    <!-- Seta do balão -->
-                    <div class="absolute w-4 h-4 bg-white border-l-2 border-t-2 border-gray-300 -left-[10px] top-0 transform -rotate-45"></div>
+        <!-- Página do Gibi -->
+        <div class="comic-page">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for quadro in capitulo.quadros %}
+                <!-- Variação de tamanho dos quadros: O primeiro e o último podem ocupar 2 colunas no desktop -->
+                <div class="comic-panel h-64 md:h-80 panel-enter {% if loop.index0 == 0 or loop.index0 == 5 %}md:col-span-2{% endif %}"
+                     style="animation-delay: {{ loop.index0 * 0.4 }}s; background-image: url('/static/ilustracoes/{{ capitulo.cenario }}'); background-size: cover; background-position: center;">
+                     
+                    <!-- Imagem do Personagem -->
+                    <div class="absolute bottom-0 w-full flex justify-center items-end h-[90%]">
+                        <!-- Sombra -->
+                        <div class="absolute bottom-2 w-32 h-6 bg-black opacity-30 rounded-[100%] blur-sm z-0"></div>
+                        <img src="/static/personagens/{{ quadro.imagem }}" alt="{{ quadro.personagem }}" 
+                             class="h-full object-contain relative z-10 char-alive" 
+                             onerror="this.src='https://placehold.co/400x300/FBBF24/78350F?text={{ quadro.personagem }}'">
+                    </div>
                     
-                    <button class="absolute -top-3 -right-3 bg-ceu-blue text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-600 shadow-md"
-                            onclick="lerTexto(this)" data-texto="{{ quadro.texto }}" title="Ouvir">
-                        🔊
-                    </button>
-                    
-                    <p class="font-bold text-terra-brown mb-1">{{ quadro.personagem }}:</p>
-                    <p class="text-lg leading-snug">{{ quadro.texto }}</p>
+                    <!-- Balão de Fala Sobreposto -->
+                    <div class="comic-bubble top-4 {% if loop.index0 % 2 == 0 %}left-4{% else %}right-4{% endif %}">
+                        <button class="float-right ml-2 text-ceu-blue hover:text-blue-700"
+                                onclick="lerTexto(this)" data-texto="{{ quadro.texto }}" title="Ouvir">
+                            🔊
+                        </button>
+                        <strong>{{ quadro.personagem }}:</strong><br>
+                        {{ quadro.texto }}
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
 
         <div class="mt-8 flex justify-end">
