@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "titulo": "Bem-vindos à Vila Esperança",
+    "descricao": "Conheça João, Maria e a turminha na introdução aos primeiros socorros.",
+    "disponivel": true,
+    "animacao": "hello.json",
+    "explicacao": "Primeiros socorros são as primeiras ajudas que damos a alguém que se machucou ou está passando mal, até que o médico chegue. Nunca tente fazer algo se não tiver certeza, e sempre chame um adulto!",
+    "conquista_nome": "Explorador da Vila",
+    "conquista_icone": "star",
+    "quadros": [
+      {
+        "imagem": "quadro1.png",
+        "personagem": "João",
+        "texto": "Eita! Esse negócio de primeiro socorro é pra médico, num é não?"
+      },
+      {
+        "imagem": "quadro2.png",
+        "personagem": "Maria",
+        "texto": "Nada disso, João! Qualquer criança inteligente pode aprender o básico pra não piorar as coisas e saber pedir ajuda!"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "titulo": "Onde Procurar Ajuda?",
+    "descricao": "UBS, UPA ou Hospital? Aprenda onde ir em cada caso.",
+    "disponivel": true,
+    "animacao": "ambulance.json",
+    "explicacao": "",
+    "conquista_nome": "",
+    "conquista_icone": "",
+    "quadros": []
+  },
+  {
+    "id": 3,
+    "titulo": "O Mistério da Queimadura",
+    "descricao": "Água fria ou pasta de dente? Descubra o certo!",
+    "disponivel": false,
+    "animacao": "",
+    "explicacao": "",
+    "conquista_nome": "",
+    "conquista_icone": "",
+    "quadros": []
+  },
+  {
+    "id": 11,
+    "titulo": "O Escorpião do Quintal",
+    "descricao": "Cuidado onde pisa! Saiba o que fazer se encontrar um.",
+    "disponivel": true,
+    "animacao": "scorpion.json",
+    "explicacao": "",
+    "conquista_nome": "",
+    "conquista_icone": "",
+    "quadros": []
+  }
+]

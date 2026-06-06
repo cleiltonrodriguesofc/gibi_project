@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Capa - Guardiões da Saúde{% endblock %}
+
+{% block content %}
+<div class="text-center mb-8">
+    <h1 class="text-4xl md:text-5xl font-bold text-mandacaru-orange mb-4 drop-shadow-md">
+        As Aventuras dos Guardiões da Saúde!
+    </h1>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto bg-white p-4 rounded-xl shadow-sm border-2 border-sertao-yellow">
+        Aprenda primeiros socorros de forma divertida! Escolha um capítulo abaixo para começar sua aventura na Vila Esperança.
+    </p>
+</div>
+
+<!-- Capítulos Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {% for cap in capitulos %}
+    <div class="bg-white rounded-2xl shadow-lg border-4 border-ceu-blue overflow-hidden transform transition hover:scale-105">
+        <!-- Badge Status -->
+        <div class="bg-{{ 'mandacaru-green' if cap.disponivel else 'gray-400' }} text-white text-center py-1 font-bold uppercase text-sm tracking-wider">
+            {{ "Disponível!" if cap.disponivel else "Em Breve 🔒" }}
+        </div>
+        
+        <div class="p-5 flex flex-col items-center justify-between h-full min-h-[220px]">
+            <!-- Cap number & Title -->
+            <div class="w-12 h-12 bg-sertao-yellow rounded-full flex items-center justify-center font-bold text-2xl mb-3 shadow-inner">
+                {{ cap.id }}
+            </div>
+            
+            <h2 class="text-xl font-bold text-center mb-2 leading-tight">{{ cap.titulo }}</h2>
+            <p class="text-sm text-center opacity-80 flex-grow">{{ cap.descricao }}</p>
+            
+            {% if cap.disponivel %}
+                <a href="/capitulo/{{ cap.id }}" class="mt-4 w-full block text-center bg-mandacaru-orange text-white font-bold py-2 rounded-xl shadow-md hover:bg-orange-600 transition">
+                    Ler Agora 📖
+                </a>
+            {% else %}
+                <button disabled class="mt-4 w-full block text-center bg-gray-200 text-gray-500 font-bold py-2 rounded-xl cursor-not-allowed">
+                    Aguarde...
+                </button>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Navegação Inferior -->
+<div class="mt-12 flex justify-center gap-4">
+    <a href="/mapa" class="bg-ceu-blue text-white px-6 py-3 rounded-2xl font-bold text-lg shadow-md hover:bg-blue-600 transition flex items-center gap-2">
+        🗺️ Onde Procurar Ajuda?
+    </a>
+    <a href="/conquistas" class="bg-sertao-yellow text-terra-brown px-6 py-3 rounded-2xl font-bold text-lg shadow-md hover:bg-yellow-500 transition flex items-center gap-2">
+        🏅 Minhas Medalhas
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Guardiões da Saúde{% endblock %}</title>
+    
+    <!-- Tailwind CSS (CDN for simplicity without build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sertao-yellow': '#FBBF24',
+                        'mandacaru-orange': '#F97316',
+                        'terra-brown': '#78350F',
+                        'mandacaru-green': '#22C55E',
+                        'ceu-blue': '#38BDF8'
+                    },
+                    fontFamily: {
+                        sans: ['"Comic Sans MS"', 'Chalkboard SE', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js for lightweight reactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-amber-50 text-terra-brown font-sans flex flex-col min-h-screen transition-colors duration-300">
+
+    <!-- Header -->
+    <header class="bg-sertao-yellow p-4 shadow-md flex justify-between items-center sticky top-0 z-50">
+        <a href="/" class="flex items-center gap-2">
+            <span class="text-2xl font-bold text-terra-brown drop-shadow-sm">Guardiões da Saúde</span>
+        </a>
+        
+        <!-- Acessibilidade Toggles -->
+        <div class="flex gap-2">
+            <button onclick="document.body.classList.toggle('high-contrast')" 
+                    class="bg-terra-brown text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm hover:bg-amber-900 transition"
+                    aria-label="Alternar Alto Contraste">
+                🌓 Contraste
+            </button>
+            <button onclick="ajustarFonte(1)" 
+                    class="bg-ceu-blue text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm hover:bg-blue-600 transition"
+                    aria-label="Aumentar Fonte">
+                +A
+            </button>
+            <button onclick="ajustarFonte(-1)" 
+                    class="bg-ceu-blue text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm hover:bg-blue-600 transition"
+                    aria-label="Diminuir Fonte">
+                -A
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 md:p-8 max-w-6xl mx-auto w-full">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-terra-brown text-amber-50 p-6 mt-auto text-center">
+        <p class="font-bold">Projeto de Extensão - Liga Acadêmica de Saúde Digital (UFPI)</p>
+        <p class="text-sm mt-2 opacity-80">Desenvolvido por Cleilton & Carlos Eduardo</p>
+    </footer>
+
+    <!-- Acessibility Scripts -->
+    <script>
+        let fontSizeBase = 16;
+        function ajustarFonte(step) {
+            fontSizeBase += step * 2;
+            if (fontSizeBase < 12) fontSizeBase = 12;
+            if (fontSizeBase > 24) fontSizeBase = 24;
+            document.documentElement.style.fontSize = `${fontSizeBase}px`;
+        }
+
+        // Simples TTS (Text To Speech) helper function
+        function lerTexto(btn) {
+            if ('speechSynthesis' in window) {
+                const texto = btn.getAttribute('data-texto');
+                const msg = new SpeechSynthesisUtterance(texto);
+                msg.lang = 'pt-BR';
+                window.speechSynthesis.speak(msg);
+            } else {
+                alert("Seu navegador não suporta leitura de tela nativa.");
+            }
+        }
+    </script>
+</body>
+</html>
