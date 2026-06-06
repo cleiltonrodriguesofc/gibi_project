@@ -1,0 +1,402 @@
+
+
+
+PROJETO DE EXTENSÃO UNIVERSITÁRIA
+LIGA ACADÊMICA DE SAÚDE DIGITAL — UFPI
+AS AVENTURAS DOS GUARDIÕES DA SAÚDE
+Uma Revista Digital Interativa para Educação em Saúde Infantil
+
+PLANO DE EXECUÇÃO
+Adaptado para 2 executores com uso intensivo de ferramentas de Inteligência Artificial
+
+
+EXECUTOR	FUNÇÃO NO PROJETO
+Cleilton	Executor Principal — Desenvolvimento, IA, Gestão Técnica
+Carlos Eduardo	Parceiro de Execução — Conteúdo, Roteiros, Validação Pedagógica
+
+
+
+Teresina — PI, 2026
+ 
+1. VISÃO GERAL DO PROJETO
+
+1.1 Nome do Projeto
+As Aventuras dos Guardiões da Saúde: Uma Revista Digital Interativa para Educação em Saúde Infantil
+
+1.2 Contexto e Problema
+A cartilha produzida pelos cursos da área da saúde da UFPI — intitulada Primeiros Socorros: Acidentes Subestimados — possui excelente conteúdo técnico, baseado em referências do Ministério da Saúde, Fiocruz e SINAN. Contudo, sua leitura é passiva e pouco atrativa para crianças, impossibilitando o engajamento do público-alvo primário.
+Este projeto surge da parceria entre o curso de Tecnologia da Informação e a Liga Acadêmica de Saúde Digital (LASD/UFPI), com o objetivo de digitalizar, adaptar e tornar esse conteúdo interativo e acessível para crianças de 7 a 12 anos.
+
+1.3 Solução Proposta
+Transformar a cartilha em uma revista digital em quadrinhos — inspirada no formato gibi, estilo cartoon 2D — hospedada na web, acessível em computador, tablet e celular, com as seguintes características centrais:
+•	Histórias em quadrinhos com personagens nordestinos
+•	Animações leves e educativas integradas à narrativa
+•	Quizzes interativos ao final de cada capítulo
+•	Sistema de gamificação com conquistas e medalhas
+•	Geolocalização para serviços de saúde próximos ao usuário
+•	Acessibilidade com narração por voz e alto contraste
+•	Experiência responsiva: funciona em qualquer dispositivo
+
+1.4 Diferencial com Uso de Inteligência Artificial
+Dado que o projeto será executado por dois alunos, a Inteligência Artificial será utilizada de forma sistemática e planejada para substituir etapas que normalmente exigiriam equipes maiores. A tabela abaixo detalha as ferramentas de IA adotadas por função:
+
+ÁREA	FERRAMENTA DE IA	APLICAÇÃO
+Ilustrações	Leonardo.ai / Adobe Firefly	Gerar personagens e cenários no estilo cartoon 2D nordestino
+Roteiros	Claude / ChatGPT	Adaptar conteúdo técnico da cartilha para linguagem infantil
+Animações	LottieFiles (biblioteca)	Importar animações prontas de repositórios públicos Lottie
+Código	Claude / GitHub Copilot	Geração de componentes React, lógica de quiz, integração de mapas
+Conteúdo	Claude / Gemini	Revisão pedagógica, geração de perguntas de quiz, checklist de acessibilidade
+Narração	ElevenLabs / TTS nativo	Geração de áudio para narração dos capítulos
+Design UI	v0.dev / Figma AI	Geração de wireframes e componentes visuais iniciais
+ 
+2. OBJETIVOS
+
+2.1 Objetivo Geral
+Desenvolver uma revista digital interativa baseada na cartilha educativa da área da saúde da UFPI, utilizando recursos tecnológicos e ferramentas de Inteligência Artificial para aumentar o engajamento e facilitar o aprendizado infantil sobre primeiros socorros.
+
+2.2 Objetivos Específicos
+1.	Digitalizar e adaptar o conteúdo da cartilha de Primeiros Socorros para linguagem infantil adequada à faixa etária de 7 a 12 anos.
+2.	Criar personagens regionais nordestinos com identidade visual consistente, gerados com apoio de IA generativa.
+3.	Desenvolver 16 capítulos em formato de gibi digital, cada um cobrindo um tema da cartilha original.
+4.	Implementar animações Lottie leves que enriqueçam a experiência sem prejudicar a performance.
+5.	Implementar recursos de acessibilidade: narração por voz (TTS), alto contraste e fonte ampliada.
+6.	Criar quizzes educativos ao final de cada capítulo para fixação do conteúdo.
+7.	Desenvolver sistema de geolocalização que auxilie o usuário a encontrar unidades de saúde próximas.
+8.	Garantir experiência multiplataforma responsiva (computador, tablet e celular).
+9.	Hospedar e publicar o projeto em ambiente de produção acessível publicamente via URL.
+ 
+3. PÚBLICO-ALVO
+
+3.1 Público Primário
+Crianças de 7 a 12 anos, residentes em regiões urbanas e rurais do Nordeste brasileiro, com acesso a dispositivos digitais na escola, em casa ou em unidades de saúde comunitárias. O conteúdo é pensado para ser compreensível mesmo sem a mediação constante de um adulto, embora a presença de responsáveis seja desejável.
+
+3.2 Público Secundário
+•	Pais e responsáveis que desejam ensinar noções de primeiros socorros de forma lúdica
+•	Professores do ensino fundamental que podem usar a plataforma como material didático
+•	Profissionais e estudantes da saúde interessados em educação em saúde digital
+•	Escolas públicas e secretarias de saúde como potenciais parceiros de expansão do projeto
+ 
+4. IDENTIDADE VISUAL
+
+4.1 Estilo Artístico
+O estilo visual adotado é o Cartoon 2D, com traços limpos, expressividade e cores vibrantes. As referências principais são: Turma da Mônica (traços expressivos e personagens marcantes), Irmão do Jorel (ambientação nordestina e cotidiano brasileiro), Cordel Animado (elementos culturais do sertão com estética gráfica), e O Show da Luna (personagens infantis, linguagem científica simplificada).
+Importante: o estilo mangá NÃO será utilizado. O projeto mantém referências estritamente na tradição do cartoon brasileiro e da cultura visual nordestina.
+
+4.2 Paleta de Cores
+A identidade cromática foi pensada para evocar o sertão nordestino com energia e alegria, sem perder a legibilidade para crianças:
+
+COR	REFERÊNCIA E USO
+Amarelo Sertão	Luz do sol, areia, destaque de elementos importantes
+Laranja Mandacaru	Ação, alertas, botões de interação
+Marrom Claro	Chão batido, elementos de terra, fundos neutros
+Verde Mandacaru	Natureza, saúde, confirmações e acertos no quiz
+Azul Céu	Céu do sertão, serenidade, textos e títulos
+
+4.3 Como Gerar as Ilustrações com IA
+Cleilton será responsável pela geração das ilustrações com IA. O fluxo de trabalho será o seguinte:
+10.	Acessar Leonardo.ai (gratuito com limite mensal) ou Adobe Firefly.
+1.	Usar prompts padronizados para cada personagem (descritos na Seção 6) garantindo consistência visual.
+2.	Exportar as imagens geradas e vetorizá-las no Adobe Illustrator ou Inkscape (gratuito).
+3.	Montar os quadros de cada capítulo no Canva ou Figma, usando as ilustrações vetorizadas.
+4.	Exportar cada página do gibi como imagem PNG ou SVG para importação no código.
+ 
+5. UNIVERSO NARRATIVO
+
+5.1 Vila Esperança do Sertão
+Toda a narrativa se passa em uma cidade fictícia chamada Vila Esperança do Sertão. A cidade é composta por elementos típicos do interior nordestino, que funcionam como cenários de cada capítulo:
+
+CENÁRIO	CAPÍTULOS QUE O UTILIZAM
+Praça central com mandacarus e coreto	Capítulo 1 (apresentação), Capítulo 9 (tocandira)
+Escola municipal	Capítulo 1, 5 (engasgo), 12 (lagarta)
+Posto de saúde / UBS	Capítulo 2 (onde procurar ajuda), Capítulo 15 e 16
+Feira livre	Capítulo 4 (corte do Caramelo), Capítulo 6 (cachorro)
+Igreja / Adro	Capítulo 1 (apresentação do Padre Cícero)
+Açude e arredores	Capítulo 14 (águas-vivas), Capítulo 13 (cobra)
+Fazenda e trilha	Capítulo 7 (abelhas), Capítulo 8 (marimbondo), Capítulo 11 (escorpião)
+Quintal de casa	Capítulo 10 (aranha), Capítulo 11 (escorpião), Capítulo 3 (queimadura)
+ 
+6. PERSONAGENS PRINCIPAIS
+
+IMPORTANTE — Geração de Personagens com IA
+Carlos Eduardo é responsável por redigir a descrição escrita de cada personagem (personalidade, traços físicos, modo de falar).
+Cleilton é responsável por transformar essas descrições em prompts para Leonardo.ai e gerar as ilustrações.
+A consistência visual deve ser garantida salvando o 'Character Reference' no Leonardo.ai após a primeira geração aprovada.
+
+6.1 Padre Cícero — O Mentor
+Função narrativa: Mentor espiritual e sábio da vila. Aparece no início e no final de cada capítulo para contextualizar a situação e sintetizar o aprendizado. Nunca resolve os problemas — quem resolve são sempre as crianças.
+•	Personalidade: calmo, gentil, fala pausada com ditados nordestinos
+•	Visual: batina preta, chapéu preto, bengala, feições bondosas, bigode branco
+•	Tom de voz: didático, acolhedor, nunca assustador para crianças
+•	Prompt base para IA: "Cartoon 2D Brazilian style, elderly priest from northeastern Brazil, black cassock, black hat, white mustache, kind face, holding a wooden cane, warm colors, simple background, childlike illustration style"
+
+6.2 João — O Aventureiro
+Função narrativa: Protagonista principal. Menino de 10 anos, impulsivo e curioso, que frequentemente gera as situações de risco que motivam cada episódio. O leitor se identifica com João porque ele comete os mesmos erros que qualquer criança cometeria.
+•	Personalidade: aventureiro, impulsivo, corajoso mas imprudente
+•	Visual: camisa xadrez, chapéu de palha, sandálias de borracha, mochila surrada
+•	Desenvolvimento ao longo da série: começa impulsivo e vai aprendendo a pensar antes de agir
+•	Prompt base para IA: "Cartoon 2D Brazilian style, 10 year old boy from northeastern Brazil, plaid shirt, straw hat, rubber sandals, adventure expression, warm colors, simple background, childlike illustration style"
+
+6.3 Maria — A Inteligente
+Função narrativa: Melhor amiga de João. Tem 11 anos, é observadora e sempre faz as perguntas certas, funcionando como a voz do aprendizado. É ela quem traduz as orientações do Padre Cícero em ações práticas.
+•	Personalidade: inteligente, curiosa, proativa, tranquilizadora em situações de crise
+•	Visual: tranças com laços coloridos, vestido florido, tênis colorido, sempre com um caderninho
+•	Prompt base para IA: "Cartoon 2D Brazilian style, 11 year old girl from northeastern Brazil, braided hair with colorful bows, floral dress, sneakers, notebook in hand, warm colors, childlike illustration style"
+
+6.4 Caramelo — O Mascote
+Função narrativa: Cachorro vira-lata caramelo da vila. Fornece alívio cômico nas situações tensas e por vezes é o primeiro a perceber os perigos. Não fala, mas comunica emoções com expressões exageradas.
+•	Personalidade: alegre, expressivo, levemente atrapalhado
+•	Visual: pelo caramelo, orelhas caídas, rabo sempre abanando, olhos grandes e expressivos
+•	Prompt base para IA: "Cartoon 2D Brazilian style, small mixed breed dog, caramel color, floppy ears, big expressive eyes, happy expression, simple background, childlike illustration style"
+
+6.5 Dona Raimunda — A Agente de Saúde
+Função narrativa: Agente comunitária de saúde da Vila Esperança. Aparece nos capítulos relacionados ao SUS, medicamentos e serviços de saúde (capítulos 2, 15 e 16). Explica o sistema de saúde de forma simples e acolhedora.
+•	Personalidade: prestativa, organizada, fala de forma clara e acolhedora
+•	Visual: uniforme azul de agente de saúde, bolsa de trabalho, prancheta, cabelo grisalho
+•	Prompt base para IA: "Cartoon 2D Brazilian style, middle-aged woman community health agent, blue uniform, clipboard, gray hair, warm smile, northeastern Brazil setting, childlike illustration style"
+ 
+7. ESTRUTURA DE CADA CAPÍTULO
+
+Todos os 16 capítulos seguem a mesma estrutura em 5 partes, garantindo previsibilidade e facilitando o aprendizado:
+
+PARTE	DESCRIÇÃO DETALHADA
+PARTE 1 — História (Quadrinhos)	Narrativa em quadrinhos de 6 a 10 quadros. João gera a situação de risco. Maria e/ou Padre Cícero orientam. Caramelo adiciona humor. O problema é resolvido pelas crianças.
+PARTE 2 — Animação Educativa	Animação Lottie curta (máx. 8 segundos) que ilustra o passo a passo do procedimento de primeiros socorros do capítulo. Sem texto, apenas visual com ícones animados.
+PARTE 3 — Explicação Didática	Card informativo com texto simplificado (linguagem de 7-12 anos). O que fazer. O que NÃO fazer. Quando chamar ajuda. Máximo de 150 palavras por card.
+PARTE 4 — Quiz Interativo	3 perguntas de múltipla escolha geradas pela IA com base no conteúdo do capítulo. Feedback imediato com animação de acerto ou erro. Pontuação registrada no sistema de gamificação.
+PARTE 5 — Conquista / Medalha	Ao concluir o quiz com pelo menos 2 acertos, a criança recebe um crachá digital animado. Ex.: 'Guardião contra Escorpiões!' com estrelas animadas.
+ 
+8. CAPÍTULOS — ROTEIRO RESUMIDO
+
+Abaixo o roteiro resumido dos 16 capítulos com o conteúdo da cartilha original que cada um aborda. Carlos Eduardo é responsável por expandir cada roteiro em linguagem infantil com base nesta estrutura.
+
+CAPÍTULO	TÍTULO	CONTEÚDO DA CARTILHA
+Cap. 1	Bem-vindos à Vila Esperança	Apresentação dos personagens, da vila e do conceito de primeiros socorros
+Cap. 2	Onde Procurar Ajuda?	UBS, UPA, Hospital de urgência — quando usar cada um. Endereços e contatos reais de Teresina-PI
+Cap. 3	O Mistério da Queimadura	Tipos de queimadura (1°, 2°, 3° grau), primeiros socorros, o que evitar (gelo, pasta de dente)
+Cap. 4	O Corte do Caramelo	Ferimentos e cortes — limpeza, curativo, quando ponto é necessário
+Cap. 5	João Engasgou	Engasgos em crianças e adultos — manobra de Heimlich simplificada
+Cap. 6	O Cachorro Bravo	Mordidas de cão — limpeza, risco de raiva, protocolo pós-exposição, vacina antirrábica
+Cap. 7	A Nuvem de Abelhas	Acidente por abelhas — como agir, remoção de ferrões, risco de anafilaxia, quando ir ao hospital
+Cap. 8	O Marimbondo Caboclo	Vespas e marimbondos — diferenças, primeiros socorros, risco de reação alérgica
+Cap. 9	A Dor da Tocandira	Formigas (tocandira/formiga-de-fogo) — picadas, sintomas, primeiros socorros
+Cap. 10	A Casa da Aranha	Aranhas (aranha-marrom, viúva-negra, armadeira) — identificação, sintomas, o que fazer e não fazer, soro
+Cap. 11	O Escorpião do Quintal	Escorpiões — prevenção, sintomas de envenenamento, gravidade em crianças, soro antiescorpiônico
+Cap. 12	A Lagarta Misteriosa	Lagartas (Lonomia) — contato com cerdas, sintomas, primeiros socorros, soro antilonômico
+Cap. 13	A Cobra da Trilha	Serpentes — identificação, tipos de peçonha, primeiros socorros (imobilizar, não sugar), soro antiofídico
+Cap. 14	Perigo na Praia	Águas-vivas e caravelas — contato com tentáculos, sintomas, primeiros socorros
+Cap. 15	O Caminho do Medicamento	Componentes básico, especializado e estratégico do SUS — onde retirar cada medicamento
+Cap. 16	Missão SUS	Uso correto de medicamentos, descarte seguro, papel do farmacêutico, Disque Saúde 136, CITOX 0800-280-3661
+ 
+9. ANIMAÇÕES
+
+As animações serão implementadas via LottieFiles, uma biblioteca de animações JSON leves, que consomem muito menos banda do que vídeos e se integram nativamente com React. Abaixo a estratégia de uso:
+
+9.1 Como Usar o LottieFiles
+11.	Acessar lottiefiles.com e buscar animações gratuitas na categoria de saúde, crianças e natureza.
+1.	Baixar o arquivo .json da animação desejada.
+2.	Importar no projeto React com: npm install @lottiefiles/react-lottie-player
+3.	Configurar para reproduzir uma vez (loop: false) ou em loop suave conforme o contexto.
+4.	Limitar cada animação a no máximo 8 segundos para não desviar o foco da leitura.
+
+9.2 Tipos de Animação por Contexto
+
+TIPO	EXEMPLOS	ONDE USAR
+Personagens	Piscar, sorrir, gesticular, caminhar	Entre quadros da história, reação ao quiz
+Ambiente	Vento nas árvores, nuvens passando, pássaros	Cenário da Vila Esperança, transições de capítulo
+Efeitos	Fumaça, poeira, água escorrendo, brilho	Cap. 3 (queimadura), Cap. 5 (engasgo)
+Animais	Escorpião andando, cobra rastejando, abelhas voando	Capítulos de animais peçonhentos (7 a 13)
+Interface	Estrelas caindo, confetes, selos girando	Tela de conquista após quiz concluído
+ 
+10. GAMIFICAÇÃO
+
+O sistema de gamificação tem o objetivo de incentivar a leitura completa e a fixação do conteúdo. Cada medalha é desbloqueada por um conjunto de capítulos concluídos com aproveitamento mínimo de 2/3 acertos no quiz.
+
+MEDALHA	CRITÉRIO DE DESBLOQUEIO	CAPÍTULOS COBERTOS
+Bronze — Leitor Iniciante	Completar os capítulos 1 a 4	Cap. 1, 2, 3 e 4
+Prata — Guardião da Saúde	Completar os capítulos 5 a 9	Cap. 5, 6, 7, 8 e 9
+Ouro — Mestre dos Primeiros Socorros	Completar os capítulos 10 a 14	Cap. 10, 11, 12, 13 e 14
+Diamante — Herói da Vila Esperança	Completar todos os 16 capítulos	Cap. 1 ao 16 (completo)
+
+O progresso e as medalhas serão armazenados no SQLite via SQLAlchemy, sem necessidade de cadastro — o sistema usa um identificador anônimo gerado por sessão no FastAPI, simplificando a experiência para crianças e eliminando qualquer custo de banco de dados externo.
+ 
+11. ACESSIBILIDADE
+
+A acessibilidade é um requisito fundamental do projeto, especialmente por tratar-se de um material voltado a crianças com diferentes condições de acesso e necessidades especiais. As funcionalidades abaixo serão implementadas:
+
+RECURSO	IMPLEMENTAÇÃO TÉCNICA DETALHADA
+Narração por voz (TTS)	Uso da Web Speech API nativa do browser (gratuita, sem servidor). Botão de play em cada parágrafo ativa a leitura em voz alta em português brasileiro.
+Alto Contraste	Toggle no header que aplica uma classe CSS global (high-contrast) com paleta invertida (fundo escuro, texto claro, sem imagens de fundo).
+Fonte Ampliada	Dois botões (+A / -A) que incrementam ou decrementam o font-size raiz (rem) em 2px por clique, afetando toda a tipografia do sistema.
+Texto Alternativo	Todas as ilustrações e imagens receberão atributo alt descritivo. Fundamental para usuários de leitores de tela (NVDA, VoiceOver).
+Navegação por Teclado	Todos os elementos interativos (botões, quiz, mapa) serão acessíveis via Tab e Enter, sem dependência de mouse ou touch.
+Libras (Expansão Futura)	Não incluída no MVP. Prevista como funcionalidade futura em parceria com intérprete certificado. Mencionada na apresentação como expansão.
+ 
+12. GEOLOCALIZAÇÃO
+
+A seção 'Onde Procurar Ajuda?' (Capítulo 2) é o principal ponto de uso da geolocalização. A implementação utiliza Leaflet.js com OpenStreetMap — ambos gratuitos e sem limite de requisições para projetos acadêmicos.
+
+12.1 Funcionalidades do Mapa
+•	Exibir mapa interativo com marcadores das unidades de saúde cadastradas
+•	Detectar a localização do usuário com a Geolocation API nativa do browser
+•	Calcular e exibir a unidade de saúde mais próxima automaticamente
+•	Botão 'Como Chegar' que abre o Google Maps ou Waze no celular com a rota traçada
+•	Filtro por tipo de unidade: UBS, UPA 24h ou Hospital de Urgência
+
+12.2 Dados Pré-cadastrados na Cartilha
+UNIDADE	ENDEREÇO / CONTATO (TERESINA-PI)
+Centro de Saúde Hospital da Primavera	Av. Duque de Caxias, 2661 - Primavera | (86) 3221-0928
+HUT — Hospital de Urgência de Teresina	Rua Dr. Otto Tito, 1820 - Redenção | (86) 3198-3680
+CITOX — Centro de Informação Toxicológica	0800-280-3661 | (86) 99497-0993
+Disque Saúde (SUS Nacional)	136 (gratuito, 24h)
+
+Observação técnica: Para a versão MVP, os dados das unidades de saúde serão cadastrados manualmente em um arquivo JSON estático. Futuras versões poderão integrar a API do CNES (Cadastro Nacional de Estabelecimentos de Saúde) do Ministério da Saúde para busca dinâmica.
+ 
+13. ARQUITETURA TÉCNICA
+
+13.1 Stack Tecnologica
+
+CAMADA	TECNOLOGIA E JUSTIFICATIVA
+Backend / Framework	FastAPI (Python) — framework moderno e assincrono com tipagem nativa via Pydantic. Gera documentacao automatica em /docs, o que impressiona na apresentacao academica.
+Templates HTML	Jinja2 — motor de templates integrado ao FastAPI. Cada capítulo é uma rota GET que renderiza um template HTML com os dados injetados via contexto.
+Interatividade Frontend	Alpine.js (via CDN) — biblioteca JS leve (15kb) que adiciona reatividade diretamente no HTML. Substitui React para quiz, toggles de acessibilidade e modais.
+Estilizacao	Tailwind CSS (via CDN) — classes utilitárias que garantem responsividade sem processo de build. Funciona direto no template Jinja2.
+Efeito Gibi (Virar Pagina)	turn.js + CSS 3D — simula virada de páginas com efeito 3D no browser, sem dependência de React ou bundler.
+Animacoes de Interface	CSS Animations + Alpine.js — transicoes de entrada dos personagens, baloes de fala e feedback do quiz sem biblioteca externa pesada.
+Animacoes Educativas	Lottie Web Player (web component via CDN) — tag HTML nativa que carrega arquivos .json do LottieFiles sem necessidade de React.
+Mapa	Leaflet.js + OpenStreetMap (via CDN) — mapa interativo gratuito, sem chave de API, integrado direto no template do Capitulo 2.
+Banco de Dados	SQLite + SQLAlchemy — banco de dados local em arquivo .db. Armazena progresso e medalhas por sessao. Sem servidor externo, sem custo.
+Validacao de Dados	Pydantic — schemas de validacao para os endpoints da API do quiz (POST /api/quiz/responder). Previne erros de entrada de dados.
+Servidor de Estaticos	FastAPI StaticFiles — serve imagens, CSS, JS e animacoes Lottie diretamente pelo mesmo servidor sem configuracao extra.
+Hospedagem	Render.com — deploy gratuito detecta automaticamente projetos Python/FastAPI via requirements.txt. URL publica gerada automaticamente a cada push.
+Controle de Versao	GitHub — repositorio compartilhado entre Cleilton e Carlos Eduardo. Render faz deploy automatico a cada commit na branch main.
+
+
+13.2 Estrutura de Pastas do Projeto
+
+Estrutura de Diretórios — FastAPI + Jinja2
+/guardioes-saude
+  main.py                    → Ponto de entrada: instancia FastAPI, monta routers e static files
+  requirements.txt           → fastapi, uvicorn, jinja2, sqlalchemy, pydantic
+  .env                       → Variaveis de ambiente (SECRET_KEY, DATABASE_URL)
+  /routers                   → Modulos de rotas separados por funcionalidade
+    paginas.py               → GET / (capa), GET /capitulo/{id}, GET /mapa, GET /conquistas
+    quiz.py                  → POST /api/quiz/responder, GET /api/quiz/{cap_id}
+    progresso.py             → GET/POST /api/progresso — salva e recupera progresso por sessao
+  /models                    → Modelos SQLAlchemy (tabelas do banco)
+    progresso.py             → Tabela: sessao_id, capitulo_id, concluido, pontuacao
+    medalhas.py              → Tabela: sessao_id, medalha, desbloqueada_em
+  /schemas                   → Schemas Pydantic para validacao de entrada e saida
+    quiz.py                  → QuizResposta(capitulo_id, pergunta_id, resposta_escolhida)
+  /data                      → Dados estaticos em JSON (lidos na inicializacao)
+    capitulos.json           → Lista com titulo, quadros, explicacao e animacao de cada cap.
+    unidades.json            → Unidades de saude com lat, lng, nome, endereco, telefone
+    quiz.json                → Perguntas, opcoes e resposta correta de cada capitulo
+  /templates                 → Templates Jinja2 renderizados pelo FastAPI
+    base.html                → Layout base: CDNs (Tailwind, Alpine, Lottie, Leaflet), header, footer
+    index.html               → Capa da revista: grade dos 16 capitulos (disponivel / em breve)
+    capitulo.html            → Gibi + animacao Lottie + card explicativo + quiz + conquista
+    mapa.html                → Mapa Leaflet com marcadores e botao Como Chegar
+    conquistas.html          → Grade de medalhas com status e progresso geral
+  /static                    → Arquivos servidos pelo FastAPI StaticFiles
+    /css/custom.css          → Estilos adicionais alem do Tailwind (alto contraste, pageflip)
+    /js/gibi.js              → Logica do efeito de virar pagina (turn.js + inicializacao)
+    /js/mapa.js              → Inicializacao do Leaflet e logica de geolocalizacao
+    /animations/             → Arquivos .json das animacoes Lottie por capitulo
+    /ilustracoes/            → Imagens PNG/SVG dos quadrinhos organizadas por capitulo
+    /personagens/            → Sprites dos personagens gerados com IA (poses multiplas)
+ 
+14. DIVISÃO DE TAREFAS — DUPLA
+
+Com apenas dois executores, a divisão de responsabilidades deve ser clara e sem sobreposição. Cleilton lidera a parte técnica; Carlos Eduardo lidera a parte de conteúdo e pedagogia. Ambos se cruzam nas revisões.
+
+CLEILTON — Executor Principal (Técnico)	CARLOS EDUARDO — Parceiro (Conteúdo)
+Configurar repositório GitHub e estrutura do projeto FastAPI + Jinja2	Redigir o roteiro detalhado dos 16 capítulos em linguagem infantil
+Gerar ilustrações dos personagens com IA (Leonardo.ai) e cenários da Vila Esperança	Descrever personalidade e características visuais de cada personagem para os prompts de IA
+Desenvolver routers FastAPI, templates Jinja2 e lógica do gibi com turn.js	Criar as 3 perguntas de quiz para cada capítulo (48 perguntas) e exportar para quiz.json
+Integrar animações Lottie via web component e ajustar timing por capítulo	Validar o conteúdo técnico de saúde com professores e supervisores do curso
+Implementar Leaflet + geolocalização e endpoint /api/progresso	Escrever os cards de explicação didática (Parte 3) de cada capítulo
+Configurar SQLite + SQLAlchemy para progresso e medalhas por sessão	Produzir os storyboards dos quadrinhos no Canva e exportar assets para Cleilton
+Implementar acessibilidade: TTS (Web Speech API), alto contraste, fonte ampliada	Coordenar comunicação com a LASD/Saúde para validação e aprovação do material
+Configurar deploy no Render.com e manter o repositório GitHub atualizado	Preparar documentação acadêmica, relatório de extensão e slides de apresentação
+ 
+15. CRONOGRAMA DETALHADO — 4 SEMANAS
+
+Premissa fundamental do cronograma de 4 semanas
+A plataforma será entregue COMPLETA em arquitetura, design e funcionalidade.
+Os capítulos 1, 2 e 11 serão totalmente finalizados (história, animação, explicação, quiz e conquista).
+Os capítulos 3 a 16 aparecerão na plataforma como 'Em breve — próximo capítulo chegando!'.
+Isso é MVP (Produto Mínimo Viável): demonstra o sistema completo funcionando, não apenas uma tela.
+A banca avalia arquitetura, qualidade, acessibilidade e funcionalidade — não quantidade de capítulos.
+Tudo que for possível gerar com IA deve ser gerado com IA. Nenhuma etapa deve ser feita manualmente se houver alternativa de IA disponível.
+
+As fases rodam em paralelo desde o Dia 1. Cleilton desenvolve enquanto Carlos Eduardo produz conteúdo. Nunca sequencial — sempre simultâneo.
+
+SEMANA 1 — Fundação (Dias 1 a 7)
+
+DIA	CLEILTON	CARLOS EDUARDO
+Dia 1	Criar repositório GitHub. Inicializar projeto FastAPI com estrutura de pastas (routers, models, schemas, templates, static, data). Configurar Render.com com deploy automático a cada push. URL pública ativa desde o Dia 1.	Reler a cartilha completa com foco nos Caps. 1, 2 e 11. Usar Claude para gerar um rascunho do roteiro infantil desses 3 capítulos. Revisar e ajustar o tom de linguagem.
+Dia 2	Instalar dependências: fastapi, uvicorn, jinja2, sqlalchemy, python-multipart. Criar requirements.txt. Configurar SQLite + SQLAlchemy: tabelas de progresso e medalhas. Criar template base.html com CDNs do Tailwind, Alpine.js, Lottie e Leaflet.	Usar Claude para gerar as 9 perguntas de quiz (3 por capítulo) dos Caps. 1, 2 e 11. Revisar cada pergunta e salvar no arquivo quiz.json. Criar também os cards de explicação didática (Parte 3) desses capítulos.
+Dia 3	Gerar os 5 personagens com Leonardo.ai usando os prompts da Seção 6. Gerar pelo menos 3 poses por personagem (neutro, expressivo, ação). Exportar em PNG com fundo transparente.	Escrever a bíblia dos personagens: descrição detalhada de cada um, frases típicas, modo de falar, relação entre si. Enviar para validação da LASD via e-mail.
+Dia 4	Gerar os cenários da Vila Esperança com IA: praça, escola, posto de saúde, fazenda e quintal. Vetorizar e organizar assets. Buscar 5 animações Lottie no lottiefiles.com (personagem, animal, efeito, conquista, ambiente).	Montar o storyboard do Cap. 1 no Canva: definir posição dos personagens em cada quadro, tamanho dos balões de fala, sequência narrativa. Exportar como PDF.
+Dia 5	Desenvolver o template capitulo.html com Jinja2: layout de quadrinhos responsivo com suporte a imagem + texto + balão de fala. Criar a rota GET /capitulo/{id} no FastAPI que injeta os dados do capitulos.json. Testar em mobile e desktop.	Montar o storyboard dos Caps. 2 e 11 no Canva. Montar os quadrinhos do Cap. 1 usando os assets gerados por Cleilton. Exportar como PNG.
+Dia 6	Desenvolver o template index.html (capa da revista): grade dos 16 capítulos com status disponível / em breve. Implementar navegação entre capítulos via rotas FastAPI. Adicionar efeito de virar página com turn.js no template.	Montar os quadrinhos dos Caps. 2 e 11. Revisar todos os textos com supervisores do curso de saúde. Ajustar conforme feedback.
+Dia 7	Revisão geral da semana. Testar o fluxo: capa → capítulo → quadrinhos → navegação. Corrigir bugs. Fazer commit e verificar deploy no Render.	Revisão geral. Conferir se todos os roteiros, quizzes e storyboards dos 3 capítulos MVP estão completos e aprovados pela LASD.
+
+SEMANA 2 — Construção do Núcleo (Dias 8 a 14)
+
+DIA	CLEILTON	CARLOS EDUARDO
+Dia 8	Implementar o endpoint POST /api/quiz/responder com schema Pydantic (validação de entrada). Criar a lógica de feedback no template Jinja2 com Alpine.js: resposta certa = animação verde, errada = animação vermelha. Salvar pontuação no SQLite.	Preparar os roteiros dos capítulos 3 a 6 (Queimadura, Corte, Engasgo, Cachorro) com apoio de Claude. Foco em linguagem infantil e precisão técnica de saúde.
+Dia 9	Implementar o Lottie Web Player via web component no template: tag <lottie-player> carrega os arquivos .json da pasta /static/animations. Integrar animação no fluxo de cada capítulo (Parte 2 — animação educativa).	Preparar os roteiros dos capítulos 7 a 10 (Abelhas, Marimbondo, Tocandira, Aranha) com apoio de Claude. Revisar com supervisor.
+Dia 10	Implementar o efeito de virar página: ajustar turn.js para swipe no mobile e arrastar no desktop. Configurar Alpine.js para controlar qual quadro está visível. Testar em diferentes tamanhos de tela.	Preparar os roteiros dos capítulos 12 a 16 (Lagarta, Cobra, Águas-vivas, Medicamento, SUS). Gerar os quizzes de todos os 16 capítulos com Claude e revisar.
+Dia 11	Implementar o sistema de medalhas: rota GET /conquistas renderiza template com grade de medalhas. Lógica de desbloqueio por sessão via SQLite. Animação de estrelas no template com CSS keyframes.	Montar no Canva os quadrinhos dos capítulos 3 a 8 usando os assets. Criar os cards de explicação didática desses capítulos.
+Dia 12	Implementar o template mapa.html com Leaflet.js: marcadores das unidades de saúde lidos do unidades.json, popup com nome, endereço e telefone. Rota GET /mapa no FastAPI injeta os dados do JSON no template.	Montar no Canva os quadrinhos dos capítulos 9 a 16. Criar os cards de explicação didática desses capítulos. Preparar todos os assets para entrega a Cleilton.
+Dia 13	Implementar geolocalização no mapa.js: detectar posição do usuário via Geolocation API, calcular unidade mais próxima, botão 'Como Chegar' que abre Google Maps. Testar no celular com GPS ativado.	Preparar a documentação acadêmica: introdução, justificativa, objetivos, metodologia, referencial teórico. Usar a cartilha da LASD como fonte principal.
+Dia 14	Revisão e integração geral. Verificar se o fluxo completo dos 3 capítulos MVP funciona: gibi → animação → explicação → quiz → conquista. Commit + deploy no Render.	Revisão e entrega de todos os assets de conteúdo: roteiros, quizzes (quiz.json completo), cards de explicação e storyboards de todos os 16 capítulos.
+
+SEMANA 3 — Acessibilidade, Animações e Refinamento (Dias 15 a 21)
+
+DIA	CLEILTON	CARLOS EDUARDO
+Dia 15	Implementar Text-to-Speech: botão de play em cada parágrafo usando Web Speech API nativa (gratuita). Configurar voz em português brasileiro. Testar em Chrome, Firefox e Safari.	Revisar todos os textos dos 16 capítulos (cards de explicação + balões de fala) para garantir que a linguagem está adequada para crianças de 7 a 12 anos.
+Dia 16	Implementar alto contraste: toggle no header que aplica classe CSS global com paleta invertida. Implementar botões de ajuste de fonte (+A / -A) que alteram o rem raiz do documento.	Organizar sessão informal de teste com 2 ou 3 crianças conhecidas (família, vizinhança). Anotar reações, dificuldades e sugestões. Documentar o feedback.
+Dia 17	Ajustar animações Lottie nos capítulos MVP (1, 2 e 11): timing, tamanho, posicionamento. Garantir que cada animação dura no máximo 8 segundos e não trava em mobile.	Com base no feedback das crianças, sugerir ajustes no conteúdo e na linguagem. Discutir com Cleilton quais ajustes impactam o desenvolvimento e priorizar.
+Dia 18	Implementar atributos alt em todas as imagens. Garantir navegação por teclado (Tab/Enter) em todos os elementos interativos. Rodar auditoria do Lighthouse e registrar pontuação.	Escrever a seção de resultados e discussão do relatório acadêmico. Documentar as decisões tomadas, as ferramentas de IA usadas e os impactos esperados.
+Dia 19	Integrar os quadrinhos dos capítulos 3 a 16 como páginas estáticas com card 'Em breve' e preview da capa do capítulo. O usuário vê todos os 16 na grade mas só 3 estão desbloqueados.	Preparar os slides de apresentação para a banca: problema, solução, personagens, demonstração, tecnologias, IA usada, impacto esperado, próximos passos.
+Dia 20	Otimização de performance: compressão de imagens com next/image, lazy loading das animações Lottie, code splitting por capítulo. Verificar score do Lighthouse (meta: acima de 80).	Ensaiar a apresentação completa com Cleilton. Cronometrar. Ajustar slides com base no ensaio. Preparar respostas para possíveis perguntas da banca.
+Dia 21	Revisão geral da semana. Testar o sistema completo em 3 dispositivos diferentes (notebook, tablet, celular). Documentar bugs encontrados e priorizar correções.	Finalizar o relatório acadêmico completo. Revisar referências bibliográficas. Verificar formatação conforme normas da instituição.
+
+SEMANA 4 — Testes Finais, Deploy e Apresentação (Dias 22 a 28)
+
+DIA	CLEILTON	CARLOS EDUARDO
+Dia 22	Corrigir bugs prioritários identificados na Semana 3. Testar geolocalização em celular real com GPS. Testar quiz com Firebase em modo offline e online.	Revisar os slides com base no ensaio da Semana 3. Adicionar prints e capturas de tela do sistema funcionando nos slides.
+Dia 23	Testar acessibilidade com leitor de tela (NVDA no Windows ou VoiceOver no Mac). Ajustar atributos ARIA onde necessário. Testar contraste com ferramenta WAVE.	Preparar a demonstração ao vivo: roteiro do que será mostrado, ordem das telas, qual capítulo usar para o demo. Treinar o fluxo de apresentação.
+Dia 24	Gravar vídeo demo de 3 minutos mostrando o fluxo completo: capa → capítulo 1 → gibi → animação → explicação → quiz → conquista → mapa. Hospedar no YouTube (não-listado).	Adicionar o link do vídeo demo aos slides. Preparar o QR Code do projeto (URL da Vercel) para distribuir na apresentação.
+Dia 25	Deploy final de produção no Render com URL definitiva. Verificar se todas as funcionalidades funcionam em produção (SQLite, Lottie, Leaflet, TTS, turn.js). Criar QR Code da URL.	Ensaio final completo da apresentação: do início ao fim, com cronômetro. Garantir que cabe no tempo definido pela banca.
+Dia 26	Buffer de correções de última hora. Verificar links, imagens quebradas, textos truncados. Testar em Safari/iOS especificamente (comportamento diferente do Chrome).	Buffer de revisão final da documentação acadêmica. Imprimir ou preparar versão PDF para entrega. Organizar todos os arquivos do projeto.
+Dia 27	Preparar o repositório GitHub para apresentação: README detalhado com prints, link do deploy no Render, instruções de instalação local (pip install -r requirements.txt + uvicorn main:app), descrição das tecnologias e créditos.	Fazer apresentação de ensaio para uma pessoa externa (amigo, colega). Coletar feedback sobre clareza e organização da fala.
+Dia 28	APRESENTAÇÃO. Sistema no ar no Render, URL pública ativa, demo ao vivo funcionando. Mostrar também a página /docs do FastAPI como diferencial técnico. Vídeo demo disponível como backup caso a internet falhe.	APRESENTAÇÃO. Relatório entregue, slides prontos, QR Code impresso, fala ensaiada e cronometrada.
+ 
+16. DIFERENCIAL ACADÊMICO
+
+O projeto 'As Aventuras dos Guardiões da Saúde' não é apenas a digitalização de uma cartilha existente. Trata-se de uma reengenharia completa de um material técnico de saúde em uma experiência interativa, culturalmente contextualizada e tecnologicamente moderna para o público infantil nordestino.
+
+16.1 Integração Interdisciplinar
+O projeto conecta de forma orgânica múltiplas áreas do conhecimento:
+•	Tecnologia da Informação: desenvolvimento web full-stack, UX/UI, gamificação, acessibilidade
+•	Saúde Pública: conteúdo baseado em referências oficiais (Ministério da Saúde, Fiocruz, SINAN)
+•	Educação: adaptação pedagógica para faixa etária de 7 a 12 anos
+•	Cultura regional: personagens nordestinos, cenários do sertão, linguagem regional
+•	Extensão universitária: impacto direto na comunidade, parceria com a LASD/UFPI
+
+16.2 Inovação com IA Generativa
+A execução do projeto por apenas dois alunos, com uso sistemático de IA generativa para ilustrações, roteiros, código e animações, demonstra maturidade técnica e visão sobre o papel da IA no desenvolvimento de soluções reais. Isso é, em si mesmo, um diferencial acadêmico contemporâneo relevante.
+
+16.3 Potencial de Impacto
+A plataforma tem potencial de uso contínuo por escolas públicas, secretarias municipais de saúde, unidades básicas de saúde e agentes comunitários. Trata-se de uma contribuição real e mensurável para a educação em saúde infantil no Nordeste brasileiro, podendo ser expandida para outros temas de saúde pública com a mesma arquitetura.
+
+Recomendação Final para Apresentação à Banca
+Demonstrem o sistema funcionando ao vivo em um celular e em um computador simultaneamente.
+Mostrem o fluxo completo de um capítulo: quadrinhos → animação → explicação → quiz → conquista.
+Destaquem a integração do mapa com geolocalização real — é o elemento mais impressionante tecnicamente.
+Expliquem como a IA foi usada em cada etapa. Isso diferencia o projeto de trabalhos convencionais.
+Apresentem o relatório de acessibilidade gerado pelo Lighthouse como evidência técnica.
+

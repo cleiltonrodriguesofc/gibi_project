@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: guardioes-da-saude
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./guardioes.db
+      - key: DEBUG
+        value: "false"
