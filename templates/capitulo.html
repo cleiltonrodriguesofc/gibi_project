@@ -2,6 +2,273 @@
 
 {% block title %}Capítulo {{ capitulo.id }} - Guardiões da Saúde{% endblock %}
 
+{% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+<style>
+    /* ========================
+       GIBI / COMIC BOOK STYLES
+    ======================== */
+    body { background: #f5f5f0; }
+
+    .gibi-page {
+        background: #fff;
+        border: 4px solid #111;
+        box-shadow: 8px 8px 0 #111, 16px 16px 0 rgba(0,0,0,0.15);
+        font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* The comic grid - panels of varying sizes */
+    .gibi-grid {
+        display: grid;
+        gap: 0;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .gibi-panel {
+        border: 3px solid #111;
+        position: relative;
+        overflow: hidden;
+        min-height: 280px;
+        background-color: #f0e8d0;
+        cursor: default;
+        transition: filter 0.2s;
+    }
+    .gibi-panel:hover { filter: brightness(1.04); }
+
+    /* Panel size variations */
+    .gibi-panel.wide { grid-column: span 2; min-height: 320px; }
+    .gibi-panel.tall { min-height: 380px; }
+
+    /* Scene background fills the panel */
+    .gibi-scene {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Slight color overlay per panel for variety */
+    .gibi-panel:nth-child(2n) .gibi-scene { filter: saturate(1.1) brightness(0.95); }
+    .gibi-panel:nth-child(3n) .gibi-scene { filter: hue-rotate(5deg) brightness(1.05); }
+
+    /* Character inside panel */
+    .gibi-char {
+        position: absolute;
+        bottom: 0;
+        height: 85%;
+        object-fit: contain;
+        filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.5));
+        animation: breathe 3s ease-in-out infinite;
+        transform-origin: bottom center;
+        z-index: 5;
+    }
+    .gibi-char.left  { left: 8%; }
+    .gibi-char.right { right: 8%; }
+    .gibi-char.center { left: 50%; transform: translateX(-50%); }
+    .gibi-char.center:hover { transform: translateX(-50%) scale(1.03); }
+
+    @keyframes breathe {
+        0%,100% { transform: scaleY(1) translateY(0); }
+        50%      { transform: scaleY(1.025) translateY(-4px); }
+    }
+    .gibi-char.center {
+        animation: breathe-center 3s ease-in-out infinite;
+    }
+    @keyframes breathe-center {
+        0%,100% { transform: translateX(-50%) scaleY(1) translateY(0); }
+        50%      { transform: translateX(-50%) scaleY(1.025) translateY(-4px); }
+    }
+
+    /* Ground shadow under character */
+    .gibi-shadow {
+        position: absolute;
+        bottom: 4px;
+        width: 80px;
+        height: 14px;
+        background: rgba(0,0,0,0.28);
+        border-radius: 50%;
+        filter: blur(4px);
+        z-index: 4;
+    }
+    .gibi-shadow.left   { left: calc(8% + 20px); }
+    .gibi-shadow.right  { right: calc(8% + 20px); }
+    .gibi-shadow.center { left: 50%; transform: translateX(-50%); }
+
+    /* ========================
+       SVG SPEECH BUBBLES
+    ======================== */
+    .speech-bubble {
+        position: absolute;
+        z-index: 20;
+        font-family: 'Bangers', 'Comic Neue', cursive;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+        line-height: 1.3;
+        text-align: left;
+        max-width: 62%;
+        filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.6));
+        animation: bubble-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+    .speech-bubble.top-left  { top: 8px; left: 6px; }
+    .speech-bubble.top-right { top: 8px; right: 6px; }
+    .speech-bubble.top-center { top: 8px; left: 50%; transform: translateX(-50%); }
+
+    @keyframes bubble-pop {
+        0%   { opacity: 0; transform: scale(0.6); }
+        70%  { opacity: 1; transform: scale(1.06); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    .speech-bubble.top-right { animation: bubble-pop-right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+    @keyframes bubble-pop-right {
+        0%   { opacity: 0; transform: scale(0.6); }
+        70%  { opacity: 1; transform: scale(1.06); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    .bubble-inner {
+        background: #fff;
+        border: 2.5px solid #111;
+        border-radius: 50%/30%;
+        padding: 10px 14px;
+        position: relative;
+    }
+    .bubble-inner .speaker-name {
+        font-family: 'Bangers', cursive;
+        font-size: 0.75rem;
+        color: #c04;
+        letter-spacing: 0.04em;
+        display: block;
+        margin-bottom: 3px;
+    }
+    .bubble-inner .bubble-text {
+        font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #111;
+        line-height: 1.35;
+    }
+
+    /* Tail (rabicho) as CSS triangle */
+    .bubble-tail-left {
+        position: absolute;
+        bottom: -18px;
+        left: 22px;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 20px solid #111;
+    }
+    .bubble-tail-left::after {
+        content: '';
+        position: absolute;
+        top: -22px;
+        left: -9px;
+        width: 0;
+        height: 0;
+        border-left: 9px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 19px solid #fff;
+    }
+    .bubble-tail-right {
+        position: absolute;
+        bottom: -18px;
+        right: 22px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 20px solid #111;
+    }
+    .bubble-tail-right::after {
+        content: '';
+        position: absolute;
+        top: -22px;
+        right: -9px;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 9px solid transparent;
+        border-top: 19px solid #fff;
+    }
+
+    /* ========================
+       ONOMATOPOEIA
+    ======================== */
+    .onomatopeia {
+        font-family: 'Bangers', cursive;
+        position: absolute;
+        bottom: 12px;
+        right: 10px;
+        font-size: 2.2rem;
+        color: #f00;
+        -webkit-text-stroke: 1.5px #000;
+        text-shadow: 3px 3px 0 #000;
+        z-index: 10;
+        transform: rotate(-8deg);
+        pointer-events: none;
+        animation: shake 2.5s ease-in-out infinite;
+    }
+    @keyframes shake {
+        0%,100% { transform: rotate(-8deg) scale(1); }
+        50%      { transform: rotate(-5deg) scale(1.06); }
+    }
+
+    /* ========================
+       CAPTION BOX (narrador)
+    ======================== */
+    .caption-box {
+        position: absolute;
+        bottom: 8px;
+        left: 0; right: 0;
+        background: #ffe066;
+        border-top: 2.5px solid #111;
+        border-bottom: 2.5px solid #111;
+        padding: 5px 12px;
+        font-family: 'Bangers', cursive;
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+        color: #333;
+        z-index: 10;
+        text-align: center;
+    }
+
+    /* TTS button */
+    .tts-btn {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 28px;
+        height: 28px;
+        background: rgba(0,100,200,0.85);
+        border-radius: 50%;
+        border: none;
+        font-size: 0.8rem;
+        color: #fff;
+        cursor: pointer;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.15s;
+    }
+    .tts-btn:hover { transform: scale(1.18); }
+
+    /* Panel enter animation */
+    @keyframes panel-enter {
+        0%   { opacity: 0; transform: scale(0.92); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    .gibi-panel { animation: panel-enter 0.45s ease-out both; }
+    {% for i in range(12) %}
+    .gibi-panel:nth-child({{ i+1 }}) { animation-delay: {{ i * 0.12 }}s; }
+    {% endfor %}
+</style>
+{% endblock %}
+
 {% block content %}
 <!-- Botão de Voltar -->
 <div class="mb-6">
@@ -37,42 +304,76 @@
 
     <!-- ETAPA 1: GIBI / QUADRINHOS -->
     <div x-show="etapa === 1" x-transition.opacity.duration.500ms>
-        <h2 class="text-2xl font-bold text-mandacaru-orange mb-6 text-center border-b-2 border-orange-200 pb-2">Parte 1: A História</h2>
-        
-        <!-- Página do Gibi -->
-        <div class="comic-page">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {% for quadro in capitulo.quadros %}
-                <!-- Variação de tamanho dos quadros: O primeiro e o último podem ocupar 2 colunas no desktop -->
-                <div class="comic-panel h-64 md:h-80 panel-enter {% if loop.index0 == 0 or loop.index0 == 5 %}md:col-span-2{% endif %}"
-                     style="animation-delay: {{ loop.index0 * 0.4 }}s; background-image: url('/static/ilustracoes/{{ capitulo.cenario }}'); background-size: cover; background-position: center;">
-                     
-                    <!-- Imagem do Personagem -->
-                    <div class="absolute bottom-0 w-full flex justify-center items-end h-[90%]">
-                        <!-- Sombra -->
-                        <div class="absolute bottom-2 w-32 h-6 bg-black opacity-30 rounded-[100%] blur-sm z-0"></div>
-                        <img src="/static/personagens/{{ quadro.imagem }}" alt="{{ quadro.personagem }}" 
-                             class="h-full object-contain relative z-10 char-alive" 
-                             onerror="this.src='https://placehold.co/400x300/FBBF24/78350F?text={{ quadro.personagem }}'">
-                    </div>
-                    
-                    <!-- Balão de Fala Sobreposto -->
-                    <div class="comic-bubble top-4 {% if loop.index0 % 2 == 0 %}left-4{% else %}right-4{% endif %}">
-                        <button class="float-right ml-2 text-ceu-blue hover:text-blue-700"
-                                onclick="lerTexto(this)" data-texto="{{ quadro.texto }}" title="Ouvir">
-                            🔊
-                        </button>
-                        <strong>{{ quadro.personagem }}:</strong><br>
-                        {{ quadro.texto }}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+
+        <!-- Título do Capítulo em estilo HQ -->
+        <div style="font-family:'Bangers',cursive; font-size:2rem; letter-spacing:0.06em; text-align:center;
+                    color:#fff; background:#111; border:4px solid #111; padding:10px 0; margin-bottom:0;
+                    text-shadow: 3px 3px 0 #e63;
+                    box-shadow: 0 4px 0 #e63;">
+            📖 {{ capitulo.titulo }}
         </div>
 
+        <!-- ========================
+             PÁGINA DE GIBI
+        ======================== -->
+        <div class="gibi-page">
+
+          {# Definimos layouts diferentes dependendo do número de quadros #}
+          {# Layout: 1=wide, 2+3 lado a lado, 4+5 lado a lado, 6=wide #}
+          <div class="gibi-grid">
+
+            {% for quadro in capitulo.quadros %}
+            {%- set idx = loop.index0 -%}
+            {%- set pos_char = "left" if idx % 2 == 0 else "right" -%}
+            {%- set pos_bubble = "top-right" if idx % 2 == 0 else "top-left" -%}
+            {%- set tail = "bubble-tail-right" if idx % 2 == 0 else "bubble-tail-left" -%}
+            {%- set is_wide = (idx == 0 or idx == loop.length - 1) -%}
+
+            <div class="gibi-panel {% if is_wide %}wide{% elif idx in [1, 4] %}tall{% endif %}">
+
+                <!-- Cenário de fundo -->
+                <div class="gibi-scene"
+                     style="background-image: url('/static/ilustracoes/{{ capitulo.cenario }}');"></div>
+
+                <!-- Sombra do personagem -->
+                <div class="gibi-shadow {{ pos_char }}"></div>
+
+                <!-- Personagem animado -->
+                <img src="/static/personagens/{{ quadro.imagem }}"
+                     alt="{{ quadro.personagem }}"
+                     class="gibi-char {{ pos_char }}"
+                     onerror="this.src='https://ui-avatars.com/api/?name={{ quadro.personagem }}&size=200'">
+
+                <!-- Balão de Fala -->
+                <div class="speech-bubble {{ pos_bubble }}">
+                    <div class="bubble-inner">
+                        <span class="speaker-name">{{ quadro.personagem | upper }}</span>
+                        <span class="bubble-text">{{ quadro.texto }}</span>
+                        <div class="{{ tail }}"></div>
+                    </div>
+                </div>
+
+                <!-- Onomatopeia no último quadro -->
+                {% if idx == loop.length - 1 %}
+                <div class="onomatopeia">AU AU!</div>
+                {% endif %}
+
+                <!-- Botão TTS -->
+                <button class="tts-btn" onclick="lerTexto(this)"
+                        data-texto="{{ quadro.personagem }} diz: {{ quadro.texto }}" title="Ouvir">
+                    🔊
+                </button>
+
+            </div>
+            {% endfor %}
+
+          </div><!-- /gibi-grid -->
+        </div><!-- /gibi-page -->
+
         <div class="mt-8 flex justify-end">
-            <button @click="etapa = 2" class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:bg-orange-600 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2">
-                Avançar <span class="text-xl">👉</span>
+            <button @click="etapa = 2" class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:bg-orange-600 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2"
+                    style="font-family:'Bangers',cursive; letter-spacing:0.06em; font-size:1.3rem;">
+                AVANÇAR <span class="text-xl">👉</span>
             </button>
         </div>
     </div>
