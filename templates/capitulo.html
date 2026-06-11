@@ -10,45 +10,83 @@
     ======================== */
     body { background: #f5f5f0; }
 
+    .full-bleed {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
     .gibi-page {
-        background: #fff;
-        border: 4px solid #111;
-        box-shadow: 8px 8px 0 #111, 16px 16px 0 rgba(0,0,0,0.15);
+        background: #000;
         font-family: 'Comic Neue', 'Comic Sans MS', cursive;
         position: relative;
-        overflow: hidden;
     }
 
     /* The comic grid - panels of varying sizes */
     .gibi-grid {
         display: grid;
-        gap: 0;
+        gap: 2px;
+        background: #000;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
     }
 
     .gibi-panel {
-        border: 3px solid #111;
         position: relative;
         overflow: hidden;
         min-height: 280px;
-        background-color: #f0e8d0;
+        background-color: #000;
         cursor: default;
         transition: filter 0.2s;
     }
     .gibi-panel:hover { filter: brightness(1.04); }
 
     /* Panel size variations */
-    .gibi-panel.wide { grid-column: span 2; min-height: 320px; }
+    .gibi-panel.wide { grid-column: span 2; min-height: 500px; }
     .gibi-panel.tall { min-height: 380px; }
+
+    @media (max-width: 768px) {
+        .gibi-grid {
+            grid-template-columns: 1fr;
+        }
+        .gibi-panel, .gibi-panel.wide, .gibi-panel.tall {
+            grid-column: span 1 !important;
+            min-height: 380px; /* Maior para não cortar rostos no celular */
+            border-left: none;
+            border-right: none;
+            border-width: 3px 0;
+        }
+    }
 
     /* Scene background fills the panel */
     .gibi-scene {
         position: absolute;
         inset: 0;
         background-size: cover;
-        background-position: center;
+        background-repeat: no-repeat;
+        background-position: top center;
     }
+
+    .gibi-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        z-index: 6;
+        pointer-events: none;
+    }
+    .gibi-panel.video-active .gibi-video {
+        opacity: 1;
+    }
+
+    /* Ajuste para não cortar as cabeças da última imagem */
+    .gibi-panel:last-child .gibi-scene { background-position: center 25%; }
+    .gibi-panel:last-child .gibi-video { object-position: center 25%; }
 
     /* Slight color overlay per panel for variety */
     .gibi-panel:nth-child(2n) .gibi-scene { filter: saturate(1.1) brightness(0.95); }
@@ -294,22 +332,20 @@
 </div>
 
 <!-- Container Principal com Alpine.js para controlar as etapas -->
-<!-- Etapas: 1 (Gibi), 2 (Animação e Explicação), 3 (Quiz), 4 (Conquista) -->
-<div x-data="{ etapa: 1, maxEtapas: 4, acertos: 0 }" class="bg-white rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 p-6 md:p-8">
+<div x-data="{ etapa: 1, maxEtapas: 4, acertos: 0 }" class="w-full">
 
     <!-- Progresso do Capítulo -->
-    <div class="w-full bg-gray-200 rounded-full h-3 mb-8 shadow-inner overflow-hidden">
-        <div class="bg-mandacaru-green h-3 rounded-full transition-all duration-500 ease-in-out" :style="`width: ${(etapa / maxEtapas) * 100}%`"></div>
+    <div class="full-bleed bg-gray-200 h-2 mb-4">
+        <div class="bg-mandacaru-green h-2 transition-all duration-500 ease-in-out" :style="`width: ${(etapa / maxEtapas) * 100}%`"></div>
     </div>
 
     <!-- ETAPA 1: GIBI / QUADRINHOS -->
-    <div x-show="etapa === 1" x-transition.opacity.duration.500ms>
+    <div x-show="etapa === 1" x-transition.opacity.duration.500ms class="full-bleed bg-black">
 
         <!-- Título do Capítulo em estilo HQ -->
-        <div style="font-family:'Bangers',cursive; font-size:2rem; letter-spacing:0.06em; text-align:center;
-                    color:#fff; background:#111; border:4px solid #111; padding:10px 0; margin-bottom:0;
-                    text-shadow: 3px 3px 0 #e63;
-                    box-shadow: 0 4px 0 #e63;">
+        <div style="font-family:'Bangers',cursive; font-size:2.5rem; letter-spacing:0.06em; text-align:center;
+                    color:#fff; background:#111; padding:20px 0; margin-bottom:0;
+                    text-shadow: 2px 2px 0 #e63;">
             📖 {{ capitulo.titulo }}
         </div>
 
@@ -332,9 +368,20 @@
             <div class="gibi-panel {% if is_wide %}wide{% elif idx in [1, 4] %}tall{% endif %}">
 
                 <!-- Cenário de fundo -->
+                {% set img_bg = '/static/cenas/' ~ quadro.cenario_quadro if quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
                 <div class="gibi-scene"
-                     style="background-image: url('/static/ilustracoes/{{ capitulo.cenario }}');"></div>
+                     style="background-image: url('{{ img_bg }}');"></div>
 
+                {% if quadro.video_quadro %}
+                <!-- Vídeo embutido -->
+                <video src="/static/cenas/{{ quadro.video_quadro }}"
+                       class="gibi-video"
+                       preload="none"
+                       loop
+                       playsinline></video>
+                {% endif %}
+
+                {% if quadro.imagem %}
                 <!-- Sombra do personagem -->
                 <div class="gibi-shadow {{ pos_char }}"></div>
 
@@ -343,7 +390,9 @@
                      alt="{{ quadro.personagem }}"
                      class="gibi-char {{ pos_char }}"
                      onerror="this.src='https://ui-avatars.com/api/?name={{ quadro.personagem }}&size=200'">
+                {% endif %}
 
+                {% if quadro.texto %}
                 <!-- Balão de Fala -->
                 <div class="speech-bubble {{ pos_bubble }}">
                     <div class="bubble-inner">
@@ -363,6 +412,7 @@
                         data-texto="{{ quadro.personagem }} diz: {{ quadro.texto }}" title="Ouvir">
                     🔊
                 </button>
+                {% endif %}
 
             </div>
             {% endfor %}
@@ -379,7 +429,7 @@
     </div>
 
     <!-- ETAPA 2: EXPLICAÇÃO E ANIMAÇÃO -->
-    <div x-show="etapa === 2" x-transition.opacity.duration.500ms style="display: none;">
+    <div x-show="etapa === 2" x-transition.opacity.duration.500ms style="display: none;" class="bg-white p-6 md:p-8 rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 mt-4">
         <h2 class="text-2xl font-bold text-ceu-blue mb-6 text-center border-b-2 border-blue-200 pb-2">Parte 2: O que aprendemos?</h2>
         
         <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
@@ -429,7 +479,7 @@
     </div>
 
     <!-- ETAPA 3: QUIZ -->
-    <div x-show="etapa === 3" x-transition.opacity.duration.500ms style="display: none;">
+    <div x-show="etapa === 3" x-transition.opacity.duration.500ms style="display: none;" class="bg-white p-6 md:p-8 rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 mt-4">
         <h2 class="text-2xl font-bold text-terra-brown mb-6 text-center border-b-2 border-amber-200 pb-2">Parte 3: Hora do Desafio!</h2>
         
         <div class="text-center p-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300">
@@ -445,7 +495,7 @@
     </div>
 
     <!-- ETAPA 4: CONQUISTA -->
-    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;">
+    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;" class="bg-white p-6 md:p-8 rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 mt-4">
         <div class="text-center">
             <h2 class="text-4xl font-extrabold text-mandacaru-green mb-2 drop-shadow-sm">Parabéns! 🎉</h2>
             <p class="text-xl font-bold text-gray-600 mb-8">Você terminou o capítulo e ganhou uma conquista!</p>
@@ -464,4 +514,48 @@
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const panels = document.querySelectorAll('.gibi-panel');
+    panels.forEach(panel => {
+        const video = panel.querySelector('.gibi-video');
+        if (!video) return;
+
+        let hoverTimeout;
+
+        panel.addEventListener('mouseenter', () => {
+            // Pausa qualquer outro vídeo ativo imediatamente
+            document.querySelectorAll('.gibi-video').forEach(v => {
+                if (v !== video && !v.paused) {
+                    v.pause();
+                    v.currentTime = 0;
+                    const p = v.closest('.gibi-panel');
+                    if (p) p.classList.remove('video-active');
+                }
+            });
+
+            // Espera 1.5 segundos com o mouse por cima
+            hoverTimeout = setTimeout(() => {
+                video.play().then(() => {
+                    panel.classList.add('video-active');
+                }).catch(e => console.log('Autoplay prevent or video error:', e));
+            }, 1500);
+        });
+
+        panel.addEventListener('mouseleave', () => {
+            clearTimeout(hoverTimeout);
+            panel.classList.remove('video-active');
+            
+            // Pausa o vídeo após o fade-out concluir (0.5s)
+            setTimeout(() => {
+                if (!panel.classList.contains('video-active')) {
+                    video.pause();
+                    video.currentTime = 0; // Opcional: reinicia o vídeo
+                }
+            }, 500);
+        });
+    });
+});
+</script>
 {% endblock %}

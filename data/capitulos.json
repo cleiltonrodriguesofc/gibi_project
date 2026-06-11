@@ -11,34 +11,46 @@
     "conquista_icone": "star",
     "quadros": [
       {
-        "imagem": "joao_neutro_sem_fundo.png",
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
         "personagem": "João",
-        "texto": "Eita! Esse negócio de primeiro socorro deve ser só pra médico, num é não, Maria?"
+        "texto": ""
       },
       {
-        "imagem": "maria_explicando_sem_fundo.png",
+        "imagem": "",
+        "cenario_quadro": "cena_2.png",
+        "video_quadro": "vid_cena_2.mp4",
         "personagem": "Maria",
-        "texto": "Que nada, João! Qualquer pessoa pode aprender o básico. Olha, o Padre Cícero até disse que saber ajudar é um dom de Deus!"
+        "texto": ""
       },
       {
-        "imagem": "caramelo_feliz_sem_fundo.png",
+        "imagem": "",
+        "cenario_quadro": "cena_3.png",
+        "video_quadro": "vid_cena_3.mp4",
         "personagem": "Caramelo",
-        "texto": "Au au! (Caramelo abana o rabo e late como se concordasse animadinho)"
+        "texto": ""
       },
       {
-        "imagem": "padre_cicero_ensinando_sem_fundo.png",
+        "imagem": "",
+        "cenario_quadro": "cena_4.png",
+        "video_quadro": "vid_cena_4.mp4",
         "personagem": "Padre Cícero",
-        "texto": "Meus filhos, 'quem sabe ajudar, salva vidas'. Vou apresentar nossa vila e nossos amigos pra vocês aprenderem juntos!"
+        "texto": ""
       },
       {
-        "imagem": "joao_neutro_sem_fundo.png",
+        "imagem": "",
+        "cenario_quadro": "cena_5.png",
+        "video_quadro": "vid_cena_5.mp4",
         "personagem": "João",
-        "texto": "Bora, então! Eu quero aprender tudo! Mas... com calma, né? Eu às vezes me empolgo demais..."
+        "texto": ""
       },
       {
-        "imagem": "maria_explicando_sem_fundo.png",
+        "imagem": "",
+        "cenario_quadro": "cena_6.png",
+        "video_quadro": "vid_cena_6.mp4",
         "personagem": "Maria",
-        "texto": "Exatamente, João! Calma e atenção são os primeiros socorros da gente também!"
+        "texto": ""
       }
     ]
   },
