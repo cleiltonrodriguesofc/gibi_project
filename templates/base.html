@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Guardiões da Saúde{% endblock %}</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS (CDN for simplicity without build step) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,14 +16,20 @@
             theme: {
                 extend: {
                     colors: {
-                        'sertao-yellow': '#FBBF24',
-                        'mandacaru-orange': '#F97316',
-                        'terra-brown': '#78350F',
-                        'mandacaru-green': '#22C55E',
-                        'ceu-blue': '#38BDF8'
+                        'sertao-yellow': '#FFD166',
+                        'mandacaru-orange': '#EF476F',
+                        'terra-brown': '#403D39',
+                        'mandacaru-green': '#06D6A0',
+                        'ceu-blue': '#118AB2'
                     },
                     fontFamily: {
-                        sans: ['"Comic Sans MS"', 'Chalkboard SE', 'sans-serif'],
+                        sans: ['Nunito', 'sans-serif'],
+                        comic: ['Bangers', 'cursive']
+                    },
+                    boxShadow: {
+                        'comic': '4px 4px 0px 0px rgba(64, 61, 57, 1)',
+                        'comic-hover': '8px 8px 0px 0px rgba(64, 61, 57, 1)',
+                        'comic-active': '0px 0px 0px 0px rgba(64, 61, 57, 1)',
                     }
                 }
             }
@@ -28,52 +38,81 @@
 
     <!-- Alpine.js for lightweight reactivity -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- Lottie Player -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/static/css/custom.css">
+    
+    <style>
+        /* Classic Comic Book Half-Tone Background */
+        .comic-bg {
+            background-color: #FEFAE0;
+            background-image: radial-gradient(#F4E285 15%, transparent 16%), radial-gradient(#F4E285 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 2px #403D39;
+        }
+        .btn-comic {
+            @apply shadow-comic border-2 border-terra-brown font-black uppercase transition-all duration-200 active:shadow-comic-active active:translate-y-1 active:translate-x-1;
+        }
+    </style>
 
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-amber-50 text-terra-brown font-sans flex flex-col min-h-screen transition-colors duration-300">
+<body class="comic-bg text-terra-brown font-sans flex flex-col min-h-screen transition-colors duration-300">
 
-    <!-- Header -->
-    <header class="bg-sertao-yellow p-4 shadow-md flex justify-between items-center sticky top-0 z-50">
-        <a href="/" class="flex items-center gap-2">
-            <span class="text-2xl font-bold text-terra-brown drop-shadow-sm">Guardiões da Saúde</span>
-        </a>
-        
-        <!-- Acessibilidade Toggles -->
-        <div class="flex gap-2">
-            <button onclick="document.body.classList.toggle('high-contrast')" 
-                    class="bg-terra-brown text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm hover:bg-amber-900 transition"
-                    aria-label="Alternar Alto Contraste">
-                🌓 Contraste
-            </button>
-            <button onclick="ajustarFonte(1)" 
-                    class="bg-ceu-blue text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm hover:bg-blue-600 transition"
-                    aria-label="Aumentar Fonte">
-                +A
-            </button>
-            <button onclick="ajustarFonte(-1)" 
-                    class="bg-ceu-blue text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm hover:bg-blue-600 transition"
-                    aria-label="Diminuir Fonte">
-                -A
-            </button>
+    <!-- Floating Comic Header -->
+    <header class="mx-4 mt-4 md:mx-auto max-w-6xl w-full sticky top-4 z-50">
+        <div class="bg-white p-4 rounded-2xl shadow-comic border-4 border-terra-brown flex flex-wrap justify-between items-center gap-4">
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-mandacaru-orange rounded-full flex items-center justify-center border-2 border-terra-brown shadow-sm group-hover:rotate-12 transition">
+                    <span class="text-white text-xl">🦸‍♂️</span>
+                </div>
+                <span class="text-3xl font-comic text-ceu-blue tracking-wide text-stroke" style="-webkit-text-stroke: 1px #403D39; color: #118AB2;">Guardiões da Saúde</span>
+            </a>
+            
+            <!-- Acessibilidade Toggles -->
+            <div class="flex gap-3">
+                <button onclick="document.body.classList.toggle('high-contrast')" 
+                        class="btn-comic bg-sertao-yellow text-terra-brown px-4 py-2 rounded-xl text-sm"
+                        aria-label="Alternar Alto Contraste">
+                    🌓 <span class="hidden sm:inline">Contraste</span>
+                </button>
+                <div class="flex gap-2 bg-gray-100 p-1 border-2 border-terra-brown rounded-xl shadow-comic">
+                    <button onclick="ajustarFonte(-1)" 
+                            class="bg-white text-terra-brown px-3 py-1 rounded-lg text-sm font-bold hover:bg-gray-200 transition"
+                            aria-label="Diminuir Fonte">
+                        -A
+                    </button>
+                    <button onclick="ajustarFonte(1)" 
+                            class="bg-white text-terra-brown px-3 py-1 rounded-lg text-sm font-bold hover:bg-gray-200 transition"
+                            aria-label="Aumentar Fonte">
+                        +A
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow p-4 md:p-8 max-w-6xl mx-auto w-full">
+    <main class="flex-grow p-4 md:p-8 max-w-6xl mx-auto w-full mt-4">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-terra-brown text-amber-50 p-6 mt-auto text-center">
-        <p class="font-bold">Projeto de Extensão - Liga Acadêmica de Saúde Digital (UFPI)</p>
-        <p class="text-sm mt-2 opacity-80">Desenvolvido por Cleilton & Carlos Eduardo</p>
+    <footer class="bg-terra-brown text-amber-50 p-8 mt-auto border-t-8 border-ceu-blue relative overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+            <div class="text-center md:text-left">
+                <p class="font-comic text-2xl text-sertao-yellow tracking-wider">LIGA ACADÊMICA DE SAÚDE DIGITAL</p>
+                <p class="font-bold text-lg mt-1">Projeto de Extensão - UFPI</p>
+            </div>
+            <div class="bg-black/20 p-4 rounded-xl border border-white/10 text-center md:text-right">
+                <p class="text-sm font-bold uppercase tracking-widest text-mandacaru-green">Desenvolvido por</p>
+                <p class="text-lg font-black text-white mt-1">Cleilton & Carlos Eduardo</p>
+            </div>
+        </div>
     </footer>
 
     <!-- Acessibility Scripts -->
@@ -86,7 +125,6 @@
             document.documentElement.style.fontSize = `${fontSizeBase}px`;
         }
 
-        // Simples TTS (Text To Speech) helper function
         function lerTexto(btn) {
             if ('speechSynthesis' in window) {
                 const texto = btn.getAttribute('data-texto');

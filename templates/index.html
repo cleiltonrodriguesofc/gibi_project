@@ -3,39 +3,40 @@
 {% block title %}Capa - Guardiões da Saúde{% endblock %}
 
 {% block content %}
-<div class="text-center mb-8">
-    <h1 class="text-4xl md:text-5xl font-bold text-mandacaru-orange mb-4 drop-shadow-md">
-        As Aventuras dos Guardiões da Saúde!
+<div class="text-center mb-16 relative mt-8">
+    <h1 class="font-comic text-6xl md:text-8xl tracking-wider text-mandacaru-orange mb-6 text-stroke drop-shadow-xl" style="line-height: 1.1; -webkit-text-stroke: 2px #403D39; color: #EF476F;">
+        AS AVENTURAS DOS<br>
+        <span class="text-ceu-blue" style="color: #118AB2;">GUARDIÕES DA SAÚDE!</span>
     </h1>
-    <p class="text-lg md:text-xl max-w-2xl mx-auto bg-white p-4 rounded-xl shadow-sm border-2 border-sertao-yellow">
+    <p class="text-lg md:text-2xl max-w-2xl mx-auto bg-white/90 backdrop-blur-sm p-6 rounded-3xl shadow-comic border-4 border-terra-brown font-bold text-terra-brown leading-relaxed">
         Aprenda primeiros socorros de forma divertida! Escolha um capítulo abaixo para começar sua aventura na Vila Esperança.
     </p>
 </div>
 
 <!-- Capítulos Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
     {% for cap in capitulos %}
-    <div class="bg-white rounded-2xl shadow-lg border-4 border-ceu-blue overflow-hidden transform transition hover:scale-105">
+    <div class="bg-white rounded-3xl shadow-comic border-4 border-terra-brown overflow-hidden transform transition duration-300 hover:-translate-y-2 hover:rotate-1 hover:shadow-comic-hover relative flex flex-col group">
         <!-- Badge Status -->
-        <div class="bg-{{ 'mandacaru-green' if cap.disponivel else 'gray-400' }} text-white text-center py-1 font-bold uppercase text-sm tracking-wider">
+        <div class="absolute top-6 right-[-35px] bg-{{ 'mandacaru-green' if cap.disponivel else 'gray-400' }} text-white font-black uppercase text-xs tracking-widest py-1.5 px-10 transform rotate-45 shadow-sm border-y-2 border-terra-brown z-10">
             {{ "Disponível!" if cap.disponivel else "Em Breve 🔒" }}
         </div>
         
-        <div class="p-5 flex flex-col items-center justify-between h-full min-h-[220px]">
+        <div class="p-6 flex flex-col items-center justify-between h-full min-h-[280px] relative z-0">
             <!-- Cap number & Title -->
-            <div class="w-12 h-12 bg-sertao-yellow rounded-full flex items-center justify-center font-bold text-2xl mb-3 shadow-inner">
-                {{ cap.id }}
+            <div class="w-16 h-16 bg-sertao-yellow rounded-full flex items-center justify-center font-comic text-4xl mb-4 border-4 border-terra-brown shadow-sm group-hover:scale-110 transition text-terra-brown">
+                #{{ cap.id }}
             </div>
             
-            <h2 class="text-xl font-bold text-center mb-2 leading-tight">{{ cap.titulo }}</h2>
-            <p class="text-sm text-center opacity-80 flex-grow">{{ cap.descricao }}</p>
+            <h2 class="font-comic text-2xl text-center mb-3 leading-tight text-ceu-blue tracking-wide">{{ cap.titulo }}</h2>
+            <p class="text-sm font-bold text-center text-gray-600 flex-grow px-2">{{ cap.descricao }}</p>
             
             {% if cap.disponivel %}
-                <a href="/capitulo/{{ cap.id }}" class="mt-4 w-full block text-center bg-mandacaru-orange text-white font-bold py-2 rounded-xl shadow-md hover:bg-orange-600 transition">
+                <a href="/capitulo/{{ cap.id }}" class="mt-6 w-full block text-center bg-mandacaru-orange text-white font-black text-xl py-3 rounded-2xl shadow-comic border-2 border-terra-brown hover:bg-orange-600 active:translate-y-1 active:translate-x-1 active:shadow-comic-active transition uppercase tracking-wider">
                     Ler Agora 📖
                 </a>
             {% else %}
-                <button disabled class="mt-4 w-full block text-center bg-gray-200 text-gray-500 font-bold py-2 rounded-xl cursor-not-allowed">
+                <button disabled class="mt-6 w-full block text-center bg-gray-200 text-gray-400 font-black text-xl py-3 rounded-2xl border-2 border-gray-300 cursor-not-allowed uppercase tracking-wider">
                     Aguarde...
                 </button>
             {% endif %}
@@ -45,11 +46,11 @@
 </div>
 
 <!-- Navegação Inferior -->
-<div class="mt-12 flex justify-center gap-4">
-    <a href="/mapa" class="bg-ceu-blue text-white px-6 py-3 rounded-2xl font-bold text-lg shadow-md hover:bg-blue-600 transition flex items-center gap-2">
+<div class="mt-16 mb-8 flex flex-col sm:flex-row justify-center gap-6">
+    <a href="/mapa" class="btn-comic bg-ceu-blue text-white px-8 py-4 rounded-3xl font-black text-xl flex items-center justify-center gap-3">
         🗺️ Onde Procurar Ajuda?
     </a>
-    <a href="/conquistas" class="bg-sertao-yellow text-terra-brown px-6 py-3 rounded-2xl font-bold text-lg shadow-md hover:bg-yellow-500 transition flex items-center gap-2">
+    <a href="/conquistas" class="btn-comic bg-sertao-yellow text-terra-brown px-8 py-4 rounded-3xl font-black text-xl flex items-center justify-center gap-3">
         🏅 Minhas Medalhas
     </a>
 </div>
