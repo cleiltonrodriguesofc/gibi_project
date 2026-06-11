@@ -31,60 +31,61 @@
         width: 100%;
     }
 
-    /* The comic grid - panels of varying sizes */
+    /* The comic grid - Flex Justified Layout */
     .gibi-grid {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: 4px;
         background: #000;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
+        padding-bottom: 4px;
+    }
+
+    .gibi-row {
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+        width: 100%;
     }
 
     .gibi-panel {
         position: relative;
         overflow: hidden;
-        /* No background-color — let the image fill 100% */
         cursor: default;
         transition: filter 0.2s;
-        aspect-ratio: 4 / 3;
+        flex: 1 1 0; /* Shrink/grow baseline before image ratio kicks in */
     }
     .gibi-panel:hover { filter: brightness(1.05); }
 
-    /* Panel size variations */
-    .gibi-panel.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
-    .gibi-panel.tall { aspect-ratio: 3 / 4; }
+    /* Wide panel occupies full row */
+    .gibi-panel.wide {
+        width: 100%;
+        flex: none;
+    }
 
     @media (max-width: 768px) {
-        .gibi-grid {
-            grid-template-columns: 1fr;
-            gap: 4px;
+        .gibi-row {
+            flex-direction: column;
         }
-        .gibi-panel, .gibi-panel.wide, .gibi-panel.tall {
-            grid-column: span 1 !important;
-            aspect-ratio: 16 / 9 !important;
+        .gibi-panel {
+            flex: none !important;
+            width: 100%;
         }
     }
 
-    /* Scene background fills the panel completely — no black gaps */
-    .gibi-scene {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-repeat: no-repeat;
-        /* center center fills from middle, avoiding black bars on any side */
-        background-position: center center;
+    /* Scene image dictating height natively */
+    .gibi-scene-img {
+        width: 100%;
+        height: auto;
+        display: block;
     }
-    /* First wide panel: show the top (usually the characters' faces/sky) */
-    .gibi-panel:first-child .gibi-scene { background-position: top center; }
-    .gibi-panel:first-child .gibi-video { object-position: top center; }
 
     .gibi-video {
         position: absolute;
-        inset: 0;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center center;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
         z-index: 6;
@@ -159,26 +160,56 @@
         ======================== -->
         <div class="gibi-page">
             <div class="gibi-grid">
-                {% for quadro in capitulo.quadros %}
-                {%- set idx = loop.index0 -%}
-                {%- set is_wide = (idx == 0 or idx == loop.length - 1) -%}
-
-                <div class="gibi-panel {% if is_wide %}wide{% elif idx in [1, 4] %}tall{% endif %}">
-                    <!-- Cenário de fundo -->
-                    {% set img_bg = '/static/cenas/' ~ quadro.cenario_quadro if quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
-                    <div class="gibi-scene" style="background-image: url('{{ img_bg }}');"></div>
-
-                    {% if quadro.video_quadro %}
-                    <!-- Vídeo embutido -->
-                    <video src="/static/cenas/{{ quadro.video_quadro }}"
-                           class="gibi-video"
-                           preload="none"
-                           loop
-                           playsinline></video>
+                {% if capitulo.quadros|length > 0 %}
+                    <!-- Primeiro quadro (wide) -->
+                    {% set first_quadro = capitulo.quadros[0] %}
+                    <div class="gibi-panel wide">
+                        {% set img_bg = '/static/cenas/' ~ first_quadro.cenario_quadro if first_quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
+                        <img src="{{ img_bg }}" class="gibi-scene-img" alt="Cena do gibi">
+                        {% if first_quadro.video_quadro %}
+                        <video src="/static/cenas/{{ first_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Quadros intermediários (duplas) -->
+                    {% if capitulo.quadros|length > 2 %}
+                        {% for row in capitulo.quadros[1:-1] | batch(2) %}
+                            <div class="gibi-row">
+                                {% for quadro in row %}
+                                    <div class="gibi-panel">
+                                        {% set img_bg = '/static/cenas/' ~ quadro.cenario_quadro if quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
+                                        <img src="{{ img_bg }}" class="gibi-scene-img inline-flex-img" alt="Cena do gibi" onload="if(this.naturalHeight) this.parentElement.style.flex = (this.naturalWidth / this.naturalHeight) + ' 1 0';">
+                                        {% if quadro.video_quadro %}
+                                        <video src="/static/cenas/{{ quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
                     {% endif %}
-                </div>
-                {% endfor %}
+
+                    <!-- Último quadro (wide) -->
+                    {% if capitulo.quadros|length > 1 %}
+                        {% set last_quadro = capitulo.quadros[-1] %}
+                        <div class="gibi-panel wide">
+                            {% set img_bg = '/static/cenas/' ~ last_quadro.cenario_quadro if last_quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
+                            <img src="{{ img_bg }}" class="gibi-scene-img" alt="Cena do gibi">
+                            {% if last_quadro.video_quadro %}
+                            <video src="/static/cenas/{{ last_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endif %}
             </div>
+            
+            <script>
+                // Para garantir que imagens em cache também recebam o flex correto se o onload não disparar
+                document.querySelectorAll('.inline-flex-img').forEach(img => {
+                    if (img.complete && img.naturalHeight) {
+                        img.parentElement.style.flex = (img.naturalWidth / img.naturalHeight) + ' 1 0';
+                    }
+                });
+            </script>
         </div>
 
         <!-- Botão Avançar no final do Gibi -->
