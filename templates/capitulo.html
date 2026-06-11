@@ -5,28 +5,36 @@
 {% block extra_head %}
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 <style>
-    /* ========================
-       GIBI / COMIC BOOK STYLES
-    ======================== */
-    body { background: #f5f5f0; }
-
-    .full-bleed {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin-left: 50% !important;
-        transform: translateX(-50%) !important;
+    /* Hide base header/footer */
+    header, footer {
+        display: none !important;
+    }
+    
+    /* Reset main container styles to take full screen */
+    main {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    body {
+        background-color: #090d16 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .gibi-page {
         background: #000;
         font-family: 'Comic Neue', 'Comic Sans MS', cursive;
         position: relative;
+        width: 100%;
     }
 
     /* The comic grid - panels of varying sizes */
     .gibi-grid {
         display: grid;
-        gap: 2px;
+        gap: 4px;
         background: #000;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
@@ -35,38 +43,40 @@
     .gibi-panel {
         position: relative;
         overflow: hidden;
-        min-height: 280px;
-        background-color: #000;
+        /* No background-color — let the image fill 100% */
         cursor: default;
         transition: filter 0.2s;
+        aspect-ratio: 4 / 3;
     }
-    .gibi-panel:hover { filter: brightness(1.04); }
+    .gibi-panel:hover { filter: brightness(1.05); }
 
     /* Panel size variations */
-    .gibi-panel.wide { grid-column: span 2; min-height: 500px; }
-    .gibi-panel.tall { min-height: 380px; }
+    .gibi-panel.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
+    .gibi-panel.tall { aspect-ratio: 3 / 4; }
 
     @media (max-width: 768px) {
         .gibi-grid {
             grid-template-columns: 1fr;
+            gap: 4px;
         }
         .gibi-panel, .gibi-panel.wide, .gibi-panel.tall {
             grid-column: span 1 !important;
-            min-height: 380px; /* Maior para não cortar rostos no celular */
-            border-left: none;
-            border-right: none;
-            border-width: 3px 0;
+            aspect-ratio: 16 / 9 !important;
         }
     }
 
-    /* Scene background fills the panel */
+    /* Scene background fills the panel completely — no black gaps */
     .gibi-scene {
         position: absolute;
         inset: 0;
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: top center;
+        /* center center fills from middle, avoiding black bars on any side */
+        background-position: center center;
     }
+    /* First wide panel: show the top (usually the characters' faces/sky) */
+    .gibi-panel:first-child .gibi-scene { background-position: top center; }
+    .gibi-panel:first-child .gibi-video { object-position: top center; }
 
     .gibi-video {
         position: absolute;
@@ -74,7 +84,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: top center;
+        object-position: center center;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
         z-index: 6;
@@ -84,432 +94,189 @@
         opacity: 1;
     }
 
-    /* Ajuste para não cortar as cabeças da última imagem */
-    .gibi-panel:last-child .gibi-scene { background-position: center 25%; }
-    .gibi-panel:last-child .gibi-video { object-position: center 25%; }
-
-    /* Slight color overlay per panel for variety */
-    .gibi-panel:nth-child(2n) .gibi-scene { filter: saturate(1.1) brightness(0.95); }
-    .gibi-panel:nth-child(3n) .gibi-scene { filter: hue-rotate(5deg) brightness(1.05); }
-
-    /* Character inside panel */
-    .gibi-char {
-        position: absolute;
-        bottom: 0;
-        height: 85%;
-        object-fit: contain;
-        filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.5));
-        animation: breathe 3s ease-in-out infinite;
-        transform-origin: bottom center;
-        z-index: 5;
-    }
-    .gibi-char.left  { left: 8%; }
-    .gibi-char.right { right: 8%; }
-    .gibi-char.center { left: 50%; transform: translateX(-50%); }
-    .gibi-char.center:hover { transform: translateX(-50%) scale(1.03); }
-
-    @keyframes breathe {
-        0%,100% { transform: scaleY(1) translateY(0); }
-        50%      { transform: scaleY(1.025) translateY(-4px); }
-    }
-    .gibi-char.center {
-        animation: breathe-center 3s ease-in-out infinite;
-    }
-    @keyframes breathe-center {
-        0%,100% { transform: translateX(-50%) scaleY(1) translateY(0); }
-        50%      { transform: translateX(-50%) scaleY(1.025) translateY(-4px); }
-    }
-
-    /* Ground shadow under character */
-    .gibi-shadow {
-        position: absolute;
-        bottom: 4px;
-        width: 80px;
-        height: 14px;
-        background: rgba(0,0,0,0.28);
-        border-radius: 50%;
-        filter: blur(4px);
-        z-index: 4;
-    }
-    .gibi-shadow.left   { left: calc(8% + 20px); }
-    .gibi-shadow.right  { right: calc(8% + 20px); }
-    .gibi-shadow.center { left: 50%; transform: translateX(-50%); }
-
-    /* ========================
-       SVG SPEECH BUBBLES
-    ======================== */
-    .speech-bubble {
-        position: absolute;
-        z-index: 20;
-        font-family: 'Bangers', 'Comic Neue', cursive;
-        font-size: 1rem;
-        letter-spacing: 0.02em;
-        line-height: 1.3;
-        text-align: left;
-        max-width: 62%;
-        filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.6));
-        animation: bubble-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-    }
-    .speech-bubble.top-left  { top: 8px; left: 6px; }
-    .speech-bubble.top-right { top: 8px; right: 6px; }
-    .speech-bubble.top-center { top: 8px; left: 50%; transform: translateX(-50%); }
-
-    @keyframes bubble-pop {
-        0%   { opacity: 0; transform: scale(0.6); }
-        70%  { opacity: 1; transform: scale(1.06); }
-        100% { opacity: 1; transform: scale(1); }
-    }
-    .speech-bubble.top-right { animation: bubble-pop-right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
-    @keyframes bubble-pop-right {
-        0%   { opacity: 0; transform: scale(0.6); }
-        70%  { opacity: 1; transform: scale(1.06); }
-        100% { opacity: 1; transform: scale(1); }
-    }
-
-    .bubble-inner {
-        background: #fff;
-        border: 2.5px solid #111;
-        border-radius: 50%/30%;
-        padding: 10px 14px;
-        position: relative;
-    }
-    .bubble-inner .speaker-name {
-        font-family: 'Bangers', cursive;
-        font-size: 0.75rem;
-        color: #c04;
-        letter-spacing: 0.04em;
-        display: block;
-        margin-bottom: 3px;
-    }
-    .bubble-inner .bubble-text {
-        font-family: 'Comic Neue', 'Comic Sans MS', cursive;
-        font-size: 0.88rem;
-        font-weight: 700;
-        color: #111;
-        line-height: 1.35;
-    }
-
-    /* Tail (rabicho) as CSS triangle */
-    .bubble-tail-left {
-        position: absolute;
-        bottom: -18px;
-        left: 22px;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 20px solid #111;
-    }
-    .bubble-tail-left::after {
-        content: '';
-        position: absolute;
-        top: -22px;
-        left: -9px;
-        width: 0;
-        height: 0;
-        border-left: 9px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 19px solid #fff;
-    }
-    .bubble-tail-right {
-        position: absolute;
-        bottom: -18px;
-        right: 22px;
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 20px solid #111;
-    }
-    .bubble-tail-right::after {
-        content: '';
-        position: absolute;
-        top: -22px;
-        right: -9px;
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 9px solid transparent;
-        border-top: 19px solid #fff;
-    }
-
-    /* ========================
-       ONOMATOPOEIA
-    ======================== */
-    .onomatopeia {
-        font-family: 'Bangers', cursive;
-        position: absolute;
-        bottom: 12px;
-        right: 10px;
-        font-size: 2.2rem;
-        color: #f00;
-        -webkit-text-stroke: 1.5px #000;
-        text-shadow: 3px 3px 0 #000;
-        z-index: 10;
-        transform: rotate(-8deg);
-        pointer-events: none;
-        animation: shake 2.5s ease-in-out infinite;
-    }
-    @keyframes shake {
-        0%,100% { transform: rotate(-8deg) scale(1); }
-        50%      { transform: rotate(-5deg) scale(1.06); }
-    }
-
-    /* ========================
-       CAPTION BOX (narrador)
-    ======================== */
-    .caption-box {
-        position: absolute;
-        bottom: 8px;
-        left: 0; right: 0;
-        background: #ffe066;
-        border-top: 2.5px solid #111;
-        border-bottom: 2.5px solid #111;
-        padding: 5px 12px;
-        font-family: 'Bangers', cursive;
-        font-size: 0.9rem;
-        letter-spacing: 0.04em;
-        color: #333;
-        z-index: 10;
-        text-align: center;
-    }
-
-    /* TTS button */
-    .tts-btn {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        width: 28px;
-        height: 28px;
-        background: rgba(0,100,200,0.85);
-        border-radius: 50%;
-        border: none;
-        font-size: 0.8rem;
-        color: #fff;
-        cursor: pointer;
-        z-index: 30;
+    /* Floating back button — discreet */
+    .btn-back {
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 100;
         display: flex;
         align-items: center;
-        justify-content: center;
-        transition: transform 0.15s;
+        gap: 6px;
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        color: rgba(255,255,255,0.7);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 999px;
+        padding: 6px 14px 6px 10px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, transform 0.15s;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
-    .tts-btn:hover { transform: scale(1.18); }
+    .btn-back:hover {
+        background: rgba(15, 23, 42, 0.95);
+        color: #fff;
+        transform: translateX(-2px);
+    }
+    .btn-back svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* Panel enter animation */
     @keyframes panel-enter {
-        0%   { opacity: 0; transform: scale(0.92); }
+        0%   { opacity: 0; transform: scale(0.97); }
         100% { opacity: 1; transform: scale(1); }
     }
-    .gibi-panel { animation: panel-enter 0.45s ease-out both; }
+    .gibi-panel { animation: panel-enter 0.5s ease-out both; }
     {% for i in range(12) %}
-    .gibi-panel:nth-child({{ i+1 }}) { animation-delay: {{ i * 0.12 }}s; }
+    .gibi-panel:nth-child({{ i+1 }}) { animation-delay: {{ i * 0.1 }}s; }
     {% endfor %}
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Botão de Voltar -->
-<div class="mb-6">
-    <a href="/" class="text-terra-brown font-bold hover:text-mandacaru-orange transition flex items-center gap-2">
-        ← Voltar para a Capa
-    </a>
-</div>
-
-<!-- Header do Capítulo -->
-<div class="bg-ceu-blue text-white p-6 rounded-t-3xl shadow-md relative overflow-hidden">
-    <!-- Efeito visual de fundo (sol do sertão) -->
-    <div class="absolute -right-10 -top-10 w-40 h-40 bg-sertao-yellow rounded-full opacity-50"></div>
-    
-    <div class="relative z-10 flex items-center gap-4">
-        <div class="w-16 h-16 bg-white text-ceu-blue rounded-full flex items-center justify-center font-extrabold text-3xl shadow-inner border-4 border-sertao-yellow">
-            {{ capitulo.id }}
-        </div>
-        <div>
-            <h1 class="text-3xl font-bold drop-shadow-md">{{ capitulo.titulo }}</h1>
-            <p class="text-lg opacity-90">{{ capitulo.descricao }}</p>
-        </div>
-    </div>
-</div>
-
 <!-- Container Principal com Alpine.js para controlar as etapas -->
 <div x-data="{ etapa: 1, maxEtapas: 4, acertos: 0 }" class="w-full">
 
-    <!-- Progresso do Capítulo -->
-    <div class="full-bleed bg-gray-200 h-2 mb-4">
-        <div class="bg-mandacaru-green h-2 transition-all duration-500 ease-in-out" :style="`width: ${(etapa / maxEtapas) * 100}%`"></div>
+    <!-- Thin progress bar at very top -->
+    <div class="fixed top-0 left-0 right-0 z-50 h-1 bg-slate-900/80">
+        <div class="bg-gradient-to-r from-mandacaru-orange to-mandacaru-green h-1 transition-all duration-500 ease-in-out" :style="`width: ${(etapa / maxEtapas) * 100}%`"></div>
     </div>
 
-    <!-- ETAPA 1: GIBI / QUADRINHOS -->
-    <div x-show="etapa === 1" x-transition.opacity.duration.500ms class="full-bleed bg-black">
+    <!-- Discreet floating back button -->
+    <a href="/" class="btn-back" title="Voltar para a capa">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+        Capa
+    </a>
 
-        <!-- Título do Capítulo em estilo HQ -->
-        <div style="font-family:'Bangers',cursive; font-size:2.5rem; letter-spacing:0.06em; text-align:center;
-                    color:#fff; background:#111; padding:20px 0; margin-bottom:0;
-                    text-shadow: 2px 2px 0 #e63;">
-            📖 {{ capitulo.titulo }}
-        </div>
+    <!-- ETAPA 1: GIBI / QUADRINHOS -->
+    <div x-show="etapa === 1" x-transition.opacity.duration.500ms class="w-full bg-black">
 
         <!-- ========================
              PÁGINA DE GIBI
         ======================== -->
         <div class="gibi-page">
+            <div class="gibi-grid">
+                {% for quadro in capitulo.quadros %}
+                {%- set idx = loop.index0 -%}
+                {%- set is_wide = (idx == 0 or idx == loop.length - 1) -%}
 
-          {# Definimos layouts diferentes dependendo do número de quadros #}
-          {# Layout: 1=wide, 2+3 lado a lado, 4+5 lado a lado, 6=wide #}
-          <div class="gibi-grid">
+                <div class="gibi-panel {% if is_wide %}wide{% elif idx in [1, 4] %}tall{% endif %}">
+                    <!-- Cenário de fundo -->
+                    {% set img_bg = '/static/cenas/' ~ quadro.cenario_quadro if quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
+                    <div class="gibi-scene" style="background-image: url('{{ img_bg }}');"></div>
 
-            {% for quadro in capitulo.quadros %}
-            {%- set idx = loop.index0 -%}
-            {%- set pos_char = "left" if idx % 2 == 0 else "right" -%}
-            {%- set pos_bubble = "top-right" if idx % 2 == 0 else "top-left" -%}
-            {%- set tail = "bubble-tail-right" if idx % 2 == 0 else "bubble-tail-left" -%}
-            {%- set is_wide = (idx == 0 or idx == loop.length - 1) -%}
-
-            <div class="gibi-panel {% if is_wide %}wide{% elif idx in [1, 4] %}tall{% endif %}">
-
-                <!-- Cenário de fundo -->
-                {% set img_bg = '/static/cenas/' ~ quadro.cenario_quadro if quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
-                <div class="gibi-scene"
-                     style="background-image: url('{{ img_bg }}');"></div>
-
-                {% if quadro.video_quadro %}
-                <!-- Vídeo embutido -->
-                <video src="/static/cenas/{{ quadro.video_quadro }}"
-                       class="gibi-video"
-                       preload="none"
-                       loop
-                       playsinline></video>
-                {% endif %}
-
-                {% if quadro.imagem %}
-                <!-- Sombra do personagem -->
-                <div class="gibi-shadow {{ pos_char }}"></div>
-
-                <!-- Personagem animado -->
-                <img src="/static/personagens/{{ quadro.imagem }}"
-                     alt="{{ quadro.personagem }}"
-                     class="gibi-char {{ pos_char }}"
-                     onerror="this.src='https://ui-avatars.com/api/?name={{ quadro.personagem }}&size=200'">
-                {% endif %}
-
-                {% if quadro.texto %}
-                <!-- Balão de Fala -->
-                <div class="speech-bubble {{ pos_bubble }}">
-                    <div class="bubble-inner">
-                        <span class="speaker-name">{{ quadro.personagem | upper }}</span>
-                        <span class="bubble-text">{{ quadro.texto }}</span>
-                        <div class="{{ tail }}"></div>
-                    </div>
+                    {% if quadro.video_quadro %}
+                    <!-- Vídeo embutido -->
+                    <video src="/static/cenas/{{ quadro.video_quadro }}"
+                           class="gibi-video"
+                           preload="none"
+                           loop
+                           playsinline></video>
+                    {% endif %}
                 </div>
-
-                <!-- Onomatopeia no último quadro -->
-                {% if idx == loop.length - 1 %}
-                <div class="onomatopeia">AU AU!</div>
-                {% endif %}
-
-                <!-- Botão TTS -->
-                <button class="tts-btn" onclick="lerTexto(this)"
-                        data-texto="{{ quadro.personagem }} diz: {{ quadro.texto }}" title="Ouvir">
-                    🔊
-                </button>
-                {% endif %}
-
+                {% endfor %}
             </div>
-            {% endfor %}
+        </div>
 
-          </div><!-- /gibi-grid -->
-        </div><!-- /gibi-page -->
-
-        <div class="mt-8 flex justify-end">
-            <button @click="etapa = 2" class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:bg-orange-600 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2"
-                    style="font-family:'Bangers',cursive; letter-spacing:0.06em; font-size:1.3rem;">
-                AVANÇAR <span class="text-xl">👉</span>
+        <!-- Botão Avançar no final do Gibi -->
+        <div class="py-12 flex justify-center bg-black px-4">
+            <button @click="etapa = 2; window.scrollTo({top: 0, behavior: 'smooth'})" class="w-full max-w-md bg-gradient-to-r from-mandacaru-orange to-amber-500 text-white py-4 rounded-xl font-black text-xl shadow-lg hover:brightness-110 active:scale-[0.98] transition flex items-center justify-center gap-2 tracking-wider"
+                    style="font-family:'Bangers',cursive; font-size:1.6rem;">
+                AVANÇAR PARA O APRENDIZADO <span class="text-2xl">👉</span>
             </button>
         </div>
     </div>
 
     <!-- ETAPA 2: EXPLICAÇÃO E ANIMAÇÃO -->
-    <div x-show="etapa === 2" x-transition.opacity.duration.500ms style="display: none;" class="bg-white p-6 md:p-8 rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 mt-4">
-        <h2 class="text-2xl font-bold text-ceu-blue mb-6 text-center border-b-2 border-blue-200 pb-2">Parte 2: O que aprendemos?</h2>
-        
-        <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+    <div x-show="etapa === 2" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full">
+        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border-4 border-ceu-blue">
+            <h2 class="text-2xl font-bold text-ceu-blue mb-6 text-center border-b-2 border-blue-200 pb-2">Parte 2: O que aprendemos?</h2>
             
-            <!-- Animação Lottie -->
-            <div class="w-full md:w-1/2 flex justify-center bg-blue-50 rounded-3xl p-4 border border-blue-100">
-                {% if capitulo.animacao %}
-                <lottie-player
-                    src="/static/animations/{{ capitulo.animacao }}"
-                    background="transparent"
-                    speed="1"
-                    style="width: 100%; max-width: 300px; height: 300px;"
-                    loop
-                    autoplay>
-                </lottie-player>
-                {% else %}
-                <div class="w-full h-[300px] flex items-center justify-center text-gray-400">
-                    Sem animação disponível
+            <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+                <!-- Animação Lottie -->
+                <div class="w-full md:w-1/2 flex justify-center bg-blue-50 rounded-3xl p-4 border border-blue-100">
+                    {% if capitulo.animacao %}
+                    <lottie-player
+                        src="/static/animations/{{ capitulo.animacao }}"
+                        background="transparent"
+                        speed="1"
+                        style="width: 100%; max-width: 300px; height: 300px;"
+                        loop
+                        autoplay>
+                    </lottie-player>
+                    {% else %}
+                    <div class="w-full h-[300px] flex items-center justify-center text-gray-400">
+                        Sem animação disponível
+                    </div>
+                    {% endif %}
                 </div>
-                {% endif %}
+
+                <!-- Card Didático -->
+                <div class="w-full md:w-1/2 bg-sertao-yellow p-6 rounded-3xl shadow-md border-2 border-amber-400 relative">
+                    <button class="absolute top-4 right-4 bg-white text-terra-brown w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 shadow-md text-xl"
+                            onclick="lerTexto(this)" data-texto="{{ capitulo.explicacao }}" title="Ouvir Explicação">
+                        🔊
+                    </button>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-4xl">💡</span>
+                        <h3 class="text-2xl font-bold text-terra-brown">Preste Atenção!</h3>
+                    </div>
+                    <p class="text-xl font-medium text-amber-900 leading-relaxed bg-white/50 p-4 rounded-xl">
+                        {{ capitulo.explicacao }}
+                    </p>
+                </div>
             </div>
 
-            <!-- Card Didático -->
-            <div class="w-full md:w-1/2 bg-sertao-yellow p-6 rounded-3xl shadow-md border-2 border-amber-400 relative">
-                <button class="absolute top-4 right-4 bg-white text-terra-brown w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 shadow-md text-xl"
-                        onclick="lerTexto(this)" data-texto="{{ capitulo.explicacao }}" title="Ouvir Explicação">
-                    🔊
+            <div class="mt-8 flex justify-between">
+                <button @click="etapa = 1; window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-300 transition">
+                    ← Voltar
                 </button>
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="text-4xl">💡</span>
-                    <h3 class="text-2xl font-bold text-terra-brown">Preste Atenção!</h3>
-                </div>
-                <p class="text-xl font-medium text-amber-900 leading-relaxed bg-white/50 p-4 rounded-xl">
-                    {{ capitulo.explicacao }}
-                </p>
+                <button @click="etapa = 3; window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:bg-orange-600 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2">
+                    Ir para o Quiz! <span class="text-xl">🧠</span>
+                </button>
             </div>
-        </div>
-
-        <div class="mt-8 flex justify-between">
-            <button @click="etapa = 1" class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-300 transition">
-                ← Voltar
-            </button>
-            <button @click="etapa = 3" class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:bg-orange-600 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2">
-                Ir para o Quiz! <span class="text-xl">🧠</span>
-            </button>
         </div>
     </div>
 
     <!-- ETAPA 3: QUIZ -->
-    <div x-show="etapa === 3" x-transition.opacity.duration.500ms style="display: none;" class="bg-white p-6 md:p-8 rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 mt-4">
-        <h2 class="text-2xl font-bold text-terra-brown mb-6 text-center border-b-2 border-amber-200 pb-2">Parte 3: Hora do Desafio!</h2>
-        
-        <div class="text-center p-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300">
-            <p class="text-xl text-gray-500 font-bold mb-4">O Motor de Quiz será implementado aqui na próxima etapa.</p>
-            <button @click="etapa = 4" class="bg-mandacaru-green text-white px-6 py-2 rounded-lg font-bold">Simular Conclusão do Quiz</button>
-        </div>
+    <div x-show="etapa === 3" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full">
+        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border-4 border-ceu-blue">
+            <h2 class="text-2xl font-bold text-terra-brown mb-6 text-center border-b-2 border-amber-200 pb-2">Parte 3: Hora do Desafio!</h2>
+            
+            <div class="text-center p-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300">
+                <p class="text-xl text-gray-500 font-bold mb-4">O Motor de Quiz será implementado aqui na próxima etapa.</p>
+                <button @click="etapa = 4; window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-mandacaru-green text-white px-6 py-2 rounded-lg font-bold">Simular Conclusão do Quiz</button>
+            </div>
 
-        <div class="mt-8 flex justify-between">
-            <button @click="etapa = 2" class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-300 transition">
-                ← Voltar
-            </button>
+            <div class="mt-8 flex justify-between">
+                <button @click="etapa = 2; window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-300 transition">
+                    ← Voltar
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- ETAPA 4: CONQUISTA -->
-    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;" class="bg-white p-6 md:p-8 rounded-b-3xl shadow-xl border-4 border-ceu-blue border-t-0 mt-4">
-        <div class="text-center">
-            <h2 class="text-4xl font-extrabold text-mandacaru-green mb-2 drop-shadow-sm">Parabéns! 🎉</h2>
-            <p class="text-xl font-bold text-gray-600 mb-8">Você terminou o capítulo e ganhou uma conquista!</p>
-            
-            <div class="inline-block bg-gradient-to-br from-sertao-yellow to-amber-500 p-8 rounded-full shadow-2xl border-8 border-white mb-8 animate-bounce">
-                <span class="text-6xl">{{ '⭐' if capitulo.conquista_icone == 'star' else '🏆' }}</span>
-            </div>
-            
-            <h3 class="text-3xl font-black text-terra-brown mb-2">{{ capitulo.conquista_nome }}</h3>
-            <p class="text-lg text-gray-500 mb-8">Continue lendo para liberar as grandes medalhas!</p>
+    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full">
+        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border-4 border-ceu-blue">
+            <div class="text-center">
+                <h2 class="text-4xl font-extrabold text-mandacaru-green mb-2 drop-shadow-sm">Parabéns! 🎉</h2>
+                <p class="text-xl font-bold text-gray-600 mb-8">Você terminou o capítulo e ganhou uma conquista!</p>
+                
+                <div class="inline-block bg-gradient-to-br from-sertao-yellow to-amber-500 p-8 rounded-full shadow-2xl border-8 border-white mb-8 animate-bounce">
+                    <span class="text-6xl">{{ '⭐' if capitulo.conquista_icone == 'star' else '🏆' }}</span>
+                </div>
+                
+                <h3 class="text-3xl font-black text-terra-brown mb-2">{{ capitulo.conquista_nome }}</h3>
+                <p class="text-lg text-gray-500 mb-8">Continue lendo para liberar as grandes medalhas!</p>
 
-            <a href="/" class="inline-block bg-ceu-blue text-white px-8 py-4 rounded-full font-bold text-xl shadow-[0px_6px_0px_0px_rgba(2,132,199,1)] hover:bg-blue-600 hover:translate-y-1 hover:shadow-none transition">
-                Voltar para a Capa 🏠
-            </a>
+                <a href="/" class="inline-block bg-ceu-blue text-white px-8 py-4 rounded-full font-bold text-xl shadow-[0px_6px_0px_0px_rgba(2,132,199,1)] hover:bg-blue-600 hover:translate-y-1 hover:shadow-none transition">
+                    Voltar para a Capa 🏠
+                </a>
+            </div>
         </div>
     </div>
 
@@ -518,14 +285,19 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const panels = document.querySelectorAll('.gibi-panel');
+    let playTimeout = null;
+
     panels.forEach(panel => {
         const video = panel.querySelector('.gibi-video');
         if (!video) return;
 
-        let hoverTimeout;
-
         panel.addEventListener('mouseenter', () => {
-            // Pausa qualquer outro vídeo ativo imediatamente
+            // Cancel any pending video play trigger
+            if (playTimeout) {
+                clearTimeout(playTimeout);
+            }
+
+            // Immediately pause and reset all other videos
             document.querySelectorAll('.gibi-video').forEach(v => {
                 if (v !== video && !v.paused) {
                     v.pause();
@@ -535,8 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Espera 1.5 segundos com o mouse por cima
-            hoverTimeout = setTimeout(() => {
+            // Start a timeout to play this video after 1.5s of continuous hover
+            playTimeout = setTimeout(() => {
                 video.play().then(() => {
                     panel.classList.add('video-active');
                 }).catch(e => console.log('Autoplay prevent or video error:', e));
@@ -544,16 +316,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         panel.addEventListener('mouseleave', () => {
-            clearTimeout(hoverTimeout);
+            if (playTimeout) {
+                clearTimeout(playTimeout);
+            }
             panel.classList.remove('video-active');
             
-            // Pausa o vídeo após o fade-out concluir (0.5s)
-            setTimeout(() => {
-                if (!panel.classList.contains('video-active')) {
-                    video.pause();
-                    video.currentTime = 0; // Opcional: reinicia o vídeo
-                }
-            }, 500);
+            // Pausa imediatamente ao sair para cortar áudio
+            video.pause();
+            video.currentTime = 0;
         });
     });
 });
