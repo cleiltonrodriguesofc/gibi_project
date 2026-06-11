@@ -51,6 +51,20 @@
         "video_quadro": "vid_cena_6.mp4",
         "personagem": "Maria",
         "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cena_7.png",
+        "video_quadro": "vid_cena_7.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cena_8.png",
+        "video_quadro": "vid_cena_8.mp4",
+        "personagem": "",
+        "texto": ""
       }
     ]
   },
