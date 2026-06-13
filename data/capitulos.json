@@ -80,34 +80,18 @@
     "conquista_icone": "star",
     "quadros": [
       {
-        "imagem": "joao_neutro_sem_fundo.png",
-        "personagem": "João",
-        "texto": "Maria! O avô do Zequinha caiu e tá com muita dor no braço! O que eu faço? Vou correr pro hospital!"
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
+        "personagem": "",
+        "texto": ""
       },
       {
-        "imagem": "maria_explicando_sem_fundo.png",
-        "personagem": "Maria",
-        "texto": "Espera, João! Primeiro a gente precisa ver se é urgente mesmo. Ele tá acordado? Tá respirando direito?"
-      },
-      {
-        "imagem": "joao_neutro_sem_fundo.png",
-        "personagem": "João",
-        "texto": "Tá sim, mas tá com uma dor danada no braço. Acho que pode ser fratura..."
-      },
-      {
-        "imagem": "dona_raimunda_orientando_sem_fundo.png",
-        "personagem": "Dona Raimunda",
-        "texto": "Meninos, eu ouvi tudo! Fratura suspeita é caso de UPA 24h. Vou ligar pra família dele e chamar um transporte. Nunca movam o braço dele!"
-      },
-      {
-        "imagem": "maria_explicando_sem_fundo.png",
-        "personagem": "Maria",
-        "texto": "Que bom que a Dona Raimunda tava aqui! Eu até anotei no meu caderninho: UBS é pra consulta, UPA é pra urgência moderada, hospital é pro grave!"
-      },
-      {
-        "imagem": "padre_cicero_ensinando_sem_fundo.png",
-        "personagem": "Padre Cícero",
-        "texto": "Muito bem, meus filhos. Lembrem: o SAMU é o 192. Gratuito, disponível 24 horas. E o Disque Saúde é o 136!"
+        "imagem": "",
+        "cenario_quadro": "cen_2.png",
+        "video_quadro": "vid_cena_2.mp4",
+        "personagem": "",
+        "texto": ""
       }
     ]
   },

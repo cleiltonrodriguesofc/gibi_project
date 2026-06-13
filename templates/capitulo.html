@@ -164,10 +164,10 @@
                     <!-- Primeiro quadro (wide) -->
                     {% set first_quadro = capitulo.quadros[0] %}
                     <div class="gibi-panel wide">
-                        {% set img_bg = '/static/cenas/' ~ first_quadro.cenario_quadro if first_quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
+                        {% set img_bg = '/static/cenas/capitulo_' ~ capitulo.id ~ '/' ~ first_quadro.cenario_quadro if first_quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
                         <img src="{{ img_bg }}" class="gibi-scene-img" alt="Cena do gibi">
                         {% if first_quadro.video_quadro %}
-                        <video src="/static/cenas/{{ first_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                        <video src="/static/cenas/capitulo_{{ capitulo.id }}/{{ first_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
                         {% endif %}
                     </div>
                     
@@ -177,10 +177,10 @@
                             <div class="gibi-row">
                                 {% for quadro in row %}
                                     <div class="gibi-panel">
-                                        {% set img_bg = '/static/cenas/' ~ quadro.cenario_quadro if quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
+                                        {% set img_bg = '/static/cenas/capitulo_' ~ capitulo.id ~ '/' ~ quadro.cenario_quadro if quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
                                         <img src="{{ img_bg }}" class="gibi-scene-img inline-flex-img" alt="Cena do gibi" onload="if(this.naturalHeight) this.parentElement.style.flex = (this.naturalWidth / this.naturalHeight) + ' 1 0';">
                                         {% if quadro.video_quadro %}
-                                        <video src="/static/cenas/{{ quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                                        <video src="/static/cenas/capitulo_{{ capitulo.id }}/{{ quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
                                         {% endif %}
                                     </div>
                                 {% endfor %}
@@ -192,10 +192,10 @@
                     {% if capitulo.quadros|length > 1 %}
                         {% set last_quadro = capitulo.quadros[-1] %}
                         <div class="gibi-panel wide">
-                            {% set img_bg = '/static/cenas/' ~ last_quadro.cenario_quadro if last_quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
+                            {% set img_bg = '/static/cenas/capitulo_' ~ capitulo.id ~ '/' ~ last_quadro.cenario_quadro if last_quadro.cenario_quadro else '/static/ilustracoes/' ~ capitulo.cenario %}
                             <img src="{{ img_bg }}" class="gibi-scene-img" alt="Cena do gibi">
                             {% if last_quadro.video_quadro %}
-                            <video src="/static/cenas/{{ last_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                            <video src="/static/cenas/capitulo_{{ capitulo.id }}/{{ last_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
                             {% endif %}
                         </div>
                     {% endif %}
