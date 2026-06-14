@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "nome": "Centro de Saúde Hospital da Primavera",
+    "tipo": "ubs",
+    "endereco": "Av. Duque de Caxias, 2661 - Primavera",
+    "telefone": "(86) 3221-0928",
+    "lat": -5.0822,
+    "lng": -42.8076,
+    "horario": "Consulte o horário de funcionamento"
+  },
+  {
+    "id": 2,
+    "nome": "HUT — Hospital de Urgência de Teresina",
+    "tipo": "hospital",
+    "endereco": "Rua Dr. Otto Tito, 1820 - Redenção",
+    "telefone": "(86) 3198-3680",
+    "lat": -5.0744,
+    "lng": -42.8012,
+    "horario": "24 horas"
+  },
+  {
+    "id": 3,
+    "nome": "CITOX — Centro de Informação Toxicológica",
+    "tipo": "especializado",
+    "endereco": "Hospital Getúlio Vargas - Teresina",
+    "telefone": "0800-280-3661 / (86) 99497-0993",
+    "lat": -5.0887,
+    "lng": -42.8010,
+    "horario": "24 horas (telefone)"
+  }
+]

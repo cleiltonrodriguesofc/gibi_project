@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}Onde Procurar Ajuda? — Guardiões da Saúde{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* ── Page Layout ─────────────────────────────────────────── */
+    .mapa-page { max-width: 900px; margin: 0 auto; }
+
+    /* ── Section title ───────────────────────────────────────── */
+    .section-title {
+        font-family: 'Bangers', cursive;
+        font-size: 2rem;
+        letter-spacing: 1px;
+        color: #403D39;
+        margin: 2rem 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .section-title::after {
+        content: "";
+        flex: 1;
+        height: 3px;
+        background: #403D39;
+        border-radius: 2px;
+        opacity: 0.15;
+    }
+
+    /* ── Unit cards ──────────────────────────────────────────── */
+    .units-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .unit-card {
+        background: #fff;
+        border: 3px solid #403D39;
+        border-radius: 18px;
+        box-shadow: 4px 4px 0 #403D39;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .unit-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 #403D39;
+    }
+
+    .unit-card-header {
+        padding: 14px 16px 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .unit-badge {
+        font-size: 0.65rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        color: #fff;
+        white-space: nowrap;
+    }
+    .badge-hospital     { background: #1d4ed8; }
+    .badge-upa          { background: #d97706; }
+    .badge-ubs          { background: #16a34a; }
+    .badge-especializado{ background: #7c3aed; }
+
+    .unit-card-body {
+        padding: 0 16px 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .unit-name {
+        font-family: 'Bangers', cursive;
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
+        color: #1e293b;
+        line-height: 1.2;
+        margin: 0;
+    }
+    .unit-info {
+        font-size: 0.82rem;
+        color: #64748b;
+        font-weight: 600;
+        display: flex;
+        gap: 6px;
+        align-items: flex-start;
+    }
+    .unit-info span { flex: 1; }
+
+    .btn-maps {
+        margin-top: auto;
+        padding-top: 12px;
+        display: block;
+        text-align: center;
+        padding: 10px 16px;
+        border-radius: 12px;
+        border: 2px solid #403D39;
+        font-weight: 900;
+        font-size: 0.85rem;
+        text-decoration: none;
+        color: #fff;
+        transition: filter 0.15s, transform 0.1s;
+        box-shadow: 2px 2px 0 #403D39;
+        margin-top: 14px;
+    }
+    .btn-maps:hover { filter: brightness(1.12); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #403D39; }
+    .btn-maps-hospital     { background: #1d4ed8; }
+    .btn-maps-upa          { background: #d97706; }
+    .btn-maps-ubs          { background: #16a34a; }
+    .btn-maps-especializado{ background: #7c3aed; }
+
+    /* ── Emergency numbers ───────────────────────────────────── */
+    .emergency-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    @media (min-width: 640px) {
+        .emergency-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .card-emergencia {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 2px solid #403D39;
+        box-shadow: 3px 3px 0 #403D39;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .card-emergencia:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #403D39; }
+    .card-emergencia .numero { font-family: 'Bangers', cursive; font-size: 1.6rem; letter-spacing: 1px; line-height: 1; }
+    .card-emergencia .descr  { font-size: 0.78rem; font-weight: 700; opacity: 0.85; }
+
+    /* ── Info box ────────────────────────────────────────────── */
+    .info-box {
+        background: #FFF9C4;
+        border: 3px solid #403D39;
+        border-radius: 18px;
+        box-shadow: 4px 4px 0 #403D39;
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+    .info-box h2 { font-family: 'Bangers', cursive; font-size: 1.6rem; color: #403D39; margin: 0 0 1rem; }
+    .info-cols { display: grid; gap: 1rem; }
+    @media (min-width: 640px) { .info-cols { grid-template-columns: repeat(3, 1fr); } }
+
+    .info-col {
+        background: #fff;
+        border-radius: 12px;
+        padding: 14px;
+        border: 2px solid rgba(64,61,57,0.15);
+        font-size: 0.82rem;
+    }
+    .info-col .icon { font-size: 1.3rem; margin-bottom: 4px; }
+    .info-col strong { display: block; margin-bottom: 4px; font-size: 0.9rem; }
+    .info-col p { color: #64748b; margin: 0; font-weight: 500; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mapa-page">
+
+    <!-- Page Header -->
+    <div class="text-center mb-8">
+        <h1 class="text-5xl font-comic text-ceu-blue mb-2" style="-webkit-text-stroke:2px #403D39;">
+            🗺️ Onde Procurar Ajuda?
+        </h1>
+        <p class="text-lg text-gray-600 font-bold max-w-xl mx-auto">
+            Veja as unidades de saúde disponíveis e clique em <strong>Como Chegar</strong>
+            para abrir o Google Maps com a rota!
+        </p>
+        <a href="/" class="inline-flex items-center gap-2 mt-4 text-sm font-bold text-ceu-blue hover:underline">
+            ← Voltar para a capa
+        </a>
+    </div>
+
+    <!-- Emergency Numbers -->
+    <p class="section-title">🚨 Números de Emergência</p>
+    <div class="emergency-grid mb-8">
+        <a href="tel:192" class="card-emergencia bg-red-50">
+            <span class="text-2xl">🚨</span>
+            <div>
+                <div class="numero text-red-600">192</div>
+                <div class="descr text-red-700">SAMU</div>
+            </div>
+        </a>
+        <a href="tel:193" class="card-emergencia bg-orange-50">
+            <span class="text-2xl">🔥</span>
+            <div>
+                <div class="numero text-orange-600">193</div>
+                <div class="descr text-orange-700">Bombeiros</div>
+            </div>
+        </a>
+        <a href="tel:190" class="card-emergencia bg-blue-50">
+            <span class="text-2xl">🚔</span>
+            <div>
+                <div class="numero text-blue-600">190</div>
+                <div class="descr text-blue-700">Polícia</div>
+            </div>
+        </a>
+        <a href="tel:136" class="card-emergencia bg-green-50">
+            <span class="text-2xl">💊</span>
+            <div>
+                <div class="numero text-green-600">136</div>
+                <div class="descr text-green-700">Disque Saúde</div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Units grouped by type -->
+    {% set tipos = [
+        ("hospital",      "🏨 Hospitais",              "Hospital de Urgência"),
+        ("upa",           "🚑 UPA — Pronto Atendimento","UPA 24h"),
+        ("ubs",           "🏥 UBS — Postos de Saúde",  "UBS / Posto"),
+        ("especializado", "🔬 Centros Especializados",  "Centro Especializado")
+    ] %}
+
+    {% for tipo_key, tipo_label, tipo_short in tipos %}
+        {% set group = unidades | selectattr("tipo", "equalto", tipo_key) | list %}
+        {% if group %}
+        <p class="section-title">{{ tipo_label }}</p>
+        <div class="units-grid mb-6">
+            {% for u in group %}
+            <div class="unit-card">
+                <div class="unit-card-header">
+                    <span class="unit-badge badge-{{ u.tipo }}">{{ tipo_short }}</span>
+                </div>
+                <div class="unit-card-body">
+                    <p class="unit-name">{{ u.nome }}</p>
+                    <div class="unit-info">📍 <span>{{ u.endereco }}</span></div>
+                    <div class="unit-info">📞 <span>
+                        <a href="tel:{{ u.telefone }}" style="color:#1d4ed8;">{{ u.telefone }}</a>
+                    </span></div>
+                    <div class="unit-info">🕐 <span>{{ u.horario }}</span></div>
+                    <a href="https://www.google.com/maps/search/{{ (u.nome ~ ' ' ~ u.endereco) | urlencode }}"
+                       target="_blank" rel="noopener"
+                       class="btn-maps btn-maps-{{ u.tipo }}">
+                        🗺️ Como Chegar
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Info Box -->
+    <div class="info-box">
+        <h2>💡 Quando procurar cada lugar?</h2>
+        <div class="info-cols">
+            <div class="info-col">
+                <div class="icon">🏥</div>
+                <strong>UBS — Posto de Saúde</strong>
+                <p>Consultas de rotina, vacinas, dores que NÃO são urgentes, renovação de receitas.</p>
+            </div>
+            <div class="info-col">
+                <div class="icon">🚑</div>
+                <strong>UPA 24h</strong>
+                <p>Febre alta, corte que precisa de ponto, torção, vômito intenso. Casos moderados.</p>
+            </div>
+            <div class="info-col">
+                <div class="icon">🏨</div>
+                <strong>Hospital de Urgência</strong>
+                <p>Desmaios, fraturas, dificuldade para respirar, picada de escorpião ou cobra. Casos graves.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 mb-4 text-center">
+        <a href="/" class="btn-comic bg-ceu-blue text-white px-8 py-4 rounded-3xl font-black text-xl inline-flex items-center gap-3">
+            🏠 Voltar para a Capa
+        </a>
+    </div>
+
+</div>
+{% endblock %}
