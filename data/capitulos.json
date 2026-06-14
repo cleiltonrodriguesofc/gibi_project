@@ -118,14 +118,21 @@
       {
         "imagem": "",
         "cenario_quadro": "cen_6.png",
-        "video_quadro": "vid_cen_6.mp4",
+        "video_quadro": "vid_cena_6.mp4",
         "personagem": "",
         "texto": ""
       },
       {
         "imagem": "",
         "cenario_quadro": "cen_7.png",
-        "video_quadro": "",
+        "video_quadro": "vid_cena_7.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_8.png",
+        "video_quadro": "vid_cena_8.mp4",
         "personagem": "",
         "texto": ""
       }
