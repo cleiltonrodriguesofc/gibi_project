@@ -169,6 +169,11 @@
                         {% if first_quadro.video_quadro %}
                         <video src="/static/cenas/capitulo_{{ capitulo.id }}/{{ first_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
                         {% endif %}
+                        {% if first_quadro.link_mapa %}
+                        <a href="{{ first_quadro.link_mapa }}" target="_blank" class="absolute bottom-4 right-4 bg-ceu-blue text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-blue-600 hover:-translate-y-1 transition flex items-center gap-2" style="font-family:'Bangers',cursive; font-size:1.4rem; letter-spacing:1px; z-index:20;">
+                            🗺️ VER NO MAPA
+                        </a>
+                        {% endif %}
                     </div>
                     
                     <!-- Quadros intermediários (duplas) -->
@@ -181,6 +186,11 @@
                                         <img src="{{ img_bg }}" class="gibi-scene-img inline-flex-img" alt="Cena do gibi" onload="if(this.naturalHeight) this.parentElement.style.flex = (this.naturalWidth / this.naturalHeight) + ' 1 0';">
                                         {% if quadro.video_quadro %}
                                         <video src="/static/cenas/capitulo_{{ capitulo.id }}/{{ quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                                        {% endif %}
+                                        {% if quadro.link_mapa %}
+                                        <a href="{{ quadro.link_mapa }}" target="_blank" class="absolute bottom-4 right-4 bg-ceu-blue text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-blue-600 hover:-translate-y-1 transition flex items-center gap-2" style="font-family:'Bangers',cursive; font-size:1.4rem; letter-spacing:1px; z-index:20;">
+                                            🗺️ VER NO MAPA
+                                        </a>
                                         {% endif %}
                                     </div>
                                 {% endfor %}
@@ -196,6 +206,11 @@
                             <img src="{{ img_bg }}" class="gibi-scene-img" alt="Cena do gibi">
                             {% if last_quadro.video_quadro %}
                             <video src="/static/cenas/capitulo_{{ capitulo.id }}/{{ last_quadro.video_quadro }}" class="gibi-video" preload="none" loop playsinline></video>
+                            {% endif %}
+                            {% if last_quadro.link_mapa %}
+                            <a href="{{ last_quadro.link_mapa }}" target="_blank" class="absolute bottom-4 right-4 bg-ceu-blue text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-blue-600 hover:-translate-y-1 transition flex items-center gap-2" style="font-family:'Bangers',cursive; font-size:1.4rem; letter-spacing:1px; z-index:20;">
+                                🗺️ VER NO MAPA
+                            </a>
                             {% endif %}
                         </div>
                     {% endif %}
