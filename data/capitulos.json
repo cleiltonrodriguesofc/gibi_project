@@ -92,6 +92,20 @@
         "video_quadro": "vid_cena_2.mp4",
         "personagem": "",
         "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_3.png",
+        "video_quadro": "vid_cena_3.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_4.png",
+        "video_quadro": "vid_cena_4.mp4",
+        "personagem": "",
+        "texto": ""
       }
     ]
   },
