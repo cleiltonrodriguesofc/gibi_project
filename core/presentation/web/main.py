@@ -21,4 +21,16 @@ app = FastAPI(
 # Need to make sure `static` and `templates` exist at root
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.head("/", include_in_schema=False)
+def root_head():
+    """Respond to HEAD requests for uptime monitors."""
+    return {"status": "ok"}
+
+@app.get("/health", include_in_schema=False)
+@app.head("/health", include_in_schema=False)
+def health_check():
+    """Dedicated health check endpoint for uptime monitors."""
+    return {"status": "ok"}
+
 app.include_router(paginas.router)
+
