@@ -142,12 +142,77 @@
     "id": 3,
     "titulo": "O Mistério da Queimadura",
     "descricao": "Gelo ou água fria? Pasta de dente? Descubra o que é certo e o que é errado!",
-    "disponivel": false,
+    "disponivel": true,
+    "cenario": "cenario_praca.png",
     "animacao": "",
-    "explicacao": "",
-    "conquista_nome": "",
-    "conquista_icone": "",
-    "quadros": []
+    "explicacao": "Quando ocorre uma queimadura leve, o primeiro e mais importante passo é colocar a área afetada sob água corrente limpa e fria por alguns minutos para resfriar a pele e aliviar a dor. Nunca aplique receitas caseiras como pasta de dente, manteiga ou pó de café na queimadura, pois essas substâncias podem irritar ainda mais a pele e provocar infecções graves. Gelo também deve ser evitado, pois o frio extremo pode queimar a pele ainda mais.",
+    "conquista_nome": "Guardião contra Queimaduras!",
+    "conquista_icone": "star",
+    "quadros": [
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_2.png",
+        "video_quadro": "vid_cena_2.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_3.png",
+        "video_quadro": "vid_cena_3.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_4.png",
+        "video_quadro": "vid_cena_4.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_5.png",
+        "video_quadro": "vid_cena_5.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_6.jpeg",
+        "video_quadro": "vid_cena_6.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_7.png",
+        "video_quadro": "vid_cena_7.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_8.png",
+        "video_quadro": "vid_cena_8.mp4",
+        "personagem": "",
+        "texto": ""
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_9.png",
+        "video_quadro": "vid_cena_9.mp4",
+        "personagem": "",
+        "texto": ""
+      }
+    ]
   },
   {
     "id": 4,
