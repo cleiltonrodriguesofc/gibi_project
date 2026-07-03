@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 
 from core.infrastructure.database.models import Base
 from core.infrastructure.database.session import engine
-from core.presentation.web.routers import paginas
+from core.presentation.web.routers import paginas, quiz
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -33,4 +33,4 @@ def health_check():
     return {"status": "ok"}
 
 app.include_router(paginas.router)
-
+app.include_router(quiz.router)
