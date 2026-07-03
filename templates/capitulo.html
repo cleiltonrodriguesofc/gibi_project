@@ -43,16 +43,17 @@
     .gibi-row {
         display: flex;
         flex-direction: row;
+        align-items: flex-start; /* each panel sizes to its own image, no forced uniform height */
         gap: 4px;
         width: 100%;
     }
 
     .gibi-panel {
         position: relative;
-        overflow: hidden;
         cursor: default;
         transition: filter 0.2s;
         flex: 1 1 0; /* Shrink/grow baseline before image ratio kicks in */
+        /* overflow removed — images must never be clipped by the container */
     }
     .gibi-panel:hover { filter: brightness(1.05); }
 
@@ -72,20 +73,27 @@
         }
     }
 
-    /* Scene image dictating height natively */
+    /* Scene image: always shows its full natural size — never cropped */
     .gibi-scene-img {
         width: 100%;
         height: auto;
         display: block;
     }
 
+    /*
+     * Video overlay: absolutely positioned on top of the image.
+     * The panel has no fixed height, so position:absolute is relative to the
+     * image's rendered height (the parent is position:relative).
+     * object-fit: fill stretches the video to exactly match the image frame
+     * (valid because each video was rendered at the same resolution as its image).
+     */
     .gibi-video {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: fill;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
         z-index: 6;
@@ -319,45 +327,309 @@
     </div>
 
     <!-- ETAPA 3: QUIZ -->
-    <div x-show="etapa === 3" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full">
+    <div x-show="etapa === 3" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full"
+         x-data="quizEngine({{ capitulo.id }})">
+
         <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border-4 border-ceu-blue">
-            <h2 class="text-2xl font-bold text-terra-brown mb-6 text-center border-b-2 border-amber-200 pb-2">Parte 3: Hora do Desafio!</h2>
-            
-            <div class="text-center p-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300">
-                <p class="text-xl text-gray-500 font-bold mb-4">O Motor de Quiz será implementado aqui na próxima etapa.</p>
-                <button @click="etapa = 4; window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-mandacaru-green text-white px-6 py-2 rounded-lg font-bold">Simular Conclusão do Quiz</button>
+
+            <!-- Header do Quiz -->
+            <div class="flex items-center justify-between mb-6 border-b-2 border-amber-200 pb-4">
+                <h2 class="text-2xl font-bold text-terra-brown">🧠 Hora do Desafio!</h2>
+                <span class="text-sm font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full"
+                      x-text="`Pergunta ${perguntaAtual + 1} de ${perguntas.length}`"></span>
             </div>
 
-            <div class="mt-8 flex justify-between">
-                <button @click="etapa = 2; window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-300 transition">
-                    ← Voltar
+            <!-- Progress bar do quiz -->
+            <div class="w-full h-2 bg-gray-200 rounded-full mb-8 overflow-hidden">
+                <div class="h-2 bg-gradient-to-r from-mandacaru-orange to-mandacaru-green rounded-full transition-all duration-500"
+                     :style="`width: ${((perguntaAtual) / perguntas.length) * 100}%`"></div>
+            </div>
+
+            <!-- Loading state -->
+            <div x-show="loading" class="text-center py-12">
+                <div class="inline-block w-10 h-10 border-4 border-ceu-blue border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-500 font-bold">Carregando perguntas...</p>
+            </div>
+
+            <!-- Erro ao carregar -->
+            <div x-show="!loading && erroCarregamento" class="text-center py-12 bg-red-50 rounded-2xl border-2 border-red-200">
+                <p class="text-xl text-red-600 font-bold mb-2">⚠️ Não há quiz para este capítulo ainda.</p>
+                <p class="text-gray-500 mb-4">Continue para a próxima etapa!</p>
+                <button @click="concluirSemQuiz()" class="bg-mandacaru-green text-white px-6 py-3 rounded-full font-bold shadow hover:brightness-110 transition">
+                    Concluir Capítulo →
                 </button>
+            </div>
+
+            <!-- Bloco da pergunta atual -->
+            <template x-if="!loading && !erroCarregamento && perguntaAtual < perguntas.length">
+                <div>
+                    <!-- Texto da Pergunta -->
+                    <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-5 mb-6 relative">
+                        <button class="absolute top-3 right-3 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow text-lg hover:bg-gray-100 transition"
+                                :data-texto="perguntas[perguntaAtual].pergunta"
+                                onclick="lerTexto(this)" title="Ouvir pergunta">🔊</button>
+                        <p class="text-xl font-black text-terra-brown pr-10" x-text="perguntas[perguntaAtual].pergunta"></p>
+                    </div>
+
+                    <!-- Opções de Resposta -->
+                    <div class="grid grid-cols-1 gap-3 mb-6">
+                        <template x-for="(opcao, idx) in perguntas[perguntaAtual].opcoes" :key="idx">
+                            <button
+                                @click="responder(idx)"
+                                :disabled="respondida"
+                                :class="{
+                                    'bg-white border-2 border-gray-200 hover:border-ceu-blue hover:bg-blue-50 hover:shadow-md': !respondida,
+                                    'cursor-not-allowed': respondida,
+                                    'bg-emerald-100 border-2 border-emerald-500 text-emerald-800 shadow-md scale-[1.01]': respondida && idx === respostaCorreta,
+                                    'bg-red-100 border-2 border-red-400 text-red-700 line-through': respondida && idx === respostaSelecionada && idx !== respostaCorreta,
+                                    'bg-white border-2 border-gray-100 text-gray-400': respondida && idx !== respostaCorreta && idx !== respostaSelecionada,
+                                }"
+                                class="w-full text-left p-4 rounded-2xl font-bold transition-all duration-200 flex items-center gap-3 text-base">
+                                <!-- Indicador de letra -->
+                                <span class="shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-black text-sm border-2"
+                                      :class="{
+                                          'bg-gray-100 border-gray-300 text-gray-500': !respondida,
+                                          'bg-emerald-500 border-emerald-600 text-white': respondida && idx === respostaCorreta,
+                                          'bg-red-400 border-red-500 text-white': respondida && idx === respostaSelecionada && idx !== respostaCorreta,
+                                          'bg-gray-100 border-gray-200 text-gray-300': respondida && idx !== respostaCorreta && idx !== respostaSelecionada,
+                                      }"
+                                      x-text="['A','B','C','D'][idx]"></span>
+                                <span x-text="opcao"></span>
+                                <!-- Ícone de feedback -->
+                                <span class="ml-auto text-xl shrink-0" x-show="respondida">
+                                    <span x-show="idx === respostaCorreta">✅</span>
+                                    <span x-show="idx === respostaSelecionada && idx !== respostaCorreta">❌</span>
+                                </span>
+                            </button>
+                        </template>
+                    </div>
+
+                    <!-- Feedback após responder -->
+                    <div x-show="respondida" x-transition.opacity.duration.300ms class="mb-6">
+                        <div :class="acertouAtual ? 'bg-emerald-50 border-emerald-400 text-emerald-800' : 'bg-red-50 border-red-300 text-red-800'"
+                             class="border-2 rounded-2xl p-4 flex items-center gap-3">
+                            <span class="text-3xl shrink-0" x-text="acertouAtual ? '🎉' : '💡'"></span>
+                            <p class="font-bold" x-text="acertouAtual ? 'Muito bem! Você acertou!' : 'Quase lá! Reveja a resposta correta acima.'"></p>
+                        </div>
+                    </div>
+
+                    <!-- Botão Próxima -->
+                    <div class="flex justify-between items-center">
+                        <button @click="etapa = 2; window.scrollTo({top: 0, behavior: 'smooth'})"
+                                x-show="perguntaAtual === 0 && !respondida"
+                                class="bg-gray-200 text-gray-600 px-6 py-3 rounded-full font-bold hover:bg-gray-300 transition">
+                            ← Voltar
+                        </button>
+                        <div class="flex-1"></div>
+                        <button x-show="respondida"
+                                @click="avancarPergunta()"
+                                class="bg-mandacaru-orange text-white px-8 py-3 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] hover:brightness-110 hover:translate-y-1 hover:shadow-none transition flex items-center gap-2">
+                            <span x-text="perguntaAtual + 1 < perguntas.length ? 'Próxima Pergunta →' : 'Ver Resultado! 🏆'"></span>
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Placar intermediário (enquanto processa conclusão) -->
+            <div x-show="!loading && !erroCarregamento && perguntaAtual >= perguntas.length && processandoConclusao"
+                 class="text-center py-12">
+                <div class="inline-block w-10 h-10 border-4 border-mandacaru-green border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-500 font-bold">Salvando seu progresso...</p>
             </div>
         </div>
     </div>
 
     <!-- ETAPA 4: CONQUISTA -->
-    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full">
+    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full"
+         x-data="{ novasMedalhas: window._novasMedalhas || [], acertosFinais: window._acertosFinais || 0, totalFinais: window._totalFinais || 0 }">
         <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border-4 border-ceu-blue">
             <div class="text-center">
-                <h2 class="text-4xl font-extrabold text-mandacaru-green mb-2 drop-shadow-sm">Parabéns! 🎉</h2>
-                <p class="text-xl font-bold text-gray-600 mb-8">Você terminou o capítulo e ganhou uma conquista!</p>
-                
-                <div class="inline-block bg-gradient-to-br from-sertao-yellow to-amber-500 p-8 rounded-full shadow-2xl border-8 border-white mb-8 animate-bounce">
+
+                <!-- Placar -->
+                <div class="mb-6">
+                    <p class="text-gray-400 font-bold text-sm uppercase tracking-widest mb-1">Sua pontuação</p>
+                    <p class="text-5xl font-black text-terra-brown">
+                        <span x-text="acertosFinais"></span><span class="text-3xl text-gray-300"> / </span><span x-text="totalFinais"></span>
+                    </p>
+                </div>
+
+                <h2 class="text-4xl font-extrabold text-mandacaru-green mb-2 drop-shadow-sm">Capítulo Concluído! 🎉</h2>
+                <p class="text-xl font-bold text-gray-600 mb-6">Você ganhou uma conquista!</p>
+
+                <!-- Ícone da conquista -->
+                <div class="inline-block bg-gradient-to-br from-sertao-yellow to-amber-500 p-8 rounded-full shadow-2xl border-8 border-white mb-6 animate-bounce">
                     <span class="text-6xl">{{ '⭐' if capitulo.conquista_icone == 'star' else '🏆' }}</span>
                 </div>
-                
-                <h3 class="text-3xl font-black text-terra-brown mb-2">{{ capitulo.conquista_nome }}</h3>
-                <p class="text-lg text-gray-500 mb-8">Continue lendo para liberar as grandes medalhas!</p>
 
-                <a href="/" class="inline-block bg-ceu-blue text-white px-8 py-4 rounded-full font-bold text-xl shadow-[0px_6px_0px_0px_rgba(2,132,199,1)] hover:bg-blue-600 hover:translate-y-1 hover:shadow-none transition">
-                    Voltar para a Capa 🏠
-                </a>
+                <h3 class="text-3xl font-black text-terra-brown mb-2">{{ capitulo.conquista_nome }}</h3>
+
+                <!-- Medalhas desbloqueadas (se houver) -->
+                <template x-if="novasMedalhas.length > 0">
+                    <div class="my-6 bg-amber-50 border-2 border-amber-300 rounded-2xl p-5">
+                        <p class="text-sm font-bold uppercase tracking-widest text-amber-600 mb-3">🏅 Medalha Desbloqueada!</p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <template x-for="m in novasMedalhas" :key="m">
+                                <span class="inline-flex items-center gap-2 bg-amber-400 text-white font-black px-5 py-2 rounded-full text-lg shadow-md capitalize"
+                                      x-text="'🥇 ' + m"></span>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <p class="text-base text-gray-400 mb-8">Continue lendo para liberar mais medalhas!</p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="/conquistas"
+                       class="inline-block bg-sertao-yellow text-terra-brown px-8 py-4 rounded-full font-bold text-lg shadow-[0px_4px_0px_0px_rgba(64,61,57,0.6)] hover:brightness-105 hover:translate-y-1 hover:shadow-none transition">
+                        Ver Conquistas 🏅
+                    </a>
+                    <a href="/"
+                       class="inline-block bg-ceu-blue text-white px-8 py-4 rounded-full font-bold text-xl shadow-[0px_6px_0px_0px_rgba(2,132,199,1)] hover:bg-blue-600 hover:translate-y-1 hover:shadow-none transition">
+                        Capa 🏠
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+/**
+ * quizEngine — Alpine.js component for the interactive quiz section.
+ * Fetches quiz questions from /api/quiz/perguntas/:capitulo_id,
+ * calls /api/quiz/responder for each answer, and finally
+ * calls /api/quiz/concluir to save the chapter completion.
+ *
+ * @param {number} capituloId - The chapter ID injected by Jinja2.
+ */
+function quizEngine(capituloId) {
+    return {
+        capituloId: capituloId,
+        perguntas: [],
+        perguntaAtual: 0,
+        respostaSelecionada: null,
+        respostaCorreta: null,
+        respondida: false,
+        acertouAtual: false,
+        acertosTotal: 0,
+        loading: true,
+        erroCarregamento: false,
+        processandoConclusao: false,
+
+        /**
+         * Initialise: load questions from the server.
+         * Called automatically by Alpine via x-init (implicit on x-data).
+         */
+        async init() {
+            try {
+                const res = await fetch(`/api/quiz/perguntas/${this.capituloId}`);
+                if (!res.ok) { this.erroCarregamento = true; return; }
+                const data = await res.json();
+                if (!data.perguntas || data.perguntas.length === 0) {
+                    this.erroCarregamento = true;
+                } else {
+                    this.perguntas = data.perguntas;
+                }
+            } catch (e) {
+                console.error('Failed to load quiz questions:', e);
+                this.erroCarregamento = true;
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        /**
+         * Submit an answer for the current question.
+         * @param {number} idx - The index of the selected option.
+         */
+        async responder(idx) {
+            if (this.respondida) return;
+
+            const pergunta = this.perguntas[this.perguntaAtual];
+            this.respostaSelecionada = idx;
+            this.respondida = true;
+
+            try {
+                const res = await fetch('/api/quiz/responder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        capitulo_id: this.capituloId,
+                        pergunta_id: pergunta.id,
+                        resposta: idx,
+                    }),
+                });
+                const data = await res.json();
+                this.respostaCorreta = data.resposta_correta;
+                this.acertouAtual = data.correto;
+                if (data.correto) this.acertosTotal++;
+            } catch (e) {
+                // Fallback: determine correctness client-side
+                console.error('Error submitting answer:', e);
+                this.respostaCorreta = pergunta.resposta_correta;
+                this.acertouAtual = (idx === pergunta.resposta_correta);
+                if (this.acertouAtual) this.acertosTotal++;
+            }
+        },
+
+        /**
+         * Advance to the next question, or finalise the quiz.
+         */
+        async avancarPergunta() {
+            if (this.perguntaAtual + 1 < this.perguntas.length) {
+                this.perguntaAtual++;
+                this.respondida = false;
+                this.respostaSelecionada = null;
+                this.respostaCorreta = null;
+                this.acertouAtual = false;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                await this._concluir();
+            }
+        },
+
+        /**
+         * Skip quiz and mark chapter as complete (used when no quiz exists).
+         */
+        async concluirSemQuiz() {
+            await this._concluir();
+        },
+
+        /**
+         * Internal: call /api/quiz/concluir, store results globally, advance to Etapa 4.
+         */
+        async _concluir() {
+            this.processandoConclusao = true;
+            let novasMedalhas = [];
+
+            try {
+                const res = await fetch('/api/quiz/concluir', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ capitulo_id: this.capituloId }),
+                });
+                const data = await res.json();
+                novasMedalhas = data.novas_medalhas || [];
+            } catch (e) {
+                console.error('Error marking chapter as complete:', e);
+            }
+
+            // Pass data to Etapa 4 via window globals (Alpine scopes are isolated)
+            window._novasMedalhas = novasMedalhas;
+            window._acertosFinais = this.acertosTotal;
+            window._totalFinais = this.perguntas.length;
+
+            this.processandoConclusao = false;
+
+            // Advance to the completion screen
+            // Walk up to find the root Alpine component that owns `etapa`
+            this.$root.closest('[x-data]').__x.$data.etapa = 4;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+    };
+}
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

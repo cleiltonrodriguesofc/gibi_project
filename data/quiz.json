@@ -1,0 +1,154 @@
+[
+  {
+    "capitulo_id": 1,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "O que são primeiros socorros?",
+        "opcoes": [
+          "Cuidados imediatos dados a alguém antes do médico chegar",
+          "Somente o que os médicos fazem no hospital",
+          "Remédios comprados na farmácia",
+          "Uma consulta médica de urgência"
+        ],
+        "resposta_correta": 0
+      },
+      {
+        "id": 2,
+        "pergunta": "Na dúvida sobre o que fazer em um acidente, você deve:",
+        "opcoes": [
+          "Tentar resolver sozinho sem pedir ajuda",
+          "Ignorar e esperar melhorar",
+          "SEMPRE chamar um adulto responsável",
+          "Dar qualquer remédio que tiver em casa"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 3,
+        "pergunta": "Quais personagens ensinam primeiros socorros na Vila Esperança?",
+        "opcoes": [
+          "João, Maria e Caramelo apenas",
+          "Somente o Padre Cícero",
+          "João, Maria e o Padre Cícero",
+          "Nenhum personagem ensina, eles só brincam"
+        ],
+        "resposta_correta": 2
+      }
+    ]
+  },
+  {
+    "capitulo_id": 2,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "Para qual serviço você deve ligar em caso de emergência grave?",
+        "opcoes": [
+          "192 — SAMU",
+          "190 — Polícia",
+          "193 — Bombeiros",
+          "0800 — Disque Saúde"
+        ],
+        "resposta_correta": 0
+      },
+      {
+        "id": 2,
+        "pergunta": "Onde deve ir quem precisa de vacina ou consulta de rotina (não urgente)?",
+        "opcoes": [
+          "Hospital de Urgência",
+          "UPA 24h",
+          "UBS — Posto de Saúde",
+          "Pronto-socorro particular"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 3,
+        "pergunta": "Um corte que precisa de ponto deve ser tratado em qual serviço?",
+        "opcoes": [
+          "Em casa com curativo simples",
+          "UPA 24h",
+          "UBS — Posto de Saúde",
+          "Farmácia"
+        ],
+        "resposta_correta": 1
+      }
+    ]
+  },
+  {
+    "capitulo_id": 3,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "O que você deve fazer PRIMEIRO em caso de queimadura leve?",
+        "opcoes": [
+          "Passar pasta de dente no local",
+          "Colocar gelo diretamente na pele",
+          "Colocar água corrente limpa e fria por alguns minutos",
+          "Passar manteiga ou margarina"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 2,
+        "pergunta": "Por que NÃO devemos usar gelo em queimaduras?",
+        "opcoes": [
+          "Porque gelo não está disponível sempre",
+          "Porque o frio extremo pode queimar a pele ainda mais",
+          "Porque gelo é muito caro",
+          "Não há problema em usar gelo, é o melhor tratamento"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 3,
+        "pergunta": "Quando devemos procurar atendimento médico após uma queimadura?",
+        "opcoes": [
+          "Nunca, queimaduras sempre curam sozinhas",
+          "Somente após 3 dias",
+          "Se surgirem bolhas, a dor for intensa ou a área for grande",
+          "Apenas se a pessoa desmaiar"
+        ],
+        "resposta_correta": 2
+      }
+    ]
+  },
+  {
+    "capitulo_id": 11,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "O que fazer ao ser picado por um escorpião?",
+        "opcoes": [
+          "Espremer o local para tirar o veneno",
+          "Manter a calma, lavar com água e sabão e ir à UPA ou Hospital",
+          "Colocar gelo e esperar melhorar em casa",
+          "Cortar o local da picada"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 2,
+        "pergunta": "Como prevenir acidentes com escorpiões?",
+        "opcoes": [
+          "Não há como prevenir",
+          "Usar luvas de borracha o dia todo",
+          "Sacudir roupas e calçados antes de vestir e não deixar entulho no quintal",
+          "Matar todos os escorpiões que encontrar"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 3,
+        "pergunta": "Crianças picadas por escorpião precisam de soro antiescorpiônico?",
+        "opcoes": [
+          "Não, apenas descanse",
+          "Sim, SEMPRE devem ser levadas à UPA ou Hospital",
+          "Só se ficar muito mal depois de 6 horas",
+          "Depende da cor do escorpião"
+        ],
+        "resposta_correta": 1
+      }
+    ]
+  }
+]
