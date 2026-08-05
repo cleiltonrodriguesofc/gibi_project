@@ -218,23 +218,153 @@
     "id": 4,
     "titulo": "O Corte do Caramelo",
     "descricao": "O cachorro se machucou! Aprenda a cuidar de cortes e ferimentos.",
-    "disponivel": false,
+    "disponivel": true,
+    "cenario": "cenario_praca.png",
     "animacao": "",
-    "explicacao": "",
-    "conquista_nome": "",
-    "conquista_icone": "",
-    "quadros": []
+    "explicacao": "Quando acontece um corte ou ferimento leve, o primeiro passo é manter a calma e lavar bem a região com água limpa e sabão para retirar a sujeira e evitar infecções. Depois, aplique um curativo com gaze limpa para proteger o machucado. Evite usar substâncias caseiras como pó de café, álcool ou terra, pois podem contaminar o ferimento. E lembre-se: se o corte for muito profundo ou não parar de sangrar, procure atendimento de saúde (UPA ou Hospital) imediatamente!",
+    "conquista_nome": "Protetor do Caramelo!",
+    "conquista_icone": "star",
+    "quadros": [
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
+        "personagem": "João",
+        "texto": "Nossa! Como essa faca ficou brilhando! Eu só estou olhando."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_2.png",
+        "video_quadro": "vid_cena_2.mp4",
+        "personagem": "Maria",
+        "texto": "João... faca não é brinquedo. Olha, acho que o Caramelo fez um corte na pata."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_3.png",
+        "video_quadro": "vid_cena_3.mp4",
+        "personagem": "João",
+        "texto": "Está sangrando! Eu vou pegar esse pano velho para ajudar..."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_4.png",
+        "video_quadro": "vid_cena_4.mp4",
+        "personagem": "Maria",
+        "texto": "Espera, João! Precisamos fazer do jeito certo. Aquele pano está muito sujo."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_5.png",
+        "video_quadro": "vid_cena_5.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Meus filhos... quando alguém se machuca, a calma também faz parte do cuidado."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_6.png",
+        "video_quadro": "vid_cena_6.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Primeiro limpamos o ferimento com água limpa e sabão para evitar infecções."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_7.png",
+        "video_quadro": "vid_cena_7.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Agora colocamos a gaze e a faixa. Lembrem-se: cortes profundos precisam de avaliação médica."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_8.png",
+        "video_quadro": "vid_cena_8.mp4",
+        "personagem": "Maria",
+        "texto": "Terra no machucado? Nunca! O primeiro cuidado é sempre água limpa e sabão!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_9.png",
+        "video_quadro": "vid_cena_9.mp4",
+        "personagem": "João",
+        "texto": "Estamos aprendendo juntos! Quem aprende a cuidar também aprende a proteger."
+      }
+    ]
   },
   {
     "id": 5,
     "titulo": "João Engasgou!",
     "descricao": "Uh oh! João engasgou na merenda. O que fazer nessa hora?",
-    "disponivel": false,
-    "animacao": "",
-    "explicacao": "",
-    "conquista_nome": "",
-    "conquista_icone": "",
-    "quadros": []
+    "disponivel": true,
+    "animacao": "choking.json",
+    "explicacao": "Comer com pressa aumenta o risco de engasgos. Se a pessoa engasgada conseguir tossir, incentive a tosse e NÃO dê água. Se ela parar de respirar ou tossir, é grave: deve-se iniciar a manobra de desobstrução (compressões abdominais) e ligar para o SAMU (192) imediatamente.",
+    "conquista_nome": "Guardião contra Engasgos",
+    "conquista_icone": "star",
+    "quadros": [
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
+        "personagem": "João",
+        "texto": "Hoje minha mãe fez um bolo de milho! Calma, Caramelo... você também vai ganhar um pedaço."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_2.png",
+        "video_quadro": "vid_cena_2.mp4",
+        "personagem": "Maria",
+        "texto": "João... mastiga primeiro! Não vá brincar correndo de boca cheia!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_3.png",
+        "video_quadro": "vid_cena_3.mp4",
+        "personagem": "João",
+        "texto": "*cof* *cof* (João leva as mãos ao pescoço sem conseguir falar)"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_4.png",
+        "video_quadro": "vid_cena_4.mp4",
+        "personagem": "Maria",
+        "texto": "Calma, pessoal! Precisamos fazer do jeito certo. Não dêem água agora!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_5.png",
+        "video_quadro": "vid_cena_5.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Afastem-se um pouquinho. Maria... ele ainda consegue tossir? Vamos ajudá-lo."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_6.png",
+        "video_quadro": "vid_cena_6.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Enquanto ele consegue tossir, incentive a tosse. Não ofereça água e não coloque nada na boca."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_7.png",
+        "video_quadro": "vid_cena_7.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Ele parou de tossir. Maria, fique atrás dele e faça compressões rápidas para dentro e para cima."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_8.png",
+        "video_quadro": "vid_cena_8.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Muito bem. Mesmo melhorando, é bom procurar o posto de saúde. Se não melhorasse, ligaríamos para o SAMU (192)."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_9.png",
+        "video_quadro": "vid_cena_9.mp4",
+        "personagem": "João",
+        "texto": "Primeiro eu mastigo... Depois eu brinco. A calma também salva vidas!"
+      }
+    ],
+    "cenario": "cenario_escola.png"
   },
   {
     "id": 6,

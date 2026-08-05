@@ -178,7 +178,7 @@
 
 {% block content %}
 <!-- Container Principal com Alpine.js para controlar as etapas -->
-<div x-data="{ etapa: 1, maxEtapas: 4, acertos: 0 }" class="w-full">
+<div x-data="{ etapa: 1, maxEtapas: 4, acertos: 0, novasMedalhas: [], acertosFinais: 0, totalFinais: 0 }" class="w-full">
 
     <!-- Thin progress bar at very top -->
     <div class="fixed top-0 left-0 right-0 z-50 h-1 bg-slate-900/80">
@@ -440,8 +440,7 @@
     </div>
 
     <!-- ETAPA 4: CONQUISTA -->
-    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full"
-         x-data="{ novasMedalhas: window._novasMedalhas || [], acertosFinais: window._acertosFinais || 0, totalFinais: window._totalFinais || 0 }">
+    <div x-show="etapa === 4" x-transition.opacity.duration.500ms style="display: none;" class="max-w-4xl mx-auto my-8 px-4 w-full">
         <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border-4 border-ceu-blue">
             <div class="text-center">
 
@@ -615,16 +614,15 @@ function quizEngine(capituloId) {
                 console.error('Error marking chapter as complete:', e);
             }
 
-            // Pass data to Etapa 4 via window globals (Alpine scopes are isolated)
-            window._novasMedalhas = novasMedalhas;
-            window._acertosFinais = this.acertosTotal;
-            window._totalFinais = this.perguntas.length;
+            // Set data directly to parent scope (merged in Alpine v3)
+            this.novasMedalhas = novasMedalhas;
+            this.acertosFinais = this.acertosTotal;
+            this.totalFinais = this.perguntas.length;
 
             this.processandoConclusao = false;
 
             // Advance to the completion screen
-            // Walk up to find the root Alpine component that owns `etapa`
-            this.$root.closest('[x-data]').__x.$data.etapa = 4;
+            this.etapa = 4;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         },
     };

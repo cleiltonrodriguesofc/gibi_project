@@ -114,6 +114,44 @@
     ]
   },
   {
+    "capitulo_id": 4,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "Qual o primeiro cuidado ao tratar um corte ou ferimento leve?",
+        "opcoes": [
+          "Passar álcool em gel ou pó de café",
+          "Lavar com água limpa e sabão",
+          "Colocar terra para estancar o sangue",
+          "Cobrir imediatamente sem lavar"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 2,
+        "pergunta": "É correto colocar substâncias caseiras como pó de café, terra ou álcool em ferimentos?",
+        "opcoes": [
+          "Sim, ajuda a cicatrizar mais rápido",
+          "Apenas se o corte estiver sangrando muito",
+          "Não, pois essas substâncias podem contaminar o ferimento e causar infecções",
+          "Sim, o pó de café alivia a dor imediatamente"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 3,
+        "pergunta": "O que fazer se o corte for muito profundo, não parar de sangrar ou precisar de pontos?",
+        "opcoes": [
+          "Esperar alguns dias para ver se melhora",
+          "Lavar apenas com água e colocar um curativo simples em casa",
+          "Procurar atendimento médico (UPA ou Hospital) imediatamente",
+          "Passar pomada caseira e apertar com um pano sujo"
+        ],
+        "resposta_correta": 2
+      }
+    ]
+  },
+  {
     "capitulo_id": 11,
     "perguntas": [
       {
@@ -148,6 +186,44 @@
           "Depende da cor do escorpião"
         ],
         "resposta_correta": 1
+      }
+    ]
+  },
+  {
+    "capitulo_id": 5,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "O que você deve fazer se a pessoa engasgada ainda consegue tossir?",
+        "opcoes": [
+          "Oferecer um copo d'água",
+          "Incentivar ela a continuar tossindo",
+          "Bater muito forte nas costas",
+          "Colocar o dedo na garganta"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 2,
+        "pergunta": "Qual o número do SAMU que devemos ligar em caso de engasgo grave?",
+        "opcoes": [
+          "190",
+          "193",
+          "192",
+          "180"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 3,
+        "pergunta": "Qual é a melhor forma de evitar engasgos durante as refeições?",
+        "opcoes": [
+          "Comer correndo e pulando",
+          "Falar de boca cheia",
+          "Comer deitado",
+          "Comer devagar, mastigar bem e não correr com comida na boca"
+        ],
+        "resposta_correta": 3
       }
     ]
   }
