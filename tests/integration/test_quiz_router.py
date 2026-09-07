@@ -47,6 +47,17 @@ class TestGetPerguntas:
         for p in res.json()["perguntas"]:
             assert len(p["opcoes"]) == 4
 
+    @pytest.mark.parametrize("cap_id", [1, 2, 3, 4, 5, 6, 7, 8])
+    def test_chapters_quizzes_validity(self, client: TestClient, cap_id: int):
+        """Active chapters 1-8 must have exactly 3 questions with 4 options each."""
+        res = client.get(f"/api/quiz/perguntas/{cap_id}")
+        assert res.status_code == 200
+        perguntas = res.json()["perguntas"]
+        assert len(perguntas) == 3
+        for p in perguntas:
+            assert len(p["opcoes"]) == 4
+            assert "resposta_correta" not in p
+
 
 # ---------------------------------------------------------------------------
 # POST /api/quiz/responder

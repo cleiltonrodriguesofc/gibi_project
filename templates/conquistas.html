@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Minhas Conquistas - Guardiões da Saúde{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto my-12 px-4">
+    <div class="text-center mb-12">
+        <h1 class="font-comic text-5xl text-ceu-blue mb-4 text-stroke" style="-webkit-text-stroke: 1px #403D39;">🏅 Minhas Conquistas</h1>
+        <p class="text-xl font-bold text-terra-brown">
+            Você concluiu <span class="text-mandacaru-orange text-3xl">{{ total_concluidos }}</span> de {{ total_disponiveis }} capítulos disponíveis!
+        </p>
+    </div>
+
+    <!-- Medalhas Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <!-- BRONZE -->
+        <div class="bg-white rounded-3xl p-6 text-center shadow-comic border-4 border-terra-brown transition-transform hover:scale-105 {% if 'bronze' not in medalhas %}opacity-50 grayscale{% endif %} relative overflow-hidden">
+            {% if 'bronze' in medalhas %}
+            <div class="absolute inset-0 bg-yellow-400/20 animate-pulse"></div>
+            {% endif %}
+            <div class="text-6xl mb-4 relative z-10">🥉</div>
+            <h3 class="font-comic text-2xl text-amber-700 relative z-10">Bronze</h3>
+            <p class="text-sm font-bold text-gray-500 mt-2 relative z-10">Leia 1 capítulo</p>
+        </div>
+
+        <!-- PRATA -->
+        <div class="bg-white rounded-3xl p-6 text-center shadow-comic border-4 border-terra-brown transition-transform hover:scale-105 {% if 'prata' not in medalhas %}opacity-50 grayscale{% endif %} relative overflow-hidden">
+            {% if 'prata' in medalhas %}
+            <div class="absolute inset-0 bg-gray-300/30 animate-pulse"></div>
+            {% endif %}
+            <div class="text-6xl mb-4 relative z-10">🥈</div>
+            <h3 class="font-comic text-2xl text-gray-500 relative z-10">Prata</h3>
+            <p class="text-sm font-bold text-gray-500 mt-2 relative z-10">Leia 2 capítulos</p>
+        </div>
+
+        <!-- OURO -->
+        <div class="bg-white rounded-3xl p-6 text-center shadow-comic border-4 border-terra-brown transition-transform hover:scale-105 {% if 'ouro' not in medalhas %}opacity-50 grayscale{% endif %} relative overflow-hidden">
+            {% if 'ouro' in medalhas %}
+            <div class="absolute inset-0 bg-yellow-500/30 animate-pulse"></div>
+            {% endif %}
+            <div class="text-6xl mb-4 relative z-10">🥇</div>
+            <h3 class="font-comic text-2xl text-yellow-600 relative z-10">Ouro</h3>
+            <p class="text-sm font-bold text-gray-500 mt-2 relative z-10">Leia 3 capítulos</p>
+        </div>
+
+        <!-- DIAMANTE -->
+        <div class="bg-white rounded-3xl p-6 text-center shadow-comic border-4 border-terra-brown transition-transform hover:scale-105 {% if 'diamante' not in medalhas %}opacity-50 grayscale{% endif %} relative overflow-hidden">
+            {% if 'diamante' in medalhas %}
+            <div class="absolute inset-0 bg-blue-300/30 animate-pulse"></div>
+            {% endif %}
+            <div class="text-6xl mb-4 relative z-10">💎</div>
+            <h3 class="font-comic text-2xl text-ceu-blue relative z-10">Diamante</h3>
+            <p class="text-sm font-bold text-gray-500 mt-2 relative z-10">Leia 4 capítulos</p>
+        </div>
+    </div>
+
+    <!-- Lista de Capítulos Concluídos -->
+    <div class="mt-16 bg-white rounded-3xl p-8 shadow-comic border-4 border-terra-brown">
+        <h2 class="font-comic text-3xl text-terra-brown mb-6 text-center">📖 Seu Histórico de Leituras</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for cap in capitulos_disponiveis %}
+            <div class="flex items-center gap-4 p-4 rounded-2xl border-2 {% if cap.id in concluidos_ids %}border-mandacaru-green bg-green-50{% else %}border-gray-200 bg-gray-50{% endif %}">
+                <div class="text-3xl shrink-0">
+                    {% if cap.id in concluidos_ids %}
+                    ✅
+                    {% else %}
+                    🔒
+                    {% endif %}
+                </div>
+                <div>
+                    <h4 class="font-bold text-terra-brown text-lg">{{ cap.titulo }}</h4>
+                    <p class="text-sm text-gray-500">Capítulo {{ cap.id }}</p>
+                </div>
+                {% if cap.id in concluidos_ids %}
+                <div class="ml-auto flex items-center justify-center w-10 h-10 bg-sertao-yellow rounded-full shadow-sm" title="{{ cap.conquista_nome }}">
+                    ⭐
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mt-12 text-center">
+        <a href="/" class="btn-comic inline-block bg-ceu-blue text-white px-8 py-4 rounded-3xl font-black text-xl">
+            🏠 Voltar para a Capa
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -370,34 +370,159 @@
     "id": 6,
     "titulo": "O Cachorro Bravo",
     "descricao": "Mordida de cachorro: o que fazer imediatamente e como prevenir a raiva.",
-    "disponivel": false,
+    "disponivel": true,
+    "cenario": "cenario_feira.png",
     "animacao": "",
-    "explicacao": "",
-    "conquista_nome": "",
-    "conquista_icone": "",
-    "quadros": []
+    "explicacao": "Ao sofrer uma mordida ou arranhão de cão ou gato, lave imediatamente o ferimento com bastante água corrente e sabão por pelo menos 15 minutos. Cubra com um pano ou curativo limpo e NÃO passe pó de café, álcool, vinagre ou outras substâncias caseiras. Procure atendimento em uma unidade de saúde (UBS ou UPA) o quanto antes para avaliar a necessidade de vacina contra a raiva e tétano. E lembre-se: sempre respeite o espaço dos animais e não mexa com animais desconhecidos ou que estejam comendo ou descansando.",
+    "conquista_nome": "Amigo Consciente dos Animais",
+    "conquista_icone": "star",
+    "quadros": [
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
+        "personagem": "João",
+        "texto": "Hoje essa feira tá mais animada que festa junina! Olha só... Que cachorro bonito!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_2.png",
+        "video_quadro": "vid_cena_2.mp4",
+        "personagem": "Maria",
+        "texto": "Nem todo cachorro gosta de carinho de quem não conhece. É melhor não mexer, João!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_3.png",
+        "video_quadro": "vid_cena_3.mp4",
+        "personagem": "João",
+        "texto": "Calma amigão, eu só quero fazer um carinho... Ué, ele rosnou?!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_4.png",
+        "video_quadro": "vid_cena_4.mp4",
+        "personagem": "João",
+        "texto": "AI! Ele me mordeu! Caramelo... agora você resolveu ter juízo?!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_5.png",
+        "video_quadro": "vid_cena_5.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Mordida pequena também precisa de cuidado. O primeiro passo é lavar bem!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_6.png",
+        "video_quadro": "vid_cena_6.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Tem que lavar com água corrente e sabão por pelo menos quinze minutos, meu filho."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_7.png",
+        "video_quadro": "vid_cena_7.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Pó de café ou álcool? Nada disso! Não devemos colocar substâncias caseiras no ferimento."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_8.png",
+        "video_quadro": "vid_cena_8.mp4",
+        "personagem": "Maria",
+        "texto": "Agora vamos à unidade de saúde para avaliar a proteção contra raiva e tétano!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_9.png",
+        "video_quadro": "vid_cena_9.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Se acontecer uma mordida: água e sabão por 15 minutos, curativo limpo e posto de saúde. Respeitar os animais é proteger a vida!"
+      }
+    ]
   },
   {
     "id": 7,
     "titulo": "A Nuvem de Abelhas",
     "descricao": "João perturbou uma colmeia! Aprenda a agir rápido e com calma.",
-    "disponivel": false,
+    "disponivel": true,
+    "cenario": "cenario_fazenda.png",
     "animacao": "",
-    "explicacao": "",
-    "conquista_nome": "",
-    "conquista_icone": "",
-    "quadros": []
+    "explicacao": "Ao ser ferroado por uma abelha, nunca esprema o ferrão com as unhas ou pinças, pois isso injeta mais veneno na pele. O correto é raspar cuidadosamente o ferrão com uma lâmina de cartão ou a borda de uma régua, lavar o local com água e sabão e aplicar compressa fria para diminuir o inchaço e a dor. Se a pessoa apresentar dificuldade para respirar, inchaço no rosto ou pelo corpo, ou se tiver recebido muitas ferroadas, procure atendimento médico imediatamente!",
+    "conquista_nome": "Protetor das Abelhas",
+    "conquista_icone": "star",
+    "quadros": [
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
+        "personagem": "João",
+        "texto": "Eita! Tem um monte de abelha ali naquela árvore... vocês tão ouvindo o zumbido?"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_2.png",
+        "video_quadro": "vid_cena_2.mp4",
+        "personagem": "Maria",
+        "texto": "Nem pense nisso, João! Não mexa no ninho das abelhas com esse graveto!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_3.png",
+        "video_quadro": "vid_cena_3.mp4",
+        "personagem": "João",
+        "texto": "AI! Uma abelha me ferroou! O ferrão ficou preso aqui no meu braço!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_4.png",
+        "video_quadro": "vid_cena_4.mp4",
+        "personagem": "Maria",
+        "texto": "Calma! Não aperta. Primeiro a gente raspa o ferrão sem espremer, depois lava com água e sabão e coloca compressa fria."
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_5.png",
+        "video_quadro": "vid_cena_5.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Fiquem atentos: se houver dificuldade para respirar ou muitas ferroadas, é hora de procurar o médico imediatamente."
+      }
+    ]
   },
   {
     "id": 8,
     "titulo": "O Marimbondo Caboclo",
     "descricao": "Diferente das abelhas, o marimbondo pode picar várias vezes! Saiba o que fazer.",
-    "disponivel": false,
+    "disponivel": true,
+    "cenario": "cenario_galpao.png",
     "animacao": "",
-    "explicacao": "",
-    "conquista_nome": "",
-    "conquista_icone": "",
-    "quadros": []
+    "explicacao": "Diferente das abelhas, marimbondos e vespas não perdem o ferrão ao picar e podem ferroar várias vezes seguidas! Ao avistar um ninho, afaste-se imediatamente com calma e não tente cutucá-lo. Em caso de picada, lave o local com água limpa e sabão e aplique compressa fria de gelo envolvido em um pano para aliviar a dor. Se houver muitas picadas ou reações alérgicas (inchaço exagerado, falta de ar ou tontura), procure o posto de saúde ou hospital imediatamente.",
+    "conquista_nome": "Observador Atento da Natureza",
+    "conquista_icone": "star",
+    "quadros": [
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_1.png",
+        "video_quadro": "vid_cena_1.mp4",
+        "personagem": "João",
+        "texto": "Hoje eu fico longe de colmeias! Mas espera... o que é aquele ninho no galpão?"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_2.png",
+        "video_quadro": "vid_cena_2.mp4",
+        "personagem": "Maria",
+        "texto": "Isso é ninho de marimbondo! E tem uma grande diferença: eles podem ferroar mais de uma vez!"
+      },
+      {
+        "imagem": "",
+        "cenario_quadro": "cen_3.png",
+        "video_quadro": "vid_cena_3.mp4",
+        "personagem": "Padre Cícero",
+        "texto": "Eles não deixam ferrão preso! A primeira coisa é se afastar, lavar com água e sabão e fazer compressa fria."
+      }
+    ]
   },
   {
     "id": 9,
@@ -425,7 +550,7 @@
     "id": 11,
     "titulo": "O Escorpião do Quintal",
     "descricao": "Cuidado onde põe a mão! O escorpião adora lugares escuros e úmidos.",
-    "disponivel": true,
+    "disponivel": false,
     "cenario": "cenario_quintal.png",
     "animacao": "scorpion.json",
     "explicacao": "Escorpiões são perigosos, especialmente para crianças! O que fazer: Mantenha a calma. NÃO tente espremer ou cortar o local. Lave com água e sabão. Procure imediatamente a UPA ou Hospital — a criança SEMPRE precisa de soro antiescorpiônico quando é picada. O que NÃO fazer: Não coloque gelo, torniquete ou tente sugar o veneno. Prevenção: Sacuda roupas e calçados antes de vestir, não deixe entulho acumulado no quintal.",

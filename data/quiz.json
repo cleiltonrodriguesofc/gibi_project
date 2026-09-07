@@ -226,5 +226,119 @@
         "resposta_correta": 3
       }
     ]
+  },
+  {
+    "capitulo_id": 6,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "O que devemos fazer imediatamente após uma mordida ou arranhão de cachorro?",
+        "opcoes": [
+          "Passar pó de café e amarrar com pano sujo",
+          "Lavar imediatamente com água corrente e sabão por pelo menos 15 minutos",
+          "Passar álcool puro e pomada caseira",
+          "Não fazer nada e esperar sarar sozinho"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 2,
+        "pergunta": "É recomendado colocar substâncias caseiras (como café, terra ou ervas) na mordida?",
+        "opcoes": [
+          "Sim, ajuda a secar o machucado",
+          "Não, pois podem causar infecções graves no ferimento",
+          "Apenas se o cachorro for filhote",
+          "Sim, qualquer pó ajuda a estancar o sangue"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 3,
+        "pergunta": "Por que devemos procurar uma unidade de saúde após uma mordida de animal?",
+        "opcoes": [
+          "Apenas para tomar um remédio de dor de cabeça",
+          "Não é necessário se a mordida for pequena",
+          "Para avaliar a necessidade de vacina e proteção contra raiva e tétano",
+          "Somente para registrar a ocorrência policial"
+        ],
+        "resposta_correta": 2
+      }
+    ]
+  },
+  {
+    "capitulo_id": 7,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "Como deve ser retirado o ferrão de abelha que ficou na pele?",
+        "opcoes": [
+          "Espremendo com as pontas dos dedos com muita força",
+          "Puxando com uma pinça apertando bem a ponta",
+          "Raspando cuidadosamente (com cartão ou régua) para não injetar mais veneno",
+          "Deixando o ferrão no local para sair sozinho"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 2,
+        "pergunta": "Após retirar o ferrão da abelha, quais os primeiros cuidados?",
+        "opcoes": [
+          "Passar manteiga ou borra de café",
+          "Lavar com água e sabão e aplicar compressa fria para aliviar dor e inchaço",
+          "Fazer um corte pequeno para tirar o veneno",
+          "Colocar fogo perto da pele para aquecer"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 3,
+        "pergunta": "Quando uma ferroada de abelha exige atendimento médico de urgência?",
+        "opcoes": [
+          "Sempre que picar no braço",
+          "Nunca, picada de abelha nunca precisa de médico",
+          "Se a pessoa tiver dificuldade para respirar, inchaço no rosto ou múltiplas ferroadas",
+          "Apenas se a abelha for amarela"
+        ],
+        "resposta_correta": 2
+      }
+    ]
+  },
+  {
+    "capitulo_id": 8,
+    "perguntas": [
+      {
+        "id": 1,
+        "pergunta": "Qual é uma diferença importante entre o marimbondo e a abelha?",
+        "opcoes": [
+          "O marimbondo não ferroa",
+          "O marimbondo pode ferroar várias vezes porque não perde o ferrão",
+          "O marimbondo sempre perde o ferrão na primeira ferroada",
+          "O marimbondo é amigo das abelhas e não ataca"
+        ],
+        "resposta_correta": 1
+      },
+      {
+        "id": 2,
+        "pergunta": "O que você deve fazer PRIMEIRO ao avistar um ninho de marimbondos?",
+        "opcoes": [
+          "Cutucar com um galho comprido",
+          "Jogar pedras para derrubar o ninho",
+          "Manter a calma e afastar-se do local sem fazer barulho",
+          "Tentar pegar um marimbondo com a mão"
+        ],
+        "resposta_correta": 2
+      },
+      {
+        "id": 3,
+        "pergunta": "Em caso de picada de marimbondo, qual cuidado ajuda a diminuir a dor e o inchaço?",
+        "opcoes": [
+          "Lavar com água e sabão e fazer compressa fria",
+          "Passar terra molhada em cima",
+          "Colocar álcool e amarrar com força",
+          "Espremer o local até sangrar"
+        ],
+        "resposta_correta": 0
+      }
+    ]
   }
 ]
